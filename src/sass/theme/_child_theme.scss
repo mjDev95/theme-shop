@@ -1,7 +1,34 @@
 /**
+ * tipografías
+ */
+/* Nunito para títulos */
+@font-face {
+  font-family: 'Nunito';
+  src: url('../fonts/Nunito-Variable.ttf') format('truetype');
+  font-weight: 200 900; // rango de pesos de la variable
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Poppins Light para cuerpo */
+@font-face {
+  font-family: 'Poppins';
+  src: url('../fonts/Poppins-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+h1, h2, h3, h4, h5, h6 {
+  font-family: $headings-font-family;
+  font-weight: 700; // negrita
+}
+
+body, p, li, span {
+  font-family: $font-family-base;
+  font-weight: 300; // light
+}
+/**
  * header background color
  */
-
  .custom-logo-link {
     img {
         max-width: 135px;
@@ -17,8 +44,8 @@
     }
 }
 .btn-add {
-    width: 40px;
-    height: 40px;
+    width: 54px;
+    height: 54px;
     border-radius: 50%;
     margin-right: 15px;
     &.account {
@@ -27,7 +54,6 @@
         background-repeat: no-repeat;
         background-position: center;
         background-size: 20px 20px;
-        right: 50px;
     }
     &.cart {
         background: var(--bs-primary);

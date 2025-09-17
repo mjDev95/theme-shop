@@ -5,7 +5,10 @@ $fuego: #F9423A;         // Rojo Fuego
 $lenguita: #00AEC7;       // Azul Lenguita
 
 // Bootstrap overwrite (opcional)
-$primary: $dorado;     // Color principal de marca
-$secondary: $brotecito;      // Color secundario
+$primary: $brotecito;     // Color principal de marca
+$secondary: $dorado;      // Color secundario
 $danger: $fuego;              // Para alertas o botones de peligro
 $info: $lenguita;             // Para elementos informativos
+$border-radius-xl: 1.25rem;
+$headings-font-family: 'Nunito', sans-serif;
+$font-family-base: 'Poppins', sans-serif;

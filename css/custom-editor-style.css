@@ -35,6 +35,7 @@ hr {
 h6, .h6, h5, .h5, h4, .h4, h3, .h3, h2, .h2, h1, .h1 {
   margin-top: 0;
   margin-bottom: 0.5rem;
+  font-family: "Nunito", sans-serif;
   font-weight: 500;
   line-height: 1.2;
 }
@@ -430,16 +431,16 @@ progress {
   --bs-gray-700: #495057;
   --bs-gray-800: #343a40;
   --bs-gray-900: #212529;
-  --bs-primary: #FBD865;
-  --bs-secondary: #B7DD79;
+  --bs-primary: #B7DD79;
+  --bs-secondary: #FBD865;
   --bs-success: #198754;
   --bs-info: #00AEC7;
   --bs-warning: #ffc107;
   --bs-danger: #F9423A;
   --bs-light: #f8f9fa;
   --bs-dark: #212529;
-  --bs-primary-rgb: 251, 216, 101;
-  --bs-secondary-rgb: 183, 221, 121;
+  --bs-primary-rgb: 183, 221, 121;
+  --bs-secondary-rgb: 251, 216, 101;
   --bs-success-rgb: 25, 135, 84;
   --bs-info-rgb: 0, 174, 199;
   --bs-warning-rgb: 255, 193, 7;
@@ -453,7 +454,7 @@ progress {
   --bs-font-sans-serif: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   --bs-font-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   --bs-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
-  --bs-body-font-family: var(--bs-font-sans-serif);
+  --bs-body-font-family: Poppins, sans-serif;
   --bs-body-font-size: 1rem;
   --bs-body-font-weight: 400;
   --bs-body-line-height: 1.5;
@@ -466,11 +467,11 @@ progress {
   --bs-border-radius: 0.375rem;
   --bs-border-radius-sm: 0.25rem;
   --bs-border-radius-lg: 0.5rem;
-  --bs-border-radius-xl: 1rem;
+  --bs-border-radius-xl: 1.25rem;
   --bs-border-radius-2xl: 2rem;
   --bs-border-radius-pill: 50rem;
-  --bs-link-color: #FBD865;
-  --bs-link-hover-color: #c9ad51;
+  --bs-link-color: #B7DD79;
+  --bs-link-hover-color: #92b161;
   --bs-code-color: #d63384;
   --bs-highlight-bg: #fff3cd;
 }
@@ -553,20 +554,6 @@ progress {
 
 .table-primary {
   --bs-table-color: #000;
-  --bs-table-bg: #fef7e0;
-  --bs-table-border-color: #e5deca;
-  --bs-table-striped-bg: #f1ebd5;
-  --bs-table-striped-color: #000;
-  --bs-table-active-bg: #e5deca;
-  --bs-table-active-color: #000;
-  --bs-table-hover-bg: #ebe4cf;
-  --bs-table-hover-color: #000;
-  color: var(--bs-table-color);
-  border-color: var(--bs-table-border-color);
-}
-
-.table-secondary {
-  --bs-table-color: #000;
   --bs-table-bg: #f1f8e4;
   --bs-table-border-color: #d9dfcd;
   --bs-table-striped-bg: #e5ecd9;
@@ -574,6 +561,20 @@ progress {
   --bs-table-active-bg: #d9dfcd;
   --bs-table-active-color: #000;
   --bs-table-hover-bg: #dfe5d3;
+  --bs-table-hover-color: #000;
+  color: var(--bs-table-color);
+  border-color: var(--bs-table-border-color);
+}
+
+.table-secondary {
+  --bs-table-color: #000;
+  --bs-table-bg: #fef7e0;
+  --bs-table-border-color: #e5deca;
+  --bs-table-striped-bg: #f1ebd5;
+  --bs-table-striped-color: #000;
+  --bs-table-active-bg: #e5deca;
+  --bs-table-active-color: #000;
+  --bs-table-hover-bg: #ebe4cf;
   --bs-table-hover-color: #000;
   color: var(--bs-table-color);
   border-color: var(--bs-table-border-color);
@@ -870,16 +871,16 @@ progress {
   --bs-gray-700: #495057;
   --bs-gray-800: #343a40;
   --bs-gray-900: #212529;
-  --bs-primary: #FBD865;
-  --bs-secondary: #B7DD79;
+  --bs-primary: #B7DD79;
+  --bs-secondary: #FBD865;
   --bs-success: #198754;
   --bs-info: #00AEC7;
   --bs-warning: #ffc107;
   --bs-danger: #F9423A;
   --bs-light: #f8f9fa;
   --bs-dark: #212529;
-  --bs-primary-rgb: 251, 216, 101;
-  --bs-secondary-rgb: 183, 221, 121;
+  --bs-primary-rgb: 183, 221, 121;
+  --bs-secondary-rgb: 251, 216, 101;
   --bs-success-rgb: 25, 135, 84;
   --bs-info-rgb: 0, 174, 199;
   --bs-warning-rgb: 255, 193, 7;
@@ -893,7 +894,7 @@ progress {
   --bs-font-sans-serif: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   --bs-font-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   --bs-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
-  --bs-body-font-family: var(--bs-font-sans-serif);
+  --bs-body-font-family: Poppins, sans-serif;
   --bs-body-font-size: 1rem;
   --bs-body-font-weight: 400;
   --bs-body-line-height: 1.5;
@@ -906,11 +907,11 @@ progress {
   --bs-border-radius: 0.375rem;
   --bs-border-radius-sm: 0.25rem;
   --bs-border-radius-lg: 0.5rem;
-  --bs-border-radius-xl: 1rem;
+  --bs-border-radius-xl: 1.25rem;
   --bs-border-radius-2xl: 2rem;
   --bs-border-radius-pill: 50rem;
-  --bs-link-color: #FBD865;
-  --bs-link-hover-color: #c9ad51;
+  --bs-link-color: #B7DD79;
+  --bs-link-hover-color: #92b161;
   --bs-code-color: #d63384;
   --bs-highlight-bg: #fff3cd;
 }
@@ -923,12 +924,12 @@ progress {
 
 .text-bg-primary {
   color: #000 !important;
-  background-color: RGBA(251, 216, 101, var(--bs-bg-opacity, 1)) !important;
+  background-color: RGBA(183, 221, 121, var(--bs-bg-opacity, 1)) !important;
 }
 
 .text-bg-secondary {
   color: #000 !important;
-  background-color: RGBA(183, 221, 121, var(--bs-bg-opacity, 1)) !important;
+  background-color: RGBA(251, 216, 101, var(--bs-bg-opacity, 1)) !important;
 }
 
 .text-bg-success {
@@ -962,17 +963,17 @@ progress {
 }
 
 .link-primary {
-  color: #FBD865 !important;
+  color: #B7DD79 !important;
 }
 .link-primary:hover, .link-primary:focus {
-  color: #fce084 !important;
+  color: #c5e494 !important;
 }
 
 .link-secondary {
-  color: #B7DD79 !important;
+  color: #FBD865 !important;
 }
 .link-secondary:hover, .link-secondary:focus {
-  color: #c5e494 !important;
+  color: #fce084 !important;
 }
 
 .link-success {
@@ -5289,30 +5290,30 @@ progress {
 
 .has-primary-color,
 .has-primary-color:visited {
-  color: #FBD865;
-}
-
-.has-primary-background-color {
-  background-color: #FBD865;
-  border-color: #FBD865;
-}
-
-.wp-block-button:hover .wp-block-button__link.has-white-background-color.has-primary-color {
-  color: #FBD865;
-}
-
-.has-secondary-color,
-.has-secondary-color:visited {
   color: #B7DD79;
 }
 
-.has-secondary-background-color {
+.has-primary-background-color {
   background-color: #B7DD79;
   border-color: #B7DD79;
 }
 
-.wp-block-button:hover .wp-block-button__link.has-white-background-color.has-secondary-color {
+.wp-block-button:hover .wp-block-button__link.has-white-background-color.has-primary-color {
   color: #B7DD79;
+}
+
+.has-secondary-color,
+.has-secondary-color:visited {
+  color: #FBD865;
+}
+
+.has-secondary-background-color {
+  background-color: #FBD865;
+  border-color: #FBD865;
+}
+
+.wp-block-button:hover .wp-block-button__link.has-white-background-color.has-secondary-color {
+  color: #FBD865;
 }
 
 .has-success-color,

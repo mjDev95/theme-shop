@@ -63,8 +63,8 @@ $container = get_theme_mod( 'understrap_container_type' );
 			);
 			?>
 		</div><!-- .offcanvas -->
-        <div class="btn-add account bg-secondary"></div>
-        <div class="btn-add cart bg-primary"></div>
+        <div class="btn-add account bg-secondary position-relative p-3 rounded-4"></div>
+        <div class="btn-add cart bg-primary position-relative p-3 rounded-4"></div>
 
 	</div><!-- .container(-fluid) -->
 
