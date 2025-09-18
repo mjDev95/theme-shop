@@ -37,8 +37,9 @@ body, p, li, span {
 
 .nav-link {
     color: var(--bs-body-color);
-    font-size: 1.125rem;
-    font-weight: 500;
+    font-size: 1.25rem;
+    font-weight: 900;
+    font-family: Nunito, sans-serif;
     .active {
         color: var(--bs-primary);
     }

@@ -92,3 +92,61 @@ function understrap_child_customize_controls_js() {
 	);
 }
 add_action( 'customize_controls_enqueue_scripts', 'understrap_child_customize_controls_js' );
+
+
+
+// Cargar script de búsqueda asincrónica
+function dingo_async_product_search_scripts() {
+    wp_enqueue_script(
+        'dingo-product-search',
+        get_stylesheet_directory_uri() . '/js/dingo-product-search.js',
+        ['jquery'],
+        null,
+        true
+    );
+
+    wp_localize_script('dingo-product-search', 'dingoProductSearch', [
+        'ajaxurl' => admin_url('admin-ajax.php'),
+        'nonce'   => wp_create_nonce('dingo_product_search_nonce'),
+    ]);
+}
+add_action('wp_enqueue_scripts', 'dingo_async_product_search_scripts');
+// Manejar la solicitud AJAX para la búsqueda de productos
+add_action('wp_ajax_nopriv_dingo_product_search', 'dingo_async_product_search');
+add_action('wp_ajax_dingo_product_search', 'dingo_async_product_search');
+
+function dingo_async_product_search() {
+    check_ajax_referer('dingo_product_search_nonce', 'nonce');
+
+    $term = sanitize_text_field($_POST['term'] ?? '');
+
+    if (strlen($term) < 3) {
+        wp_send_json_error(['message' => 'Escribe al menos 3 caracteres']);
+    }
+
+    $args = [
+        'post_type'      => 'product',
+        's'              => $term,
+        'posts_per_page' => 6,
+    ];
+
+    $query = new WP_Query($args);
+
+    $results = [];
+
+    if ($query->have_posts()) {
+        while ($query->have_posts()) {
+            $query->the_post();
+            global $product;
+
+            $results[] = [
+                'title' => get_the_title(),
+                'link'  => get_permalink(),
+                'price' => $product->get_price_html(),
+                'image' => get_the_post_thumbnail_url(get_the_ID(), 'thumbnail') ?: wc_placeholder_img_src(),
+            ];
+        }
+    }
+
+    wp_send_json_success($results);
+}

@@ -80,16 +80,19 @@ $container = get_theme_mod( 'understrap_container_type' );
 		<!-- Modal de búsqueda Bootstrap -->
 		<div class="modal fade" id="search-overlay" tabindex="-1" aria-labelledby="searchOverlayLabel" aria-hidden="true">
 			<div class="modal-dialog modal-dialog-centered">
-				<div class="modal-content bg-dark text-white">
+				<div class="modal-content">
 					<div class="modal-header border-0">
 						<h5 class="modal-title" id="searchOverlayLabel">
 							<i class="fa fa-search"></i> Buscar
 						</h5>
-						<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
 					</div>
 					<div class="modal-body">
 						<div class="search-form-wrapper">
 							<?php get_search_form(); ?>
+							
+							<!-- Contenedor AJAX -->
+							<div id="product-search-results" class="mt-3"></div>
 						</div>
 					</div>
 				</div>
