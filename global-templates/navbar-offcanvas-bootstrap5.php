@@ -79,7 +79,7 @@ $container = get_theme_mod( 'understrap_container_type' );
 
 		<!-- Modal de búsqueda Bootstrap -->
 		<div class="modal fade" id="search-overlay" tabindex="-1" aria-labelledby="searchOverlayLabel" aria-hidden="true">
-			<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
 				<div class="modal-content">
 					<div class="modal-header border-0">
 						<h5 class="modal-title" id="searchOverlayLabel">
