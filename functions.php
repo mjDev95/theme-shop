@@ -93,24 +93,23 @@ function understrap_child_customize_controls_js() {
 }
 add_action( 'customize_controls_enqueue_scripts', 'understrap_child_customize_controls_js' );
 
-
-
-// Cargar script de búsqueda asincrónica
-function dingo_async_product_search_scripts() {
-    wp_enqueue_script(
-        'dingo-product-search',
-        get_stylesheet_directory_uri() . '/js/dingo-product-search.js',
-        ['jquery'],
-        null,
-        true
-    );
-
-    wp_localize_script('dingo-product-search', 'dingoProductSearch', [
+/**
+ * AJAX para búsqueda asincrónica de productos WooCommerce.
+ * 
+ * Funciona en el modal de búsqueda:
+ * - Busca solo productos (post_type = product).
+ * - Devuelve título, enlace, precio e imagen.
+ * - Requiere mínimo 3 caracteres.
+ * - Seguro mediante nonce.
+ */
+function dingo_localize_product_search() {
+    wp_localize_script('understrap-scripts', 'dingoProductSearch', [
         'ajaxurl' => admin_url('admin-ajax.php'),
         'nonce'   => wp_create_nonce('dingo_product_search_nonce'),
     ]);
 }
-add_action('wp_enqueue_scripts', 'dingo_async_product_search_scripts');
+add_action('wp_enqueue_scripts', 'dingo_localize_product_search');
+
 // Manejar la solicitud AJAX para la búsqueda de productos
 add_action('wp_ajax_nopriv_dingo_product_search', 'dingo_async_product_search');
 add_action('wp_ajax_dingo_product_search', 'dingo_async_product_search');
@@ -118,7 +117,7 @@ add_action('wp_ajax_dingo_product_search', 'dingo_async_product_search');
 function dingo_async_product_search() {
     check_ajax_referer('dingo_product_search_nonce', 'nonce');
 
-    $term = sanitize_text_field($_POST['term'] ?? '');
+    $term = isset($_POST['term']) ? sanitize_text_field($_POST['term']) : '';
 
     if (strlen($term) < 3) {
         wp_send_json_error(['message' => 'Escribe al menos 3 caracteres']);
@@ -146,6 +145,7 @@ function dingo_async_product_search() {
                 'image' => get_the_post_thumbnail_url(get_the_ID(), 'thumbnail') ?: wc_placeholder_img_src(),
             ];
         }
+        wp_reset_postdata();
     }
 
     wp_send_json_success($results);
