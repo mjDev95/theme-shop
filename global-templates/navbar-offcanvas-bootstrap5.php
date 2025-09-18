@@ -79,7 +79,7 @@ $container = get_theme_mod( 'understrap_container_type' );
 
 		<!-- Modal de búsqueda Bootstrap -->
 		<div class="modal fade" id="search-overlay" tabindex="-1" aria-labelledby="searchOverlayLabel" aria-hidden="true">
-			<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-dialog modal-dialog-scrollable">
 				<div class="modal-content">
 					<div class="modal-header border-0">
 						<h5 class="modal-title" id="searchOverlayLabel">
@@ -91,6 +91,21 @@ $container = get_theme_mod( 'understrap_container_type' );
 						<div class="search-form-wrapper">
 							<?php get_search_form(); ?>
 							
+							<div id="search-msg-inicial" class="p-2 text-muted hidden-gsap">
+								Escribe al menos 3 caracteres…
+							</div>
+
+							<div id="search-spinner" class="p-2 text-center hidden-gsap">
+								<div class="spinner"></div>
+							</div>
+
+							<div id="search-msg-nores" class="p-2 text-muted hidden-gsap">
+								No se encontraron productos.
+							</div>
+
+							<div id="search-msg-error" class="p-2 text-danger hidden-gsap">
+								Ocurrió un error al buscar productos.
+							</div>
 							<!-- Contenedor AJAX -->
 							<div id="product-search-results" class="mt-3"></div>
 						</div>
