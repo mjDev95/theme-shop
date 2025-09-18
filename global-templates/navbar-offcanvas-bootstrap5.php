@@ -65,15 +65,15 @@ $container = get_theme_mod( 'understrap_container_type' );
 		</div><!-- .offcanvas -->
 
 		<!-- Botón de búsqueda -->
-		<button type="button" class=" btn btn-add search bg-info position-relative p-3 rounded-4" data-bs-toggle="modal" data-bs-target="#search-overlay">
+		<button type="button" class=" btn text-white btn btn-add search btn-info position-relative p-3 rounded-4 text-center" data-bs-toggle="modal" data-bs-target="#search-overlay">
 			<i class="fa fa-search"></i>
 		</button>
 		<!-- Botón de cuenta -->
-		<a href="/mi-cuenta" class="btn-add account bg-secondary position-relative p-3 rounded-4">
+		<a href="/mi-cuenta" class="btn text-white btn-add account btn-secondary position-relative p-3 rounded-4 text-center">
 			<i class="fa fa-user"></i>
 		</a>
 		<!-- Botón de carrito -->
-		<a href="/carrito" class="btn-add cart bg-primary position-relative p-3 rounded-4">
+		<a href="/carrito" class="btn text-white btn-add cart btn-primary position-relative p-3 rounded-4 text-center">
 			<i class="fa fa-shopping-cart"></i>
 		</a>
 
