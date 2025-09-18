@@ -6899,7 +6899,7 @@
 
 	          // Crear todos los resultados primero
 	          const $resultItems = res.data.map(item => $(`
-                        <a href="${item.link}" class="list-group-item list-group-item-action d-flex align-items-center border rounded mb-2 p-2 opacity-0">
+                        <a href="${item.link}" class="list-group-item list-group-item-action d-flex align-items-center border rounded mb-2 p-2">
                             <img src="${item.image}" class="me-3 rounded" style="width:60px;height:60px;object-fit:cover;">
                             <div>
                                 <div class="fw-bold">${item.title}</div>
