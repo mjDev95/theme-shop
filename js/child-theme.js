@@ -6746,7 +6746,6 @@
 	  const $resultsBox = $('#product-search-results');
 	  if (!$input.length || !$resultsBox.length) return; // Si no existen, salir
 
-	  // Detecta que el usuario está escribiendo
 	  $input.on('input', function () {
 	    clearTimeout(timer);
 	    const query = $(this).val().trim();
@@ -6755,7 +6754,7 @@
 	      return;
 	    }
 
-	    // Espera 400ms después de dejar de tipear para disparar la búsqueda
+	    // Espera 400ms después de dejar de tipear
 	    timer = setTimeout(function () {
 	      $resultsBox.html('<div class="p-2 text-center">🔍 Buscando productos…</div>').show();
 	      $.ajax({

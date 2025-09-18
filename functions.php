@@ -49,6 +49,11 @@ function theme_enqueue_styles() {
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
 	}
+	// Localizar variables JS para búsqueda asincrónica
+    wp_localize_script('child-understrap-scripts', 'dingoProductSearch', [
+        'ajaxurl' => admin_url('admin-ajax.php'),
+        'nonce'   => wp_create_nonce('dingo_product_search_nonce'),
+    ]);
 }
 add_action( 'wp_enqueue_scripts', 'theme_enqueue_styles' );
 
@@ -94,23 +99,8 @@ function understrap_child_customize_controls_js() {
 add_action( 'customize_controls_enqueue_scripts', 'understrap_child_customize_controls_js' );
 
 /**
- * AJAX para búsqueda asincrónica de productos WooCommerce.
- * 
- * Funciona en el modal de búsqueda:
- * - Busca solo productos (post_type = product).
- * - Devuelve título, enlace, precio e imagen.
- * - Requiere mínimo 3 caracteres.
- * - Seguro mediante nonce.
+ * Manejar búsqueda asincrónica de productos WooCommerce
  */
-function dingo_localize_product_search() {
-    wp_localize_script('child-understrap-scripts', 'dingoProductSearch', [
-        'ajaxurl' => admin_url('admin-ajax.php'),
-        'nonce'   => wp_create_nonce('dingo_product_search_nonce'),
-    ]);
-}
-add_action('wp_enqueue_scripts', 'dingo_localize_product_search');
-
-// Manejar la solicitud AJAX para la búsqueda de productos
 add_action('wp_ajax_nopriv_dingo_product_search', 'dingo_async_product_search');
 add_action('wp_ajax_dingo_product_search', 'dingo_async_product_search');
 
@@ -120,7 +110,7 @@ function dingo_async_product_search() {
     $term = isset($_POST['term']) ? sanitize_text_field($_POST['term']) : '';
 
     if (strlen($term) < 3) {
-        wp_send_json_error(['message' => 'Escribe al menos 3 caracteres']);
+        wp_send_json_error(['message' => 'Escribe al menos 3 caracteres…']);
     }
 
     $args = [
@@ -130,7 +120,6 @@ function dingo_async_product_search() {
     ];
 
     $query = new WP_Query($args);
-
     $results = [];
 
     if ($query->have_posts()) {
@@ -141,12 +130,16 @@ function dingo_async_product_search() {
             $results[] = [
                 'title' => get_the_title(),
                 'link'  => get_permalink(),
-                'price' => $product->get_price_html(),
+                'price' => $product ? $product->get_price_html() : '',
                 'image' => get_the_post_thumbnail_url(get_the_ID(), 'thumbnail') ?: wc_placeholder_img_src(),
             ];
         }
         wp_reset_postdata();
     }
 
-    wp_send_json_success($results);
+    if (!empty($results)) {
+        wp_send_json_success($results);
+    } else {
+        wp_send_json_error(['message' => 'No se encontraron productos.']);
+    }
 }

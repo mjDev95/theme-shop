@@ -5,7 +5,6 @@ jQuery(document).ready(function ($) {
 
     if (!$input.length || !$resultsBox.length) return; // Si no existen, salir
 
-    // Detecta que el usuario está escribiendo
     $input.on('input', function () {
         clearTimeout(timer);
         const query = $(this).val().trim();
@@ -15,7 +14,7 @@ jQuery(document).ready(function ($) {
             return;
         }
 
-        // Espera 400ms después de dejar de tipear para disparar la búsqueda
+        // Espera 400ms después de dejar de tipear
         timer = setTimeout(function () {
             $resultsBox.html('<div class="p-2 text-center">🔍 Buscando productos…</div>').show();
 
@@ -49,7 +48,7 @@ jQuery(document).ready(function ($) {
                         $resultsBox.append(result);
                     });
                 },
-                error: function (xhr, status, error) {
+                error: function(xhr, status, error) {
                     $resultsBox.html(`<div class="p-2 text-danger">Ocurrió un error al buscar productos: ${error}</div>`).show();
                 }
             });
