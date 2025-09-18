@@ -15031,6 +15031,26 @@ body, p, li, span {
   background-size: 20px 20px;
 }
 
+/**
+*
+* Modal de búsqueda 
+*
+**/
+/* Spinner animado */
+#product-search-results .spinner {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  border: 3px solid rgba(0, 0, 0, 0.1);
+  border-top-color: #007bff;
+  border-radius: 50%;
+}
+
+/* Hover en resultados y otros elementos */
+#product-search-results a.list-group-item:hover {
+  cursor: pointer;
+}
+
 .has-blue-color,
 .has-blue-color:visited {
   color: #0d6efd;
