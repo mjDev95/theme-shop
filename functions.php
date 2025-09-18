@@ -103,7 +103,7 @@ add_action( 'customize_controls_enqueue_scripts', 'understrap_child_customize_co
  * - Seguro mediante nonce.
  */
 function dingo_localize_product_search() {
-    wp_localize_script('understrap-scripts', 'dingoProductSearch', [
+    wp_localize_script('child-understrap-scripts', 'dingoProductSearch', [
         'ajaxurl' => admin_url('admin-ajax.php'),
         'nonce'   => wp_create_nonce('dingo_product_search_nonce'),
     ]);
