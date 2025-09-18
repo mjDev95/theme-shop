@@ -65,42 +65,36 @@ $container = get_theme_mod( 'understrap_container_type' );
 		</div><!-- .offcanvas -->
 
 		<!-- Botón de búsqueda -->
-		<button type="button" class="btn-add search bg-info position-relative p-3 rounded-4" id="btn-search-overlay">
-			<span class="bi bi-search"></span>
+		<button type="button" class=" btn btn-add search bg-info position-relative p-3 rounded-4" data-bs-toggle="modal" data-bs-target="#search-overlay">
+			<i class="fa fa-search"></i>
 		</button>
 		<!-- Botón de cuenta -->
 		<a href="/mi-cuenta" class="btn-add account bg-secondary position-relative p-3 rounded-4">
-			<span class="bi bi-person"></span>
+			<i class="fa fa-user"></i>
 		</a>
 		<!-- Botón de carrito -->
 		<a href="/carrito" class="btn-add cart bg-primary position-relative p-3 rounded-4">
-			<span class="bi bi-cart"></span>
+			<i class="fa fa-shopping-cart"></i>
 		</a>
 
-		<!-- Overlay de búsqueda -->
-		<div id="search-overlay" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.85);z-index:9999;align-items:center;justify-content:center;">
-			<div style="max-width:600px;width:90vw;margin:auto;">
-				<button type="button" id="close-search-overlay" style="float:right;font-size:2rem;background:none;border:none;color:#fff;">&times;</button>
-				<div style="padding:2rem;">
-					<?php get_search_form(); ?>
+		<!-- Modal de búsqueda Bootstrap -->
+		<div class="modal fade" id="search-overlay" tabindex="-1" aria-labelledby="searchOverlayLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content bg-dark text-white">
+					<div class="modal-header border-0">
+						<h5 class="modal-title" id="searchOverlayLabel">
+							<i class="fa fa-search"></i> Buscar
+						</h5>
+						<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+					</div>
+					<div class="modal-body">
+						<div class="search-form-wrapper">
+							<?php get_search_form(); ?>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
-		<script>
-		document.addEventListener('DOMContentLoaded', function() {
-			var btnSearch = document.getElementById('btn-search-overlay');
-			var overlay = document.getElementById('search-overlay');
-			var closeBtn = document.getElementById('close-search-overlay');
-			if(btnSearch && overlay && closeBtn) {
-				btnSearch.addEventListener('click', function() {
-					overlay.style.display = 'flex';
-				});
-				closeBtn.addEventListener('click', function() {
-					overlay.style.display = 'none';
-				});
-			}
-		});
-		</script>
 
 	</div><!-- .container(-fluid) -->
 
