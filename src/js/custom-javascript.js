@@ -2,62 +2,48 @@
 // FUNCIONES DE ANIMACIÓN GSAP REUTILIZABLES
 // ==============================
 
-// Fade simple
+// Fade simple para mensajes
 function animateMessage($el, duration = 0.5, yOffset = 0) {
-    gsap.fromTo($el, { opacity: 0, y: yOffset }, { opacity: 1, y: 0, duration: duration, ease: "power2.out" });
-}
-
-// Bounce
-function animateBounce($el, yOffset = -20, duration = 0.6) {
-    gsap.fromTo($el, { opacity: 0, y: yOffset }, { opacity: 1, y: 0, duration: duration, ease: "bounce.out" });
-}
-
-// Hover avanzado
-function animateHoverScale($el, scale = 1.05, yOffset = -5, duration = 0.3) {
-    $el.hover(
-        () => gsap.to($el[0], { scale: scale, y: yOffset, boxShadow: "0 12px 24px rgba(0,0,0,0.2)", duration: duration }),
-        () => gsap.to($el[0], { scale: 1, y: 0, boxShadow: "0 0 0 rgba(0,0,0,0)", duration: duration })
+    gsap.fromTo($el, 
+        { opacity: 0, y: yOffset }, 
+        { opacity: 1, y: 0, duration, ease: "power2.out" }
     );
 }
 
-// Spinner 3D
-function animateSpinner($el, rotationSpeed = 1, scalePulse = 1.2, pulseDuration = 0.5) {
-    gsap.to($el[0], { rotation: 360, repeat: -1, duration: rotationSpeed, ease: "linear" });
-    gsap.to($el[0], { scale: scalePulse, repeat: -1, yoyo: true, duration: pulseDuration, ease: "sine.inOut" });
+// Bounce para mensaje inicial
+function animateBounce($el, yOffset = -20, duration = 0.6) {
+    gsap.fromTo($el, 
+        { opacity: 0, y: yOffset }, 
+        { opacity: 1, y: 0, duration, ease: "bounce.out" }
+    );
 }
 
-// Flash de color
+// Flash de color para errores
 function animateFlash($el, color = "#ff4d4f", duration = 0.4) {
-    gsap.fromTo($el, { backgroundColor: color }, { backgroundColor: "transparent", duration: duration, repeat: 1, yoyo: true });
+    gsap.fromTo($el, 
+        { backgroundColor: color }, 
+        { backgroundColor: "transparent", duration, repeat: 1, yoyo: true }
+    );
 }
 
-// Cascada con reversa
-function animateCascade($els, options = {}) {
-    const {
-        stagger = 0.1,
-        yOffset = 20,
-        duration = 0.5,
-        ease = "power3.out",
-        reverse = false,
-        fromBottom = true
-    } = options;
+// Entrada en cascada (solo entrada)
+function animateCascade($els, stagger = 0.1, yOffset = 20, duration = 0.5, ease = "power3.out") {
+    gsap.fromTo($els,
+        { opacity: 0, y: yOffset, scale: 0.95 },
+        { opacity: 1, y: 0, scale: 1, duration, stagger, ease }
+    );
+}
 
-    const tl = gsap.timeline({ paused: true });
-    const elements = fromBottom ? $els.toArray().reverse() : $els.toArray();
-
-    if (!reverse) {
-        tl.fromTo(elements,
-            { opacity: 0, y: yOffset, scale: 0.95 },
-            { opacity: 1, y: 0, scale: 1, duration, stagger, ease }
-        );
-    } else {
-        tl.to(elements,
-            { opacity: 0, y: -yOffset, scale: 0.95, duration, stagger, ease }
-        );
-    }
-
-    tl.play();
-    return tl;
+function createSkeletonCard() {
+    return $(`
+        <div class="skeleton-card d-flex align-items-center border rounded mb-2 p-2">
+            <div class="skeleton-img me-3 rounded"></div>
+            <div class="flex-grow-1">
+                <div class="skeleton-line mb-2" style="width: 60%;"></div>
+                <div class="skeleton-line" style="width: 40%;"></div>
+            </div>
+        </div>
+    `);
 }
 
 
@@ -66,20 +52,13 @@ jQuery(document).ready(function ($) {
     const $input = $('#s'); 
     const $resultsBox = $('#product-search-results');
     const $initialMsg = $('#initial-search-msg'); 
-    const $spinnerBox = $('#search-spinner'); 
     const $noResultsMsg = $('#no-results-msg'); 
     const $errorMsg = $('#error-msg'); 
-    const openTimelines = [];
 
     if (!$input.length || !$resultsBox.length) return;
 
     function resetMessages() {
-        [$initialMsg, $spinnerBox, $noResultsMsg, $errorMsg].forEach($el => $el.addClass('d-none'));
-    }
-
-    function closeResults() {
-        openTimelines.forEach(tl => tl.reverse());
-        openTimelines.length = 0;
+        [$initialMsg, $noResultsMsg, $errorMsg].forEach($el => $el.addClass('d-none'));
     }
 
     $('#search-overlay').on('shown.bs.modal', function () {
@@ -92,8 +71,8 @@ jQuery(document).ready(function ($) {
     $('#search-overlay').on('hidden.bs.modal', function () {
         clearTimeout(timer);
         $input.val('');
-        closeResults();
         resetMessages();
+        $resultsBox.empty();
     });
 
     $input.on('input', function () {
@@ -101,7 +80,6 @@ jQuery(document).ready(function ($) {
         const query = $(this).val().trim();
 
         if (query.length < 3) {
-            closeResults();
             resetMessages();
             $resultsBox.empty();
             $initialMsg.removeClass('d-none');
@@ -109,11 +87,13 @@ jQuery(document).ready(function ($) {
             return;
         }
 
-        closeResults();
         resetMessages();
         $resultsBox.empty();
-        $spinnerBox.removeClass('d-none');
-        animateSpinner($spinnerBox.find('.spinner'));
+
+        // Mostrar skeletons
+        for (let i = 0; i < 4; i++) {
+            $resultsBox.append(createSkeletonCard());
+        }
 
         timer = setTimeout(function () {
             $.ajax({
@@ -126,9 +106,8 @@ jQuery(document).ready(function ($) {
                     term: query
                 },
                 success: function (res) {
-                    closeResults();
                     resetMessages();
-                    $resultsBox.empty();
+                    $resultsBox.empty(); // Elimina skeletons
 
                     if (!res.success || !res.data || res.data.length === 0) {
                         $noResultsMsg.removeClass('d-none');
@@ -150,20 +129,11 @@ jQuery(document).ready(function ($) {
                         `);
                         $resultsBox.append($result);
                         $items.push($result);
-                        animateHoverScale($result);
                     });
 
-                    const tl = animateCascade($($items), {
-                        stagger: 0.08,
-                        yOffset: 30,
-                        duration: 0.4,
-                        fromBottom: true
-                    });
-
-                    openTimelines.push(tl);
+                    animateCascade($($items), 0.08, 30, 0.4);
                 },
                 error: function(xhr, status, error) {
-                    closeResults();
                     resetMessages();
                     $errorMsg.removeClass('d-none').text(`Ocurrió un error al buscar productos: ${error}`);
                     animateMessage($errorMsg, 0.5, -10);
