@@ -92,7 +92,6 @@ $container = get_theme_mod( 'understrap_container_type' );
 							<?php get_search_form(); ?>
 
 							<div id="initial-search-msg" class="p-2 text-muted d-none">Escribe al menos 3 caracteres…</div>
-							<div id="no-results-msg" class="p-2 text-muted d-none">No se encontraron productos.</div>
 							<div id="no-results-msg" class="p-3 text-center text-muted d-none">
 								<p class="fw-bold mb-1">Ups… no encontramos nada con ese término.</p>
 								<p class="small mb-3">Pero aquí tienes algunas sugerencias que podrían gustarte:</p>
