@@ -52,15 +52,8 @@ jQuery(document).ready(function ($) {
     }
 
     function createProductCard(item) {
-        const badge = item.bestseller
-        ? `<span class="position-absolute top-0 end-0 text-bg-secondary m-1 rounded-3 pill" >
-                Más vendido
-           </span>`
-        : '';
-
         return $(`
-            <a href="${item.link}" class="list-group-item list-group-item-action d-flex align-items-center bg-opacity-10 bg-info rounded-3 mb-3 p-2 position-relative search-result-item">
-                ${badge}
+            <a href="${item.link}" class="list-group-item list-group-item-action d-flex align-items-center bg-opacity-10 bg-info rounded-4 mb-3 p-2 position-relative search-result-item">
                 <img src="${item.image}" class="me-3">
                 <div>
                     <div class="fw-bold">${item.title}</div>
