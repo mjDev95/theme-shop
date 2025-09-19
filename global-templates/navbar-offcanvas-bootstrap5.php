@@ -90,22 +90,11 @@ $container = get_theme_mod( 'understrap_container_type' );
 					<div class="modal-body">
 						<div class="search-form-wrapper">
 							<?php get_search_form(); ?>
-							
-							<div id="search-msg-inicial" class="p-2 text-muted hidden-gsap">
-								Escribe al menos 3 caracteres…
-							</div>
 
-							<div id="search-spinner" class="p-2 text-center hidden-gsap">
-								<div class="spinner"></div>
-							</div>
-
-							<div id="search-msg-nores" class="p-2 text-muted hidden-gsap">
-								No se encontraron productos.
-							</div>
-
-							<div id="search-msg-error" class="p-2 text-danger hidden-gsap">
-								Ocurrió un error al buscar productos.
-							</div>
+							<div id="initial-search-msg" class="p-2 text-muted">Escribe al menos 3 caracteres…</div>
+							<div id="search-spinner" class="p-2 text-center d-none"><div class="spinner"></div> Buscando productos...</div>
+							<div id="no-results-msg" class="p-2 text-muted d-none">No se encontraron productos.</div>
+							<div id="error-msg" class="p-2 text-danger d-none"></div>
 							<!-- Contenedor AJAX -->
 							<div id="product-search-results" class="mt-3"></div>
 						</div>
