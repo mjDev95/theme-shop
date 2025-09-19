@@ -42,7 +42,7 @@
 		return a;
 	}
 
-	var alert$1 = {exports: {}};
+	var alert$2 = {exports: {}};
 
 	var util = {exports: {}};
 
@@ -1061,9 +1061,9 @@
 		  index.defineJQueryPlugin(Alert);
 		  return Alert;
 		});
-	} (alert$1));
+	} (alert$2));
 
-	var alert = alert$1.exports;
+	var alert$1 = alert$2.exports;
 
 	var button$1 = {exports: {}};
 
@@ -6877,6 +6877,7 @@
 	          $resultsBox.empty(); // Elimina skeletons
 
 	          if (!res.success || !res.data || res.data.length === 0) {
+	            alert('No hay resultados, mostrando mensaje...');
 	            $noResultsMsg.removeClass('d-none');
 	            animateMessage($noResultsMsg, 0.5, -10);
 
@@ -6941,7 +6942,7 @@
 	  });
 	});
 
-	exports.Alert = alert;
+	exports.Alert = alert$1;
 	exports.Button = button;
 	exports.Carousel = carousel;
 	exports.Collapse = collapse;

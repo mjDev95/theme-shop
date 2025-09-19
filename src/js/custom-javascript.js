@@ -132,6 +132,7 @@ jQuery(document).ready(function ($) {
                     $resultsBox.empty(); // Elimina skeletons
 
                     if (!res.success || !res.data || res.data.length === 0) {
+                        alert('No hay resultados, mostrando mensaje...');
                         $noResultsMsg.removeClass('d-none');
                         animateMessage($noResultsMsg, 0.5, -10);
 
