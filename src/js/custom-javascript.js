@@ -56,7 +56,7 @@ jQuery(document).ready(function ($) {
             <a href="${item.link}" class="list-group-item list-group-item-action d-flex align-items-center bg-opacity-10 bg-info rounded-4 mb-2 p-2 position-relative search-result-item">
                 <img src="${item.image}" class="me-3">
                 <div>
-                    <div class="fw-bold">${item.title}</div>
+                    <div class="text-center text-muted h6">${item.title}</div>
                     <div class="text-success text-decoration-none">${item.price}</div>
                 </div>
             </a>

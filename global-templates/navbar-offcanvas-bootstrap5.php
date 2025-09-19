@@ -99,7 +99,7 @@ $container = get_theme_mod( 'understrap_container_type' );
 
 							<div id="error-msg" class="p-2 text-danger d-none"></div>
 							<!-- Contenedor AJAX -->
-							<div id="product-search-results" class="mt-3"></div>
+							<div id="product-search-results"></div>
 						</div>
 					</div>
 				</div>
