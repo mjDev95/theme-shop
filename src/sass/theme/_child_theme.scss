@@ -71,21 +71,11 @@ body, p, li, span {
 **/
 
 /* Spinner animado */
-#product-search-results .spinner {
+.spinner {
     display: inline-block;
     width: 24px;
     height: 24px;
     border: 3px solid rgba(0,0,0,0.1);
     border-top-color: #007bff;
     border-radius: 50%;
-}
-
-/* Hover en resultados y otros elementos */
-#product-search-results a.list-group-item:hover {
-    cursor: pointer;
-}
-.hidden-gsap {
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
 }
