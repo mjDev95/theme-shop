@@ -6815,22 +6815,42 @@
 	}
 
 	// Cascada con reversa
-	function animateCascade($els, stagger = 0.1, yOffset = 20, duration = 0.5, ease = "power3.out") {
+	function animateCascade($els, options = {}) {
+	  const {
+	    stagger = 0.1,
+	    yOffset = 20,
+	    duration = 0.5,
+	    ease = "power3.out",
+	    reverse = false,
+	    fromBottom = true
+	  } = options;
 	  const tl = gsap.timeline({
 	    paused: true
 	  });
-	  tl.fromTo($els, {
-	    opacity: 0,
-	    y: yOffset,
-	    scale: 0.95
-	  }, {
-	    opacity: 1,
-	    y: 0,
-	    scale: 1,
-	    duration: duration,
-	    stagger: stagger,
-	    ease: ease
-	  });
+	  const elements = fromBottom ? $els.toArray().reverse() : $els.toArray();
+	  if (!reverse) {
+	    tl.fromTo(elements, {
+	      opacity: 0,
+	      y: yOffset,
+	      scale: 0.95
+	    }, {
+	      opacity: 1,
+	      y: 0,
+	      scale: 1,
+	      duration,
+	      stagger,
+	      ease
+	    });
+	  } else {
+	    tl.to(elements, {
+	      opacity: 0,
+	      y: -yOffset,
+	      scale: 0.95,
+	      duration,
+	      stagger,
+	      ease
+	    });
+	  }
 	  tl.play();
 	  return tl;
 	}
@@ -6844,35 +6864,25 @@
 	  const $errorMsg = $('#error-msg');
 	  const openTimelines = [];
 	  if (!$input.length || !$resultsBox.length) return;
-
-	  // Reset: oculta todos los mensajes/spinner
 	  function resetMessages() {
 	    [$initialMsg, $spinnerBox, $noResultsMsg, $errorMsg].forEach($el => $el.addClass('d-none'));
 	  }
-
-	  // Cierra animaciones activas
 	  function closeResults() {
 	    openTimelines.forEach(tl => tl.reverse());
 	    openTimelines.length = 0;
 	  }
-
-	  // Al abrir modal → mensaje inicial
 	  $('#search-overlay').on('shown.bs.modal', function () {
 	    resetMessages();
 	    $resultsBox.empty();
 	    $initialMsg.removeClass('d-none');
 	    animateBounce($initialMsg);
 	  });
-
-	  // Al cerrar modal
 	  $('#search-overlay').on('hidden.bs.modal', function () {
 	    clearTimeout(timer);
 	    $input.val('');
 	    closeResults();
 	    resetMessages();
 	  });
-
-	  // Input de búsqueda
 	  $input.on('input', function () {
 	    clearTimeout(timer);
 	    const query = $(this).val().trim();
@@ -6884,15 +6894,11 @@
 	      animateBounce($initialMsg);
 	      return;
 	    }
-
-	    // Mostrar spinner
 	    closeResults();
 	    resetMessages();
 	    $resultsBox.empty();
 	    $spinnerBox.removeClass('d-none');
 	    animateSpinner($spinnerBox.find('.spinner'));
-
-	    // AJAX
 	    timer = setTimeout(function () {
 	      $.ajax({
 	        url: dingoProductSearch.ajaxurl,
@@ -6912,6 +6918,7 @@
 	            animateMessage($noResultsMsg, 0.5, -10);
 	            return;
 	          }
+	          const $items = [];
 	          res.data.forEach(item => {
 	            const $result = $(`
                             <a href="${item.link}" class="list-group-item list-group-item-action d-flex align-items-center border rounded mb-2 p-2 search-result-item">
@@ -6923,10 +6930,16 @@
                             </a>
                         `);
 	            $resultsBox.append($result);
-	            const tl = animateCascade($result, 0.1, 20, 0.5);
-	            openTimelines.push(tl);
+	            $items.push($result);
 	            animateHoverScale($result);
 	          });
+	          const tl = animateCascade($($items), {
+	            stagger: 0.08,
+	            yOffset: 30,
+	            duration: 0.4,
+	            fromBottom: true
+	          });
+	          openTimelines.push(tl);
 	        },
 	        error: function (xhr, status, error) {
 	          closeResults();
