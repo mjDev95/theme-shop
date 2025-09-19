@@ -51,6 +51,19 @@ jQuery(document).ready(function ($) {
         `);
     }
 
+    function createProductCard(item) {
+        return $(`
+            <a href="${item.link}" class="list-group-item list-group-item-action d-flex align-items-center border rounded mb-2 p-2 search-result-item">
+                <img src="${item.image}" class="me-3 rounded" style="width:60px;height:60px;object-fit:cover;">
+                <div>
+                    <div class="fw-bold">${item.title}</div>
+                    <div class="text-success">${item.price}</div>
+                </div>
+            </a>
+        `);
+    }
+
+
     let timer;
     const $input = $('#s'); 
     const $resultsBox = $('#product-search-results');
@@ -115,21 +128,36 @@ jQuery(document).ready(function ($) {
                     if (!res.success || !res.data || res.data.length === 0) {
                         $noResultsMsg.removeClass('d-none');
                         animateMessage($noResultsMsg, 0.5, -10);
-                        return;
+
+                        // Obtener productos aleatorios desde PHP
+                        $.ajax({
+                            url: dingoProductSearch.ajaxurl,
+                            type: 'POST',
+                            dataType: 'json',
+                            data: {
+                                action: 'dingo_random_products',
+                                nonce: dingoProductSearch.nonce
+                            },
+                            success: function (altRes) {
+                                if (altRes.success && altRes.data) {
+                                    const $items = [];
+
+                                    altRes.data.forEach((item) => {
+                                        const $result = createProductCard(item);
+                                        $resultsBox.append($result);
+                                        $items.push($result);
+                                    });
+
+                                    animateCascade($($items), 0.08, 30, 0.4);
+                                }
+                            }
+                        });
                     }
 
                     const $items = [];
 
                     res.data.forEach((item) => {
-                        const $result = $(`
-                            <a href="${item.link}" class="list-group-item list-group-item-action d-flex align-items-center border rounded mb-2 p-2 search-result-item">
-                                <img src="${item.image}" class="me-3 rounded" style="width:60px;height:60px;object-fit:cover;">
-                                <div>
-                                    <div class="fw-bold">${item.title}</div>
-                                    <div class="text-success">${item.price}</div>
-                                </div>
-                            </a>
-                        `);
+                        const $result = createProductCard(item);
                         $resultsBox.append($result);
                         $items.push($result);
                     });

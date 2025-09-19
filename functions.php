@@ -48,7 +48,7 @@ function theme_enqueue_styles() {
 	wp_enqueue_script( 'child-understrap-scripts', get_stylesheet_directory_uri() . $theme_scripts, array(), $js_version, true );
 	    // Encolar GSAP desde CDN
     wp_enqueue_script( 'gsap', 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js', array(), '3.13.0', true );
-	
+
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
 	}
@@ -145,4 +145,34 @@ function dingo_async_product_search() {
     } else {
         wp_send_json_error(['message' => 'No se encontraron productos.']);
     }
+}
+
+add_action('wp_ajax_dingo_random_products', 'dingo_random_products');
+add_action('wp_ajax_nopriv_dingo_random_products', 'dingo_random_products');
+
+function dingo_random_products() {
+    check_ajax_referer('dingo_nonce', 'nonce');
+
+    $args = [
+        'post_type' => 'product',
+        'posts_per_page' => 3,
+        'orderby' => 'rand'
+    ];
+
+    $query = new WP_Query($args);
+    $results = [];
+
+    if ($query->have_posts()) {
+        while ($query->have_posts()) {
+            $query->the_post();
+            $results[] = [
+                'title' => get_the_title(),
+                'link' => get_permalink(),
+                'image' => get_the_post_thumbnail_url(get_the_ID(), 'thumbnail'),
+                'price' => wc_price(get_post_meta(get_the_ID(), '_price', true))
+            ];
+        }
+    }
+
+    wp_send_json_success($results);
 }
