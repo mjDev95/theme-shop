@@ -39,9 +39,10 @@ jQuery(document).ready(function ($) {
         );
     }
 
+
     function createSkeletonCard() {
         return $(`
-            <div class="skeleton-card d-flex align-items-center border rounded mb-2 p-2">
+            <div class="skeleton-card d-flex align-items-center rounded-4 mb-2 p-2 position-relative">
                 <div class="skeleton-img me-3 rounded"></div>
                 <div class="flex-grow-1">
                     <div class="skeleton-line mb-2" style="width: 60%;"></div>
