@@ -91,7 +91,7 @@ $container = get_theme_mod( 'understrap_container_type' );
 						<div class="search-form-wrapper">
 							<?php get_search_form(); ?>
 
-							<div id="initial-search-msg" class="p-2 text-muted">Escribe al menos 3 caracteres…</div>
+							<div id="initial-search-msg" class="p-2 text-muted d-none">Escribe al menos 3 caracteres…</div>
 							<div id="search-spinner" class="p-2 text-center d-none"><div class="spinner"></div> Buscando productos...</div>
 							<div id="no-results-msg" class="p-2 text-muted d-none">No se encontraron productos.</div>
 							<div id="error-msg" class="p-2 text-danger d-none"></div>
