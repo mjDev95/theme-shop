@@ -53,15 +53,15 @@ jQuery(document).ready(function ($) {
 
     function createProductCard(item) {
         const badge = item.bestseller
-        ? `<span class="position-absolute top-0 start-0 translate-middle badge rounded-pill bg-warning text-dark z-1" style="font-size: 0.7rem; padding: 0.4em 0.6em; margin: 0.75rem 0 0 0.75rem;">
+        ? `<span class="position-absolute top-0 end-0 text-bg-secondary m-1 rounded-3 pill" >
                 Más vendido
            </span>`
         : '';
 
         return $(`
-            <a href="${item.link}" class="list-group-item list-group-item-action d-flex align-items-center border rounded mb-2 p-2 position-relative search-result-item">
+            <a href="${item.link}" class="list-group-item list-group-item-action d-flex align-items-center bg-opacity-10 bg-info rounded-3 mb-3 p-2 position-relative search-result-item">
                 ${badge}
-                <img src="${item.image}" class="me-3 rounded" style="width:60px;height:60px;object-fit:cover;">
+                <img src="${item.image}" class="me-3">
                 <div>
                     <div class="fw-bold">${item.title}</div>
                     <div class="text-success">${item.price}</div>

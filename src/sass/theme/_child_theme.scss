@@ -69,7 +69,18 @@ body, p, li, span {
 * Modal de búsqueda 
 *
 **/
-
+.search-result-item{
+  img{
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: .75rem;
+  }
+  .pill{
+    font-size: .7rem; 
+    border-radius: 1rem;
+  }
+}
 // Mixin para shimmer animado
 @mixin shimmer {
   content: "";

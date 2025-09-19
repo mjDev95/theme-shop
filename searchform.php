@@ -8,7 +8,7 @@
     <label class="w-100">
         <input type="search" 
                id="s"
-               class="form-control form-control-lg"
+               class="form-control form-control-lg rounded-4"
                placeholder="Buscar productos…" 
                value="<?php echo get_search_query(); ?>" 
                name="s" 

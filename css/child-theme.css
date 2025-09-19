@@ -15036,6 +15036,18 @@ body, p, li, span {
 * Modal de búsqueda 
 *
 **/
+.search-result-item img {
+  width: 60px;
+  height: 60px;
+  -o-object-fit: cover;
+  object-fit: cover;
+  border-radius: 0.75rem;
+}
+.search-result-item .pill {
+  font-size: 0.7rem;
+  border-radius: 1rem;
+}
+
 @keyframes shimmer {
   100% {
     left: 100%;
