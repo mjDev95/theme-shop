@@ -51,19 +51,6 @@ jQuery(document).ready(function ($) {
         `);
     }
 
-    function createProductCard(item) {
-        return $(`
-            <a href="${item.link}" class="list-group-item list-group-item-action d-flex align-items-center border rounded mb-2 p-2 search-result-item">
-                <img src="${item.image}" class="me-3 rounded" style="width:60px;height:60px;object-fit:cover;">
-                <div>
-                    <div class="fw-bold">${item.title}</div>
-                    <div class="text-success">${item.price}</div>
-                </div>
-            </a>
-        `);
-    }
-
-
     let timer;
     const $input = $('#s'); 
     const $resultsBox = $('#product-search-results');
@@ -143,7 +130,15 @@ jQuery(document).ready(function ($) {
                                     const $items = [];
 
                                     altRes.data.forEach((item) => {
-                                        const $result = createProductCard(item);
+                                        const $result = $(`
+                                            <a href="${item.link}" class="list-group-item list-group-item-action d-flex align-items-center border rounded mb-2 p-2 search-result-item">
+                                                <img src="${item.image}" class="me-3 rounded" style="width:60px;height:60px;object-fit:cover;">
+                                                <div>
+                                                    <div class="fw-bold">${item.title}</div>
+                                                    <div class="text-success">${item.price}</div>
+                                                </div>
+                                            </a>
+                                        `);
                                         $resultsBox.append($result);
                                         $items.push($result);
                                     });
@@ -157,7 +152,15 @@ jQuery(document).ready(function ($) {
                     const $items = [];
 
                     res.data.forEach((item) => {
-                        const $result = createProductCard(item);
+                        const $result = $(`
+                            <a href="${item.link}" class="list-group-item list-group-item-action d-flex align-items-center border rounded mb-2 p-2 search-result-item">
+                                <img src="${item.image}" class="me-3 rounded" style="width:60px;height:60px;object-fit:cover;">
+                                <div>
+                                    <div class="fw-bold">${item.title}</div>
+                                    <div class="text-success">${item.price}</div>
+                                </div>
+                            </a>
+                        `);
                         $resultsBox.append($result);
                         $items.push($result);
                     });
