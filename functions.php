@@ -48,7 +48,7 @@ function theme_enqueue_styles() {
 	wp_enqueue_script( 'child-understrap-scripts', get_stylesheet_directory_uri() . $theme_scripts, array(), $js_version, true );
 	    // Encolar GSAP desde CDN
     wp_enqueue_script( 'gsap', 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js', array(), '3.13.0', true );
-
+	
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
 	}
@@ -104,75 +104,67 @@ add_action( 'customize_controls_enqueue_scripts', 'understrap_child_customize_co
 /**
  * Manejar búsqueda asincrónica de productos WooCommerce
  */
-add_action('wp_ajax_nopriv_dingo_product_search', 'dingo_async_product_search');
-add_action('wp_ajax_dingo_product_search', 'dingo_async_product_search');
+add_action('wp_ajax_nopriv_dingo_product_search', 'dingo_product_search');
+add_action('wp_ajax_dingo_product_search', 'dingo_product_search');
 
-function dingo_async_product_search() {
+function dingo_product_search() {
     check_ajax_referer('dingo_product_search_nonce', 'nonce');
 
     $term = isset($_POST['term']) ? sanitize_text_field($_POST['term']) : '';
-
-    if (strlen($term) < 3) {
-        wp_send_json_error(['message' => 'Escribe al menos 3 caracteres…']);
-    }
-
-    $args = [
-        'post_type'      => 'product',
-        's'              => $term,
-        'posts_per_page' => 6,
-    ];
-
-    $query = new WP_Query($args);
     $results = [];
 
-    if ($query->have_posts()) {
-        while ($query->have_posts()) {
-            $query->the_post();
-            global $product;
+    // Si el término es válido, buscar productos
+    if (strlen($term) >= 3) {
+        $args = [
+            'post_type'      => 'product',
+            's'              => $term,
+            'posts_per_page' => 6,
+        ];
 
-            $results[] = [
-                'title' => get_the_title(),
-                'link'  => get_permalink(),
-                'price' => $product ? $product->get_price_html() : '',
-                'image' => get_the_post_thumbnail_url(get_the_ID(), 'thumbnail') ?: wc_placeholder_img_src(),
-            ];
-        }
-        wp_reset_postdata();
-    }
+        $query = new WP_Query($args);
 
-    if (!empty($results)) {
-        wp_send_json_success($results);
-    } else {
-        wp_send_json_error(['message' => 'No se encontraron productos.']);
-    }
-}
+        if ($query->have_posts()) {
+            while ($query->have_posts()) {
+                $query->the_post();
+                global $product;
 
-add_action('wp_ajax_dingo_random_products', 'dingo_random_products');
-add_action('wp_ajax_nopriv_dingo_random_products', 'dingo_random_products');
-
-function dingo_random_products() {
-    check_ajax_referer('dingo_nonce', 'nonce');
-
-    $args = [
-        'post_type' => 'product',
-        'posts_per_page' => 3,
-        'orderby' => 'rand'
-    ];
-
-    $query = new WP_Query($args);
-    $results = [];
-
-    if ($query->have_posts()) {
-        while ($query->have_posts()) {
-            $query->the_post();
-            $results[] = [
-                'title' => get_the_title(),
-                'link' => get_permalink(),
-                'image' => get_the_post_thumbnail_url(get_the_ID(), 'thumbnail'),
-                'price' => wc_price(get_post_meta(get_the_ID(), '_price', true))
-            ];
+                $results[] = [
+                    'title' => get_the_title(),
+                    'link'  => get_permalink(),
+                    'price' => $product ? $product->get_price_html() : '',
+                    'image' => get_the_post_thumbnail_url(get_the_ID(), 'thumbnail') ?: wc_placeholder_img_src(),
+                ];
+            }
+            wp_reset_postdata();
         }
     }
 
-    wp_send_json_success($results);
+    // Si no hay resultados, obtener sugerencias aleatorias
+    if (empty($results)) {
+        $args = [
+            'post_type'      => 'product',
+            'posts_per_page' => 3,
+            'orderby'        => 'rand',
+        ];
+
+        $query = new WP_Query($args);
+
+        if ($query->have_posts()) {
+            while ($query->have_posts()) {
+                $query->the_post();
+                global $product;
+
+                $results[] = [
+                    'title' => get_the_title(),
+                    'link'  => get_permalink(),
+                    'price' => $product ? $product->get_price_html() : '',
+                    'image' => get_the_post_thumbnail_url(get_the_ID(), 'thumbnail') ?: wc_placeholder_img_src(),
+					'bestseller' => true,
+                ];
+            }
+            wp_reset_postdata();
+        }
+    }
+
+    wp_send_json_success($results); // siempre devuelve array
 }

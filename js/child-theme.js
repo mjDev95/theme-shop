@@ -6808,6 +6808,21 @@
             </div>
         `);
 	  }
+	  function createProductCard(item) {
+	    const badge = item.bestseller ? `<span class="position-absolute top-0 start-0 translate-middle badge rounded-pill bg-warning text-dark z-1" style="font-size: 0.7rem; padding: 0.4em 0.6em; margin: 0.75rem 0 0 0.75rem;">
+                Más vendido
+           </span>` : '';
+	    return $(`
+            <a href="${item.link}" class="list-group-item list-group-item-action d-flex align-items-center border rounded mb-2 p-2 position-relative search-result-item">
+                ${badge}
+                <img src="${item.image}" class="me-3 rounded" style="width:60px;height:60px;object-fit:cover;">
+                <div>
+                    <div class="fw-bold">${item.title}</div>
+                    <div class="text-success">${item.price}</div>
+                </div>
+            </a>
+        `);
+	  }
 	  let timer;
 	  const $input = $('#s');
 	  const $resultsBox = $('#product-search-results');
@@ -6865,47 +6880,51 @@
 	            $noResultsMsg.removeClass('d-none');
 	            animateMessage($noResultsMsg, 0.5, -10);
 
-	            // Obtener productos aleatorios desde PHP
+	            // Mostrar skeletons mientras carga sugerencias
+	            for (let i = 0; i < 3; i++) {
+	              $resultsBox.append(createSkeletonCard());
+	            }
+
+	            // Cargar productos aleatorios
 	            $.ajax({
 	              url: dingoProductSearch.ajaxurl,
 	              type: 'POST',
 	              dataType: 'json',
 	              data: {
-	                action: 'dingo_random_products',
-	                nonce: dingoProductSearch.nonce
+	                action: 'dingo_product_search',
+	                nonce: dingoProductSearch.nonce,
+	                term: '' // vacío para activar sugerencias
 	              },
 	              success: function (altRes) {
-	                if (altRes.success && altRes.data) {
-	                  const $items = [];
+	                $resultsBox.empty(); // quitar skeletons
+
+	                if (altRes.success && Array.isArray(altRes.data)) {
+	                  const $altItems = [];
 	                  altRes.data.forEach(item => {
-	                    const $result = $(`
-                                            <a href="${item.link}" class="list-group-item list-group-item-action d-flex align-items-center border rounded mb-2 p-2 search-result-item">
-                                                <img src="${item.image}" class="me-3 rounded" style="width:60px;height:60px;object-fit:cover;">
-                                                <div>
-                                                    <div class="fw-bold">${item.title}</div>
-                                                    <div class="text-success">${item.price}</div>
-                                                </div>
-                                            </a>
-                                        `);
+	                    const $result = createProductCard(item);
 	                    $resultsBox.append($result);
-	                    $items.push($result);
+	                    if (item.bestseller) {
+	                      gsap.fromTo($result.find('.badge'), {
+	                        scale: 0.5,
+	                        opacity: 0
+	                      }, {
+	                        scale: 1,
+	                        opacity: 1,
+	                        duration: 0.4,
+	                        ease: "back.out(1.7)"
+	                      });
+	                    }
+	                    $altItems.push($result);
 	                  });
-	                  animateCascade($($items), 0.08, 30, 0.4);
+	                  animateCascade($($altItems), 0.08, 30, 0.4);
 	                }
 	              }
 	            });
+	            return;
 	          }
 	          const $items = [];
 	          res.data.forEach(item => {
-	            const $result = $(`
-                            <a href="${item.link}" class="list-group-item list-group-item-action d-flex align-items-center border rounded mb-2 p-2 search-result-item">
-                                <img src="${item.image}" class="me-3 rounded" style="width:60px;height:60px;object-fit:cover;">
-                                <div>
-                                    <div class="fw-bold">${item.title}</div>
-                                    <div class="text-success">${item.price}</div>
-                                </div>
-                            </a>
-                        `);
+	            const $result = createProductCard(item);
 	            $resultsBox.append($result);
 	            $items.push($result);
 	          });
