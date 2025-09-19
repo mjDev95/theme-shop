@@ -2,31 +2,36 @@
 // FUNCIONES DE ANIMACIÓN GSAP REUTILIZABLES
 // ==============================
 
-// Fade simple para mensajes
+// Fade simple
 function animateMessage($el, duration = 0.5, yOffset = 0) {
-    gsap.fromTo($el, 
-        { opacity: 0, y: yOffset }, 
-        { opacity: 1, y: 0, duration, ease: "power2.out" }
-    );
+    gsap.fromTo($el, { opacity: 0, y: yOffset }, { opacity: 1, y: 0, duration: duration, ease: "power2.out" });
 }
 
-// Bounce para mensaje inicial
+// Bounce
 function animateBounce($el, yOffset = -20, duration = 0.6) {
-    gsap.fromTo($el, 
-        { opacity: 0, y: yOffset }, 
-        { opacity: 1, y: 0, duration, ease: "bounce.out" }
+    gsap.fromTo($el, { opacity: 0, y: yOffset }, { opacity: 1, y: 0, duration: duration, ease: "bounce.out" });
+}
+
+// Hover avanzado
+function animateHoverScale($el, scale = 1.05, yOffset = -5, duration = 0.3) {
+    $el.hover(
+        () => gsap.to($el[0], { scale: scale, y: yOffset, boxShadow: "0 12px 24px rgba(0,0,0,0.2)", duration: duration }),
+        () => gsap.to($el[0], { scale: 1, y: 0, boxShadow: "0 0 0 rgba(0,0,0,0)", duration: duration })
     );
 }
 
-// Flash de color para errores
+// Spinner 3D
+function animateSpinner($el, rotationSpeed = 1, scalePulse = 1.2, pulseDuration = 0.5) {
+    gsap.to($el[0], { rotation: 360, repeat: -1, duration: rotationSpeed, ease: "linear" });
+    gsap.to($el[0], { scale: scalePulse, repeat: -1, yoyo: true, duration: pulseDuration, ease: "sine.inOut" });
+}
+
+// Flash de color
 function animateFlash($el, color = "#ff4d4f", duration = 0.4) {
-    gsap.fromTo($el, 
-        { backgroundColor: color }, 
-        { backgroundColor: "transparent", duration, repeat: 1, yoyo: true }
-    );
+    gsap.fromTo($el, { backgroundColor: color }, { backgroundColor: "transparent", duration: duration, repeat: 1, yoyo: true });
 }
 
-// Entrada en cascada (solo entrada)
+// Cascada
 function animateCascade($els, stagger = 0.1, yOffset = 20, duration = 0.5, ease = "power3.out") {
     gsap.fromTo($els,
         { opacity: 0, y: yOffset, scale: 0.95 },

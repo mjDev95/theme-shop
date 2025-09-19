@@ -6744,7 +6744,7 @@
 	// FUNCIONES DE ANIMACIÓN GSAP REUTILIZABLES
 	// ==============================
 
-	// Fade simple para mensajes
+	// Fade simple
 	function animateMessage($el, duration = 0.5, yOffset = 0) {
 	  gsap.fromTo($el, {
 	    opacity: 0,
@@ -6752,12 +6752,12 @@
 	  }, {
 	    opacity: 1,
 	    y: 0,
-	    duration,
+	    duration: duration,
 	    ease: "power2.out"
 	  });
 	}
 
-	// Bounce para mensaje inicial
+	// Bounce
 	function animateBounce($el, yOffset = -20, duration = 0.6) {
 	  gsap.fromTo($el, {
 	    opacity: 0,
@@ -6765,24 +6765,24 @@
 	  }, {
 	    opacity: 1,
 	    y: 0,
-	    duration,
+	    duration: duration,
 	    ease: "bounce.out"
 	  });
 	}
 
-	// Flash de color para errores
+	// Flash de color
 	function animateFlash($el, color = "#ff4d4f", duration = 0.4) {
 	  gsap.fromTo($el, {
 	    backgroundColor: color
 	  }, {
 	    backgroundColor: "transparent",
-	    duration,
+	    duration: duration,
 	    repeat: 1,
 	    yoyo: true
 	  });
 	}
 
-	// Entrada en cascada (solo entrada)
+	// Cascada
 	function animateCascade($els, stagger = 0.1, yOffset = 20, duration = 0.5, ease = "power3.out") {
 	  gsap.fromTo($els, {
 	    opacity: 0,
