@@ -112,7 +112,6 @@ function dingo_product_search() {
 
     $term = isset($_POST['term']) ? sanitize_text_field($_POST['term']) : '';
     $results = [];
-
     // Si el término es válido, buscar productos
     if (strlen($term) >= 3) {
         $args = [
@@ -133,6 +132,7 @@ function dingo_product_search() {
                     'link'  => get_permalink(),
                     'price' => $product ? $product->get_price_html() : '',
                     'image' => get_the_post_thumbnail_url(get_the_ID(), 'thumbnail') ?: wc_placeholder_img_src(),
+					'bestseller'=> false,
                 ];
             }
             wp_reset_postdata();

@@ -131,58 +131,32 @@ jQuery(document).ready(function ($) {
                     resetMessages();
                     $resultsBox.empty(); // Elimina skeletons
 
-                    if (!res.success || !res.data || res.data.length === 0) {
-                        alert('No hay resultados, mostrando mensaje...');
-                        $noResultsMsg.removeClass('d-none');
-                        animateMessage($noResultsMsg, 0.5, -10);
+                    if (res.success && Array.isArray(res.data)) {
+                        $resultsBox.empty(); // quitar skeletons
 
-                        // Mostrar skeletons mientras carga sugerencias
-                        for (let i = 0; i < 3; i++) {
-                            $resultsBox.append(createSkeletonCard());
+                        const allAreSuggested = res.data.every(item => item.bestseller === true);
+
+                        if (allAreSuggested) {
+                            $noResultsMsg.removeClass('d-none');
+                            animateMessage($noResultsMsg, 0.5, -10);
                         }
 
-                        // Cargar productos aleatorios
-                        $.ajax({
-                            url: dingoProductSearch.ajaxurl,
-                            type: 'POST',
-                            dataType: 'json',
-                            data: {
-                                action: 'dingo_product_search',
-                                nonce: dingoProductSearch.nonce,
-                                term: '' // vacío para activar sugerencias
-                            },
-                            success: function (altRes) {
-                                $resultsBox.empty(); // quitar skeletons
+                        const $items = [];
 
-                                if (altRes.success && Array.isArray(altRes.data)) {
-                                    const $altItems = [];
+                        res.data.forEach((item) => {
+                            const $result = createProductCard(item);
+                            $resultsBox.append($result);
 
-                                    altRes.data.forEach((item) => {
-                                        const $result = createProductCard(item);
-                                        $resultsBox.append($result);
-                                        if (item.bestseller) {
-                                            gsap.fromTo($result.find('.badge'), { scale: 0.5, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(1.7)" });
-                                        }
-                                        $altItems.push($result);
-                                    });
-
-                                    animateCascade($($altItems), 0.08, 30, 0.4);
-                                }
+                            if (item.bestseller) {
+                                gsap.fromTo($result.find('.badge'), { scale: 0.5, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(1.7)" });
                             }
+
+                            $items.push($result);
                         });
 
-                        return;
+                        animateCascade($($items), 0.08, 30, 0.4);
                     }
 
-                    const $items = [];
-
-                    res.data.forEach((item) => {
-                        const $result = createProductCard(item);
-                        $resultsBox.append($result);
-                        $items.push($result);
-                    });
-
-                    animateCascade($($items), 0.08, 30, 0.4);
                 },
                 error: function(xhr, status, error) {
                     resetMessages();
