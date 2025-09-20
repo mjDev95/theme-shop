@@ -39,6 +39,19 @@ jQuery(document).ready(function ($) {
         );
     }
 
+    function animateBounce($el, scale = 1.3, duration = 0.15) {
+        gsap.fromTo($el, 
+            { scale: 1 }, 
+            { 
+                scale: scale, 
+                duration: duration, 
+                ease: "power2.out", 
+                onComplete: () => {
+                    gsap.to($el, { scale: 1, duration: duration, ease: "power2.inOut" });
+                }
+            }
+        );
+    }
 
     function createSkeletonCard() {
         return $(`
@@ -161,4 +174,26 @@ jQuery(document).ready(function ($) {
             });
         }, 400);
     });
+
+    function updateCartCount() {
+        $.ajax({
+            url: dingoProductSearch.ajaxurl,
+            method: 'GET',
+            data: { action: 'dingo_cart_count' },
+            success: function(response) {
+                const $badge = $('#cart-count');
+                if (response.success && response.data.count > 0) {
+                    $badge.text(response.data.count).removeClass('d-none');
+                    animateBounce($badge); // animación reutilizable
+                } else {
+                    $badge.addClass('d-none');
+                }
+            }
+        });
+    }
+
+    // Inicial y en evento WooCommerce
+    updateCartCount();
+    $(document.body).on('added_to_cart', updateCartCount);
+
 });

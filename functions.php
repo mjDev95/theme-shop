@@ -168,6 +168,21 @@ function dingo_product_search() {
 
     wp_send_json_success($results); // siempre devuelve array
 }
+
+// Manejar conteo del carrito para el botón de carrito
+add_action('wp_ajax_nopriv_dingo_cart_count', 'dingo_cart_count');
+add_action('wp_ajax_dingo_cart_count', 'dingo_cart_count');
+
+function dingo_cart_count() {
+    // WooCommerce debe estar activo
+    if (function_exists('WC')) {
+        $count = WC()->cart->get_cart_contents_count();
+        wp_send_json_success(['count' => $count]);
+    } else {
+        wp_send_json_error(['count' => 0]);
+    }
+}
+
 // Registrar ubicaciones de menú personalizadas
 function theme_register_menus() {
     register_nav_menus(

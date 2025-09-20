@@ -31,23 +31,23 @@ $container = get_theme_mod( 'understrap_container_type' );
                     </span>
                     <span class="text-light opacity-90">Tu Sitio</span>
                 </a>
-                <p class="my-4">Ropa alegre para niños que se mueven, sueñan y sonríen.</p>
+                <p class="my-4 h5">Ropa alegre para niños que se mueven, sueñan y sonríen.</p>
                 <div class="d-flex social-links">
                     <a class="btn btn-icon  btn-secondary rounded-4 me-3" href="#" aria-label="Instagram">
-                        <i class="fa-brands fa-instagram"></i>
+                        <i class="fa fa-instagram"></i>
                     </a>
                     <a class="btn btn-icon  btn-secondary rounded-4 me-3" href="#" aria-label="Facebook">
-                        <i class="fa-brands fa-facebook-f"></i>
+                        <i class="fa fa-facebook-f"></i>
                     </a>
                     <a class="btn btn-icon  btn-secondary rounded-4" href="#" aria-label="YouTube">
-                        <i class="fa-brands fa-youtube"></i>
+                        <i class="fa fa-youtube"></i>
                     </a>
                 </div>
             </div>
             <div class="col-sm-6 offset-sm-1 offset-md-2 offset-xl-3">
                 <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3">
                     <div class="col mb-4 mb-md-0">
-                        <h6 class="text-primary fw-bold mb-3">Conoce a Dingo</h6>
+                        <h6 class="text-primary fw-bold mb-3 h5">Conoce a Dingo</h6>
                         <ul class="nav flex-column">
                             <?php
                             wp_nav_menu(array(
@@ -60,7 +60,7 @@ $container = get_theme_mod( 'understrap_container_type' );
                         </ul>
                     </div>
                     <div class="col">
-                        <h6 class="text-danger fw-bold mb-3">Lo Legal, pero con Cariño</h6>
+                        <h6 class="text-danger fw-bold mb-3 h5">Lo Legal, pero con Cariño</h6>
                         <ul class="nav flex-column">
                             <?php
                             wp_nav_menu(array(
