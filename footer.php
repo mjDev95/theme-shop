@@ -35,7 +35,7 @@ $container = get_theme_mod( 'understrap_container_type' );
                                     ?>
                                 </a>
                                 <ul class="list-unstyled small">
-                                    <li class="mb-2">Diseñado y desarrollado por el equipo de <a href="#">Tu Sitio</a>.</li>
+                                    <li class="mb-2">Diseñado y desarrollado por <a href="#">Tu Sitio</a>.</li>
                                     <li class="mb-2">&copy; <?php echo date('Y'); ?> Todos los derechos reservados.</li>
                                 </ul>
                             </div>
@@ -48,6 +48,7 @@ $container = get_theme_mod( 'understrap_container_type' );
                                         'container' => false,
                                         'items_wrap' => '%3$s',
                                         'menu_class' => '',
+                                        'menu_id'         => 'footer',
                                         'walker' => new Walker_Nav_Menu_Bootstrap_List(),
                                     ));
                                     ?>
@@ -62,6 +63,7 @@ $container = get_theme_mod( 'understrap_container_type' );
                                         'container' => false,
                                         'items_wrap' => '%3$s',
                                         'menu_class' => '',
+                                        'menu_id'         => 'legal',
                                         'walker' => new Walker_Nav_Menu_Bootstrap_List(),
                                     ));
                                     ?>

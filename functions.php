@@ -168,3 +168,13 @@ function dingo_product_search() {
 
     wp_send_json_success($results); // siempre devuelve array
 }
+// Registrar ubicaciones de menú personalizadas
+function theme_register_menus() {
+    register_nav_menus(
+        array(
+            'footer'  => __( 'Menú Footer', 'understrap-child' ),
+            'legal'   => __( 'Menú Legal', 'understrap-child' ),
+        )
+    );
+}
+add_action( 'after_setup_theme', 'theme_register_menus' );
