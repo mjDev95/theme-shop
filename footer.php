@@ -15,7 +15,37 @@ $container = get_theme_mod( 'understrap_container_type' );
 
 
 <div class="ondas position-relative mt-n1" style=""></div>
-<footer class="footer bg-light py-5">
+<footer class="footer bg-light pt-5 py-3">
+    <div class="container py-5">
+        <div class="row text-center row-cols-1 row-cols-md-3 g-4">
+
+            <!-- Bloque 1: Preguntas frecuentes -->
+            <div class="col">
+                <h6 class="fw-bold text-dark mb-2">¿Tienes dudas?</h6>
+                <a href="/faq" class="text-decoration-none text-primary fw-semibold">
+                    Lee nuestras preguntas frecuentes →
+                </a>
+            </div>
+
+            <!-- Bloque 2: Atención al cliente -->
+            <div class="col">
+                <h6 class="fw-bold text-dark mb-2">Atención al cliente</h6>
+                <a href="tel:+17086395854" class="text-decoration-none text-muted fw-semibold">
+                    (708) 639-5854
+                </a>
+            </div>
+
+            <!-- Bloque 3: Guía de tallas -->
+            <div class="col">
+                <h6 class="fw-bold text-dark mb-2">¿No sabes qué talla elegir?</h6>
+                <a href="/guia-de-tallas" class="text-decoration-none text-primary fw-semibold">
+                    Consulta nuestra guía de tallas →
+                </a>
+            </div>
+
+        </div>            
+        <div class="mt-3 border-bottom border-3 border-primary w-100 mx-auto"></div>
+    </div>
     <div class="container pt-md-2 pt-lg-3 pt-xl-4">
         <div class="row pb-5 pt-sm-2 mb-lg-2">
             <div class="col-sm-5 col-md-4 col-xl-3 pb-2 pb-sm-0 mb-4 mb-sm-0">
@@ -60,7 +90,7 @@ $container = get_theme_mod( 'understrap_container_type' );
                         </ul>
                     </div>
                     <div class="col">
-                        <h6 class="fw-bold mb-3 h5">Lo Legal, pero con Cariño</h6>
+                        <h6 class="fw-bold mb-3 h5">Lo Legal</h6>
                         <ul class="nav flex-column">
                             <?php
                             wp_nav_menu(array(
