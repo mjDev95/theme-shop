@@ -189,6 +189,7 @@ function theme_register_menus() {
         array(
             'footer'  => __( 'Menú Footer', 'understrap-child' ),
             'legal'   => __( 'Menú Legal', 'understrap-child' ),
+            'colecciones'   => __( 'Menú colecciones', 'understrap-child' ),
         )
     );
 }

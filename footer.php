@@ -47,27 +47,40 @@ $container = get_theme_mod( 'understrap_container_type' );
             <div class="col-sm-6 offset-sm-1 offset-md-2 offset-xl-3">
                 <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3">
                     <div class="col mb-4 mb-md-0">
-                        <h6 class="text-primary fw-bold mb-3 h5">Conoce a Dingo</h6>
+                        <h6 class="fw-bold mb-3 h5">Conoce a Dingo</h6>
                         <ul class="nav flex-column">
                             <?php
                             wp_nav_menu(array(
                                 'theme_location' => 'footer',
                                 'container' => false,
                                 'items_wrap' => '%3$s',
-                                'menu_class' => '',
+                                'menu_class' => 'text-decoration-none',
                             ));
                             ?>
                         </ul>
                     </div>
                     <div class="col">
-                        <h6 class="text-danger fw-bold mb-3 h5">Lo Legal, pero con Cariño</h6>
+                        <h6 class="fw-bold mb-3 h5">Lo Legal, pero con Cariño</h6>
                         <ul class="nav flex-column">
                             <?php
                             wp_nav_menu(array(
                                 'theme_location' => 'legal',
                                 'container' => false,
                                 'items_wrap' => '%3$s',
-                                'menu_class' => '',
+                                'menu_class' => 'text-decoration-none',
+                            ));
+                            ?>
+                        </ul>
+                    </div>
+                    <div class="col">
+                        <h6 class="fw-bold mb-3 h5">Colecciones</h6>
+                        <ul class="nav flex-column">
+                            <?php
+                            wp_nav_menu(array(
+                                'theme_location' => 'legal',
+                                'container' => false,
+                                'items_wrap' => '%3$s',
+                                'menu_class' => 'text-decoration-none',
                             ));
                             ?>
                         </ul>
