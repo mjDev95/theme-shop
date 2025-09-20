@@ -75,7 +75,7 @@ $container = get_theme_mod( 'understrap_container_type' );
 		<!-- Botón de carrito -->
 		<a href="/carrito" class="btn text-white btn-add cart btn-primary position-relative p-3 rounded-4 text-center">
 			<i class="fa fa-shopping-cart"></i>
-			<span id="cart-count" class="d-none small position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning text-dark" style="display:none;">
+			<span id="cart-count" class="d-none small position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger text-white">
 				0
 			</span>
 		</a>
