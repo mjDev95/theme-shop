@@ -14,84 +14,71 @@ $container = get_theme_mod( 'understrap_container_type' );
 ?>
 
 
-<div class="wrapper" id="wrapper-footer">
 
-	<div class="<?php echo esc_attr( $container ); ?>">
-
-		<div class="row">
-
-			<div class="col-md-12">
-                <footer class="bd-footer py-4 py-md-5 mt-5 bg-body-tertiary">
-                    <div class="container py-4 py-md-5 px-4 px-md-3 text-body-secondary">
-                        <div class="row">
-                            <div class="col-lg-3 mb-3">
-                                <a class="d-inline-flex align-items-center mb-2 text-body-emphasis text-decoration-none" href="<?php echo esc_url( home_url( '/' ) ); ?>" aria-label="Logo">
-                                    <?php
-                                    if ( function_exists( 'the_custom_logo' ) && has_custom_logo() ) {
-                                        the_custom_logo();
-                                    } else {
-                                        echo '<img src="' . get_template_directory_uri() . '/screenshot.png" alt="Logo" style="max-height:60px;">';
-                                    }
-                                    ?>
-                                </a>
-                                <ul class="list-unstyled small">
-                                    <li class="mb-2">Diseñado y desarrollado por <a href="#">Tu Sitio</a>.</li>
-                                    <li class="mb-2">&copy; <?php echo date('Y'); ?> Todos los derechos reservados.</li>
-                                </ul>
-                            </div>
-                            <div class="col-6 col-lg-2 offset-lg-1 mb-3">
-                                <h5>Menú Footer</h5>
-                                <ul class="list-unstyled">
-                                    <?php
-                                    wp_nav_menu(array(
-                                        'theme_location' => 'footer',
-                                        'container' => false,
-                                        'items_wrap' => '%3$s',
-                                        'menu_class' => '',
-                                        'menu_id'         => 'footer',
-                                    ));
-                                    ?>
-                                </ul>
-                            </div>
-                            <div class="col-6 col-lg-2 mb-3">
-                                <h5>Legal</h5>
-                                <ul class="list-unstyled">
-                                    <?php
-                                    wp_nav_menu(array(
-                                        'theme_location' => 'legal',
-                                        'container' => false,
-                                        'items_wrap' => '%3$s',
-                                        'menu_class' => '',
-                                        'menu_id'         => 'legal',
-                                    ));
-                                    ?>
-                                </ul>
-                            </div>
-                            <div class="col-6 col-lg-2 mb-3">
-                                <h5>Contacto</h5>
-                                <ul class="list-unstyled">
-                                    <li class="mb-2"><a href="mailto:info@tusitio.com">info@tusitio.com</a></li>
-                                    <li class="mb-2"><a href="tel:+123456789">+1 234 567 89</a></li>
-                                </ul>
-                            </div>
-                            <div class="col-6 col-lg-2 mb-3">
-                                <h5>Redes</h5>
-                                <ul class="list-unstyled">
-                                    <li class="mb-2"><a href="#">Facebook</a></li>
-                                    <li class="mb-2"><a href="#">Instagram</a></li>
-                                    <li class="mb-2"><a href="#">Twitter</a></li>
-                                </ul>
-                            </div>
-                        </div>
+<footer class="footer bg-dark py-5">
+    <div class="container pt-md-2 pt-lg-3 pt-xl-4">
+        <div class="row pb-5 pt-sm-2 mb-lg-2">
+            <div class="col-sm-5 col-md-4 col-xl-3 pb-2 pb-sm-0 mb-4 mb-sm-0">
+                <a class="navbar-brand py-0 mb-3 mb-md-4" href="<?php echo esc_url( home_url( '/' ) ); ?>">
+                    <span class="text-primary flex-shrink-0 me-2">
+                        <?php
+                        if ( function_exists( 'the_custom_logo' ) && has_custom_logo() ) {
+                            the_custom_logo();
+                        } else {
+                            echo '<img src="' . get_template_directory_uri() . '/screenshot.png" alt="Logo" style="max-height:60px;">';
+                        }
+                        ?>
+                    </span>
+                    <span class="text-light opacity-90">Tu Sitio</span>
+                </a>
+                <p class="text-body fs-sm pb-2 pb-md-3 mb-3">Aquí puedes poner una breve descripción o slogan de tu sitio.</p>
+                <div class="d-flex">
+                    <a class="btn btn-icon btn-sm btn-secondary rounded-circle me-3" href="#" aria-label="Instagram">
+                        <i class="fa fa-instagram"></i>
+                    </a>
+                    <a class="btn btn-icon btn-sm btn-secondary rounded-circle me-3" href="#" aria-label="Facebook">
+                        <i class="fa fa-facebook"></i>
+                    </a>
+                    <a class="btn btn-icon btn-sm btn-secondary rounded-circle" href="#" aria-label="YouTube">
+                        <i class="fa fa-youtube"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="col-sm-6 offset-sm-1 offset-md-2 offset-xl-3">
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3">
+                    <div class="col mb-4 mb-md-0">
+                        <ul class="nav flex-column">
+                            <?php
+                            wp_nav_menu(array(
+                                'theme_location' => 'footer',
+                                'container' => false,
+                                'items_wrap' => '%3$s',
+                                'menu_class' => '',
+                            ));
+                            ?>
+                        </ul>
                     </div>
-                </footer>
-			</div><!-- col -->
-
-		</div><!-- .row -->
-
-	</div><!-- .container(-fluid) -->
-
-</div><!-- #wrapper-footer -->
+                    <div class="col">
+                        <ul class="nav flex-column">
+                            <?php
+                            wp_nav_menu(array(
+                                'theme_location' => 'legal',
+                                'container' => false,
+                                'items_wrap' => '%3$s',
+                                'menu_class' => '',
+                            ));
+                            ?>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p class="nav fs-sm mb-0">
+            <span class="text-body-secondary">© <?php echo date('Y'); ?> Todos los derechos reservados. Hecho por</span>
+            <a class="nav-link fw-normal p-0 ms-1" href="#" target="_blank" rel="noopener">Tu Sitio</a>
+        </p>
+    </div>
+</footer>
 
 <?php // Closing div#page from header.php. ?>
 </div><!-- #page -->
