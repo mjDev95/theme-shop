@@ -15,7 +15,7 @@ $container = get_theme_mod( 'understrap_container_type' );
 
 
 
-<footer class="footer bg-dark py-5">
+<footer class="footer bg-light py-5">
     <div class="container pt-md-2 pt-lg-3 pt-xl-4">
         <div class="row pb-5 pt-sm-2 mb-lg-2">
             <div class="col-sm-5 col-md-4 col-xl-3 pb-2 pb-sm-0 mb-4 mb-sm-0">
@@ -31,16 +31,16 @@ $container = get_theme_mod( 'understrap_container_type' );
                     </span>
                     <span class="text-light opacity-90">Tu Sitio</span>
                 </a>
-                <p class="text-body fs-sm pb-2 pb-md-3 mb-3">Aquí puedes poner una breve descripción o slogan de tu sitio.</p>
-                <div class="d-flex">
-                    <a class="btn btn-icon btn-sm btn-secondary rounded-circle me-3" href="#" aria-label="Instagram">
-                        <i class="fa fa-instagram"></i>
+                <p class="text-body fs-sm pb-2 pb-md-3 mb-3">Ropa alegre para niños que se mueven, sueñan y sonríen.</p>
+                <div class="d-flex social-links">
+                    <a class="btn btn-icon  btn-secondary rounded-4 me-3" href="#" aria-label="Instagram">
+                        <i class="fa-brands fa-instagram"></i>
                     </a>
-                    <a class="btn btn-icon btn-sm btn-secondary rounded-circle me-3" href="#" aria-label="Facebook">
-                        <i class="fa fa-facebook"></i>
+                    <a class="btn btn-icon  btn-secondary rounded-4 me-3" href="#" aria-label="Facebook">
+                        <i class="fa-brands fa-facebook-f"></i>
                     </a>
-                    <a class="btn btn-icon btn-sm btn-secondary rounded-circle" href="#" aria-label="YouTube">
-                        <i class="fa fa-youtube"></i>
+                    <a class="btn btn-icon  btn-secondary rounded-4" href="#" aria-label="YouTube">
+                        <i class="fa-brands fa-youtube"></i>
                     </a>
                 </div>
             </div>
@@ -73,9 +73,9 @@ $container = get_theme_mod( 'understrap_container_type' );
                 </div>
             </div>
         </div>
-        <p class="nav fs-sm mb-0">
-            <span class="text-body-secondary">© <?php echo date('Y'); ?> Todos los derechos reservados. Hecho por</span>
-            <a class="nav-link fw-normal p-0 ms-1" href="#" target="_blank" rel="noopener">Tu Sitio</a>
+        <p class=" w-100 d-md-inline-flex align-items-center justify-content-between small">
+            <span class="text-body-secondary">© <?php echo date('Y'); ?></span>
+            <span >Diseño y Desarrollo Ing. Mario Galicia Blanco</span>
         </p>
     </div>
 </footer>

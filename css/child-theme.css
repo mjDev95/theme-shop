@@ -15116,6 +15116,19 @@ body, p, li, span {
   animation: shimmer 1.5s infinite;
 }
 
+/**
+ * Footer
+ */
+.footer .social-links .btn-icon {
+  width: 54px;
+  height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  text-align: center;
+}
+
 .has-blue-color,
 .has-blue-color:visited {
   color: #0d6efd;
