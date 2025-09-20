@@ -14,7 +14,7 @@ $container = get_theme_mod( 'understrap_container_type' );
 ?>
 
 
-
+<div class="ondas position-relative mt-n1" style=""></div>
 <footer class="footer bg-light py-5">
     <div class="container pt-md-2 pt-lg-3 pt-xl-4">
         <div class="row pb-5 pt-sm-2 mb-lg-2">
@@ -77,7 +77,7 @@ $container = get_theme_mod( 'understrap_container_type' );
                         <ul class="nav flex-column">
                             <?php
                             wp_nav_menu(array(
-                                'theme_location' => 'legal',
+                                'theme_location' => 'colecciones',
                                 'container' => false,
                                 'items_wrap' => '%3$s',
                                 'menu_class' => 'text-decoration-none',
