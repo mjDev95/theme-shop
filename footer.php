@@ -49,7 +49,6 @@ $container = get_theme_mod( 'understrap_container_type' );
                                         'items_wrap' => '%3$s',
                                         'menu_class' => '',
                                         'menu_id'         => 'footer',
-                                        'walker' => new Walker_Nav_Menu_Bootstrap_List(),
                                     ));
                                     ?>
                                 </ul>
@@ -64,7 +63,6 @@ $container = get_theme_mod( 'understrap_container_type' );
                                         'items_wrap' => '%3$s',
                                         'menu_class' => '',
                                         'menu_id'         => 'legal',
-                                        'walker' => new Walker_Nav_Menu_Bootstrap_List(),
                                     ));
                                     ?>
                                 </ul>
