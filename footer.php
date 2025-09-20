@@ -31,7 +31,7 @@ $container = get_theme_mod( 'understrap_container_type' );
                     </span>
                     <span class="text-light opacity-90">Tu Sitio</span>
                 </a>
-                <p class="text-body fs-sm pb-2 pb-md-3 mb-3">Ropa alegre para niños que se mueven, sueñan y sonríen.</p>
+                <p class="my-4">Ropa alegre para niños que se mueven, sueñan y sonríen.</p>
                 <div class="d-flex social-links">
                     <a class="btn btn-icon  btn-secondary rounded-4 me-3" href="#" aria-label="Instagram">
                         <i class="fa-brands fa-instagram"></i>
@@ -47,6 +47,7 @@ $container = get_theme_mod( 'understrap_container_type' );
             <div class="col-sm-6 offset-sm-1 offset-md-2 offset-xl-3">
                 <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3">
                     <div class="col mb-4 mb-md-0">
+                        <h6 class="text-primary fw-bold mb-3">Conoce a Dingo</h6>
                         <ul class="nav flex-column">
                             <?php
                             wp_nav_menu(array(
@@ -59,6 +60,7 @@ $container = get_theme_mod( 'understrap_container_type' );
                         </ul>
                     </div>
                     <div class="col">
+                        <h6 class="text-danger fw-bold mb-3">Lo Legal, pero con Cariño</h6>
                         <ul class="nav flex-column">
                             <?php
                             wp_nav_menu(array(
@@ -74,7 +76,7 @@ $container = get_theme_mod( 'understrap_container_type' );
             </div>
         </div>
         <p class=" w-100 d-md-inline-flex align-items-center justify-content-between small">
-            <span class="text-body-secondary">© <?php echo date('Y'); ?></span>
+            <span class="text-body-secondary">&copy; <?php echo date('Y'); ?> Todos los derechos reservados.</span>
             <span >Diseño y Desarrollo Ing. Mario Galicia Blanco</span>
         </p>
     </div>
