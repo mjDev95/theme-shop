@@ -67,23 +67,23 @@ $container = get_theme_mod( 'understrap_container_type' );
 			);
 			?>
 		</div><!-- .offcanvas -->
-
-		<!-- Botón de búsqueda -->
-		<button type="button" class=" btn text-white btn btn-add search btn-info position-relative p-3 rounded-4 text-center" data-bs-toggle="modal" data-bs-target="#search-overlay">
-			<i class="fa fa-search"></i>
-		</button>
-		<!-- Botón de cuenta -->
-		<a href="/mi-cuenta" class="btn text-white btn-add account btn-secondary position-relative p-3 rounded-4 text-center">
-			<i class="fa fa-user"></i>
-		</a>
-		<!-- Botón de carrito -->
-		<a href="/carrito" class="btn text-white btn-add cart btn-primary position-relative p-3 rounded-4 text-center">
-			<i class="fa fa-shopping-cart"></i>
-			<span id="cart-count" class="d-none small position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger text-white">
-				0
-			</span>
-		</a>
-
+		<div class="botones-menu">
+			<!-- Botón de búsqueda -->
+			<button type="button" class=" btn text-white btn btn-add search btn-info position-relative p-3 rounded-4 text-center" data-bs-toggle="modal" data-bs-target="#search-overlay">
+				<i class="fa fa-search"></i>
+			</button>
+			<!-- Botón de cuenta -->
+			<a href="/mi-cuenta" class="btn text-white btn-add account btn-secondary position-relative p-3 rounded-4 text-center">
+				<i class="fa fa-user"></i>
+			</a>
+			<!-- Botón de carrito -->
+			<a href="/carrito" class="btn text-white btn-add cart btn-primary position-relative p-3 rounded-4 text-center">
+				<i class="fa fa-shopping-cart"></i>
+				<span id="cart-count" class="d-none small position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger text-white">
+					0
+				</span>
+			</a>
+		</div>
 		<!-- Modal de búsqueda Bootstrap -->
 		<div class="modal fade" id="search-overlay" tabindex="-1" aria-labelledby="searchOverlayLabel" aria-hidden="true">
 			<div class="modal-dialog modal-dialog-scrollable">
