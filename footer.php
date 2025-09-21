@@ -15,15 +15,15 @@ $container = get_theme_mod( 'understrap_container_type' );
 
 
 <div class="ondas position-relative mt-n1" style=""></div>
-<footer class="footer bg-light pt-5 py-3">
-    <div class="container py-5">
+<footer class="footer bg-light pt-lg-5 py-lg-3">
+    <div class="pb-5 py-lg-4">
         <div class="row text-center row-cols-1 row-cols-md-3 g-4">
 
             <!-- Bloque 1: Preguntas frecuentes -->
             <div class="col">
                 <h6 class="fw-bold text-dark mb-2">¿Tienes dudas?</h6>
                 <a href="/faq" class="text-decoration-none text-primary fw-semibold">
-                    Lee nuestras preguntas frecuentes →
+                    Lee preguntas frecuentes →
                 </a>
             </div>
 
@@ -39,12 +39,12 @@ $container = get_theme_mod( 'understrap_container_type' );
             <div class="col">
                 <h6 class="fw-bold text-dark mb-2">¿No sabes qué talla elegir?</h6>
                 <a href="/guia-de-tallas" class="text-decoration-none text-primary fw-semibold">
-                    Consulta nuestra guía de tallas →
+                    Consulta la guía de tallas →
                 </a>
             </div>
 
         </div>            
-        <div class="mt-3 border-bottom border-3 border-primary w-100 mx-auto"></div>
+        <div class="mt-5 border-bottom border-2 border-gray w-100 mx-auto"></div>
     </div>
     <div class="container pt-md-2 pt-lg-3 pt-xl-4">
         <div class="row pb-5 pt-sm-2 mb-lg-2">
@@ -59,7 +59,6 @@ $container = get_theme_mod( 'understrap_container_type' );
                         }
                         ?>
                     </span>
-                    <span class="text-light opacity-90">Tu Sitio</span>
                 </a>
                 <p class="my-4 h5">Ropa alegre para niños que se mueven, sueñan y sonríen.</p>
                 <div class="d-flex social-links">
@@ -75,7 +74,7 @@ $container = get_theme_mod( 'understrap_container_type' );
                 </div>
             </div>
             <div class="col-sm-6 offset-sm-1 offset-md-2 offset-xl-3">
-                <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3">
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 justify-content-center">
                     <div class="col mb-4 mb-md-0">
                         <h6 class="fw-bold mb-3 h5">Conoce a Dingo</h6>
                         <ul class="nav flex-column">
@@ -89,7 +88,7 @@ $container = get_theme_mod( 'understrap_container_type' );
                             ?>
                         </ul>
                     </div>
-                    <div class="col">
+                    <div class="col mb-4 mb-md-0">
                         <h6 class="fw-bold mb-3 h5">Lo Legal</h6>
                         <ul class="nav flex-column">
                             <?php
