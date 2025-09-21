@@ -10,6 +10,9 @@
 defined( 'ABSPATH' ) || exit;
 
 $container = get_theme_mod( 'understrap_container_type' );
+if($container === 'container'){
+	$container = 'container-xl';
+}
 ?>
 
 <nav id="main-nav" class="navbar navbar-expand-xl navbar-dark bg-white text-primary shadow-sm py-4" aria-labelledby="main-nav-label">
@@ -25,7 +28,7 @@ $container = get_theme_mod( 'understrap_container_type' );
 		<?php get_template_part( 'global-templates/navbar-branding' ); ?>
 
 		<button
-			class="navbar-toggler"
+			class="navbar-toggler order-1"
 			type="button"
 			data-bs-toggle="offcanvas"
 			data-bs-target="#navbarNavOffcanvas"

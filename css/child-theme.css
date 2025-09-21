@@ -15721,14 +15721,13 @@ body, p, li, span {
 /**
  * header background color
  */
-.custom-logo-link img {
-  max-width: 135px;
-}
-
 header .logo-responsive {
   width: 100%;
 }
-@media (min-width: 768px) {
+header .logo-responsive img {
+  max-width: 200px;
+}
+@media (min-width: 576px) {
   header .logo-responsive {
     width: auto;
   }
