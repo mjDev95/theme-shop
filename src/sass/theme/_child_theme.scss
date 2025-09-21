@@ -46,7 +46,16 @@ header{
       }
     
       .navbar-toggler-animation {
-        
+        transition: all 0.3s ease-in-out;
+        background-image: none;
+        position: relative;
+        height: 22px;
+        width: 22px;
+        display: inline-block;
+        vertical-align: middle;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 100%;
     
         span {
           transition: all 0.3s ease-in-out;

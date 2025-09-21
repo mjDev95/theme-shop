@@ -15733,6 +15733,18 @@ header .navbar-toggler:focus {
   outline: 0;
   box-shadow: 0 0 0 var(--bs-navbar-toggler-focus-width);
 }
+header .navbar-toggler .navbar-toggler-animation {
+  transition: all 0.3s ease-in-out;
+  background-image: none;
+  position: relative;
+  height: 22px;
+  width: 22px;
+  display: inline-block;
+  vertical-align: middle;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100%;
+}
 header .navbar-toggler .navbar-toggler-animation span {
   transition: all 0.3s ease-in-out;
   transform: rotateZ(0deg);
