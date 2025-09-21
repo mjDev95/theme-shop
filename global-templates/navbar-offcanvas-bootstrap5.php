@@ -72,9 +72,9 @@ $container = get_theme_mod( 'understrap_container_type' );
 				<i class="fa fa-search"></i>
 			</button>
 			<!-- Botón de cuenta -->
-			<a href="/mi-cuenta" class="btn text-white btn-add account btn-secondary position-relative p-3 rounded-4 text-center">
+			<button  type="button" class="btn text-white btn-add account btn-secondary position-relative p-3 rounded-4 text-center" data-bs-toggle="modal"  data-bs-target="#accountModal">
 				<i class="fa fa-user"></i>
-			</a>
+			</button>
 			<!-- Botón de carrito -->
 			<a href="/carrito" class="btn text-white btn-add cart btn-primary position-relative p-3 rounded-4 text-center">
 				<i class="fa fa-shopping-cart"></i>
@@ -83,35 +83,6 @@ $container = get_theme_mod( 'understrap_container_type' );
 				</span>
 			</a>
 		</div>
-		<!-- Modal de búsqueda Bootstrap -->
-		<div class="modal fade" id="search-overlay" tabindex="-1" aria-labelledby="searchOverlayLabel" aria-hidden="true">
-			<div class="modal-dialog modal-dialog-scrollable">
-				<div class="modal-content rounded-5 border-0">
-					<div class="modal-header border-0">
-						<h5 class="modal-title" id="searchOverlayLabel">
-							<i class="fa fa-search"></i> Buscar
-						</h5>
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-					</div>
-					<div class="modal-body">
-						<div class="search-form-wrapper">
-							<?php get_search_form(); ?>
-
-							<div id="initial-search-msg" class="p-2 text-muted d-none">Escribe al menos 3 caracteres…</div>
-							<div id="no-results-msg" class="p-3 text-center text-muted d-none">
-								<p class="fw-bold h6 mb-1">Ups… no encontramos nada con ese término.</p>
-								<p class="small mb-3">Pero aquí tienes algunas sugerencias que podrían gustarte:</p>
-							</div>
-
-							<div id="error-msg" class="p-2 text-danger d-none"></div>
-							<!-- Contenedor AJAX -->
-							<div id="product-search-results"></div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-
 	</div><!-- .container(-fluid) -->
 
 </nav><!-- #main-nav -->

@@ -123,7 +123,71 @@ $container = get_theme_mod( 'understrap_container_type' );
         </p>
     </div>
 </footer>
+<!-- Modal de cuenta Bootstrap -->
+<div class="modal fade" id="accountModal" tabindex="-1" aria-labelledby="accountModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content rounded-4 shadow">
+      <div class="modal-header border-0">
+        <h5 class="modal-title fw-bold" id="accountModalLabel">Accede a tu cuenta</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body">
+        
+        <!-- Nav tabs -->
+        <ul class="nav nav-pills nav-justified mb-3" id="pills-tab" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="login-tab" data-bs-toggle="pill" data-bs-target="#login" type="button" role="tab">Iniciar sesión</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="register-tab" data-bs-toggle="pill" data-bs-target="#register" type="button" role="tab">Registrarse</button>
+          </li>
+        </ul>
 
+        <!-- Tab panes -->
+        <div class="tab-content">
+          <!-- Login -->
+          <div class="tab-pane fade show active" id="login" role="tabpanel">
+            <?php echo do_shortcode('[woocommerce_my_account]'); ?>
+          </div>
+
+          <!-- Registro -->
+          <div class="tab-pane fade" id="register" role="tabpanel">
+            <?php echo do_shortcode('[woocommerce_my_account]'); ?>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal de búsqueda Bootstrap -->
+<div class="modal fade" id="search-overlay" tabindex="-1" aria-labelledby="searchOverlayLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content rounded-5 border-0">
+            <div class="modal-header border-0">
+                <h5 class="modal-title" id="searchOverlayLabel">
+                    <i class="fa fa-search"></i> Buscar
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body">
+                <div class="search-form-wrapper">
+                    <?php get_search_form(); ?>
+
+                    <div id="initial-search-msg" class="p-2 text-muted d-none">Escribe al menos 3 caracteres…</div>
+                    <div id="no-results-msg" class="p-3 text-center text-muted d-none">
+                        <p class="fw-bold h6 mb-1">Ups… no encontramos nada con ese término.</p>
+                        <p class="small mb-3">Pero aquí tienes algunas sugerencias que podrían gustarte:</p>
+                    </div>
+
+                    <div id="error-msg" class="p-2 text-danger d-none"></div>
+                    <!-- Contenedor AJAX -->
+                    <div id="product-search-results"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <?php // Closing div#page from header.php. ?>
 </div><!-- #page -->
 
