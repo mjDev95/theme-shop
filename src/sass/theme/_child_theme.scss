@@ -36,6 +36,13 @@ body, p, li, span {
  }
 
 header{
+    .logo-responsive {
+      width: 100%;
+
+      @media (min-width: 768px) {
+        width: auto;
+      }
+    }
    .navbar-toggler {
       padding: 10px 10px;
     

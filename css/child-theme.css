@@ -15725,6 +15725,14 @@ body, p, li, span {
   max-width: 135px;
 }
 
+header .logo-responsive {
+  width: 100%;
+}
+@media (min-width: 768px) {
+  header .logo-responsive {
+    width: auto;
+  }
+}
 header .navbar-toggler {
   padding: 10px 10px;
 }
