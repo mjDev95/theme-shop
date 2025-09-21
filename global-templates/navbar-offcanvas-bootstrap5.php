@@ -33,7 +33,11 @@ $container = get_theme_mod( 'understrap_container_type' );
 			aria-expanded="false"
 			aria-label="<?php esc_attr_e( 'Open menu', 'understrap' ); ?>"
 		>
-			<span class="navbar-toggler-icon"></span>
+			<span class="navbar-toggler-animation">
+				<span></span>
+				<span></span>
+				<span></span>
+			</span>
 		</button>
 
 		<div class="offcanvas offcanvas-end bg-primary" tabindex="-1" id="navbarNavOffcanvas">
