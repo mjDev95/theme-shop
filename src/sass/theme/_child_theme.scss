@@ -29,22 +29,28 @@ body, p, li, span {
 /**
  * header background color
  */
-
+ .custom-logo-link {
+    img {
+        max-width: 150px;
+    }
+ }
 
 header{
     .header-sticky {
-      position: sticky;
-      top: 0;
-      z-index: 1020;
-
+      width: 100%;
+      @media (min-width: 576px) {
+        width: auto;
+      }
       @media (min-width: 768px) {
-        position: static;
+        position: relative;
       }
     }
     .logo-responsive {
       width: 100%;
-      img {
+      .custom-logo-link{
+        img {
           max-width: 200px;
+        }
       }
       @media (min-width: 576px) {
         width: auto;

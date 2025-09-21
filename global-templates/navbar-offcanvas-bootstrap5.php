@@ -54,9 +54,9 @@ if($container === 'container'){
 			);
 			?>
 		</div><!-- .offcanvas -->
-		<div class="botones-menu header-sticky">
+		<div class="botones-menu header-sticky d-flex justify-content-between">
 			<button
-				class="navbar-toggler order-1"
+				class="navbar-toggler order-1 ms-auto"
 				type="button"
 				data-bs-toggle="offcanvas"
 				data-bs-target="#navbarNavOffcanvas"

@@ -15721,20 +15721,27 @@ body, p, li, span {
 /**
  * header background color
  */
+.custom-logo-link img {
+  max-width: 150px;
+}
+
 header .header-sticky {
-  position: sticky;
-  top: 0;
-  z-index: 1020;
+  width: 100%;
+}
+@media (min-width: 576px) {
+  header .header-sticky {
+    width: auto;
+  }
 }
 @media (min-width: 768px) {
   header .header-sticky {
-    position: static;
+    position: relative;
   }
 }
 header .logo-responsive {
   width: 100%;
 }
-header .logo-responsive img {
+header .logo-responsive .custom-logo-link img {
   max-width: 200px;
 }
 @media (min-width: 576px) {
