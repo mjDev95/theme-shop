@@ -6835,6 +6835,52 @@
             </a>
         `);
 	  }
+
+	  //Animacion del navbar toggler
+	  const $toggler = $('.navbar-toggler');
+	  const $lines = $toggler.find('.navbar-toggler-animation span');
+	  const $offcanvas = $('#navbarNavOffcanvas');
+	  function openAnimation() {
+	    gsap.to($lines.eq(0), {
+	      rotation: 45,
+	      y: 6,
+	      transformOrigin: "center",
+	      duration: 0.3,
+	      ease: "back.out(1.7)"
+	    });
+	    gsap.to($lines.eq(1), {
+	      opacity: 0,
+	      duration: 0.2
+	    });
+	    gsap.to($lines.eq(2), {
+	      rotation: -45,
+	      y: -6,
+	      transformOrigin: "center",
+	      duration: 0.3,
+	      ease: "back.out(1.7)"
+	    });
+	  }
+	  function closeAnimation() {
+	    gsap.to($lines.eq(0), {
+	      rotation: 0,
+	      y: 0,
+	      duration: 0.3,
+	      ease: "power2.inOut"
+	    });
+	    gsap.to($lines.eq(1), {
+	      opacity: 1,
+	      duration: 0.2
+	    });
+	    gsap.to($lines.eq(2), {
+	      rotation: 0,
+	      y: 0,
+	      duration: 0.3,
+	      ease: "power2.inOut"
+	    });
+	  }
+	  $offcanvas.on('show.bs.offcanvas', openAnimation);
+	  $offcanvas.on('hide.bs.offcanvas', closeAnimation);
+	  // Búsqueda de productos con AJAX y animaciones
 	  let timer;
 	  const $input = $('#s');
 	  const $resultsBox = $('#product-search-results');
