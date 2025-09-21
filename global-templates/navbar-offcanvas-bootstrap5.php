@@ -27,22 +27,6 @@ if($container === 'container'){
 		<!-- Your site branding in the menu -->
 		<?php get_template_part( 'global-templates/navbar-branding' ); ?>
 
-		<button
-			class="navbar-toggler order-1"
-			type="button"
-			data-bs-toggle="offcanvas"
-			data-bs-target="#navbarNavOffcanvas"
-			aria-controls="navbarNavOffcanvas"
-			aria-expanded="false"
-			aria-label="<?php esc_attr_e( 'Open menu', 'understrap' ); ?>"
-		>
-			<span class="navbar-toggler-animation">
-				<span></span>
-				<span></span>
-				<span></span>
-			</span>
-		</button>
-
 		<div class="offcanvas offcanvas-end bg-primary" tabindex="-1" id="navbarNavOffcanvas">
 
 			<div class="offcanvas-header justify-content-end">
@@ -70,7 +54,22 @@ if($container === 'container'){
 			);
 			?>
 		</div><!-- .offcanvas -->
-		<div class="botones-menu">
+		<div class="botones-menu header-sticky">
+			<button
+				class="navbar-toggler order-1"
+				type="button"
+				data-bs-toggle="offcanvas"
+				data-bs-target="#navbarNavOffcanvas"
+				aria-controls="navbarNavOffcanvas"
+				aria-expanded="false"
+				aria-label="<?php esc_attr_e( 'Open menu', 'understrap' ); ?>"
+			>
+				<span class="navbar-toggler-animation">
+					<span></span>
+					<span></span>
+					<span></span>
+				</span>
+			</button>
 			<!-- Botón de búsqueda -->
 			<button type="button" class=" btn text-white btn btn-add search btn-info position-relative p-3 rounded-4 text-center" data-bs-toggle="modal" data-bs-target="#search-overlay">
 				<i class="fa fa-search"></i>

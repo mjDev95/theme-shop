@@ -15721,6 +15721,16 @@ body, p, li, span {
 /**
  * header background color
  */
+header .header-sticky {
+  position: sticky;
+  top: 0;
+  z-index: 1020;
+}
+@media (min-width: 768px) {
+  header .header-sticky {
+    position: static;
+  }
+}
 header .logo-responsive {
   width: 100%;
 }

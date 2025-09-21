@@ -29,7 +29,7 @@ if ( ! has_custom_logo() ) : ?>
 
 <?php else : ?>
 
-    <div class="logo-responsive mx-auto ms-md-0 me-md-auto mb-3 mb-md-0">
+    <div class="logo-responsive text-center text-sm-left mx-auto ms-sm-0 me-sm-auto mb-3 mb-md-0">
         <?php the_custom_logo(); ?>
     </div>
 
