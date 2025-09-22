@@ -57,6 +57,10 @@ function theme_enqueue_styles() {
         'ajaxurl' => admin_url('admin-ajax.php'),
         'nonce'   => wp_create_nonce('dingo_product_search_nonce'),
     ]);
+    wp_localize_script('dingo-login', 'dingoLogin', [
+        'ajaxurl' => admin_url('admin-ajax.php'),
+        'nonce'   => wp_create_nonce('modal_login_nonce'),
+    ]);
 }
 add_action( 'wp_enqueue_scripts', 'theme_enqueue_styles' );
 
@@ -180,6 +184,33 @@ function dingo_cart_count() {
         wp_send_json_success(['count' => $count]);
     } else {
         wp_send_json_error(['count' => 0]);
+    }
+}
+
+// Handler AJAX para login asincrónico
+add_action('wp_ajax_nopriv_modal_login', 'modal_login_handler');
+function modal_login_handler() {
+    check_ajax_referer('modal_login_nonce', 'security');
+
+    $creds = [
+        'user_login'    => sanitize_text_field($_POST['username']),
+        'user_password' => $_POST['password'],
+        'remember'      => true,
+    ];
+
+    $user = wp_signon($creds, false);
+
+    if (is_wp_error($user)) {
+        wp_send_json_error([
+            'message' => 'Ups 😅, parece que tu usuario o contraseña no coinciden. Intenta de nuevo.'
+        ]);
+    } else {
+        wp_send_json_success([
+            'message' => '¡Guau! Bienvenido de nuevo, ' . $user->display_name . ' 🎉',
+            'user'    => [
+                'name' => $user->display_name,
+            ]
+        ]);
     }
 }
 

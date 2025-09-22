@@ -209,4 +209,41 @@ jQuery(document).ready(function ($) {
     updateCartCount();
     $(document.body).on('added_to_cart', updateCartCount);
 
+
+    // Interceptar el login de WooCommerce dentro del modal
+    var $modal = $('#accountModal');
+    $modal.on('submit', 'form.woocommerce-form-login', function(e){
+      e.preventDefault();
+
+      var $form    = $(this);
+      var username = $form.find('input[name="username"]').val();
+      var password = $form.find('input[name="password"]').val();
+      var $alert   = $('<div class="alert mt-3"></div>');
+
+      // Limpiar alertas previas
+      $form.find('.alert').remove();
+      $form.append($alert);
+
+      // Petición AJAX
+      $.post(dingoLogin.ajaxurl, {
+        action: 'modal_login',
+        security: dingoLogin.nonce,
+        username: username,
+        password: password
+      }, function(resp){
+        if(resp.success){
+          $alert.removeClass().addClass('alert alert-success').text(resp.data.message);
+
+          // Mostrar confirmación y cerrar modal después
+          setTimeout(function(){
+            $modal.modal('hide');
+          }, 1500);
+
+        } else {
+          $alert.removeClass().addClass('alert alert-danger').text(resp.data.message);
+        }
+      }, 'json');
+    });
+
+    
 });

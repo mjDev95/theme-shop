@@ -123,10 +123,8 @@ $container = get_theme_mod( 'understrap_container_type' );
         </p>
     </div>
 </footer>
-<!-- Modal de cuenta Bootstrap -->
-<?php
-// Modal de cuenta WooCommerce
-?>
+
+<!-- Modal de cuenta WooCommerce -->
 <div class="modal fade" id="accountModal" tabindex="-1" aria-labelledby="accountModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content rounded-4 shadow">
