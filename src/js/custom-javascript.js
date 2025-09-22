@@ -213,37 +213,65 @@ jQuery(document).ready(function ($) {
     // Interceptar el login de WooCommerce dentro del modal
     var $modal = $('#accountModal');
     $modal.on('submit', 'form.woocommerce-form-login', function(e){
-      e.preventDefault();
+    e.preventDefault();
 
-      var $form    = $(this);
-      var username = $form.find('input[name="username"]').val();
-      var password = $form.find('input[name="password"]').val();
-      var $alert   = $('<div class="alert mt-3"></div>');
+    var $form    = $(this);
+    var username = $form.find('input[name="username"]').val();
+    var password = $form.find('input[name="password"]').val();
+    var $alert   = $('<div class="alert mt-3"></div>');
 
-      // Limpiar alertas previas
-      $form.find('.alert').remove();
-      $form.append($alert);
+    // Limpiar alertas previas
+    $form.find('.alert').remove();
+    $form.append($alert);
+      
+    // Mostrar spinner
+    $alert.removeClass().addClass('alert bg-light');
+    $alert.html('<div class="spinner-border text-primary" role="status"><span class="visually-hidden">Cargando...</span></div>');
 
-      // Petición AJAX
-      $.post(dingoLogin.ajaxurl, {
+
+    // Petición AJAX
+    $.post(dingoLogin.ajaxurl, {
         action: 'modal_login',
         security: dingoLogin.nonce,
         username: username,
         password: password
-      }, function(resp){
+    }, function(resp){
         if(resp.success){
-          $alert.removeClass().addClass('alert alert-success').text(resp.data.message);
+            $alert.removeClass().addClass('alert alert-success').text(resp.data.message);
 
-          // Mostrar confirmación y cerrar modal después
-          setTimeout(function(){
-            $modal.modal('hide');
-          }, 1500);
+            // Mostrar confirmación y cerrar modal después
+            setTimeout(function(){
+                $modal.modal('hide');
+            }, 1000);
 
         } else {
-          $alert.removeClass().addClass('alert alert-danger').text(resp.data.message);
+            $alert.removeClass().addClass('alert alert-danger').text(resp.data.message);
         }
-      }, 'json');
+    }, 'json');
     });
 
-    
+    // Cuando el modal ya está cerrado → actualizar secciones
+    $modal.on('hidden.bs.modal', function () {
+    var displayName = $modal.data('display_name');
+
+    if (displayName) {
+        // Ocultar login
+        $modal.find('.login-section').addClass('d-none');
+
+        // Mostrar logged
+        $modal.find('.logged-section').removeClass('d-none');
+
+        // Actualizar nombre
+        $modal.find('#logged-name').text(displayName);
+
+        // Cambiar título
+        $modal.find('#accountModalLabel').text('Mi cuenta');
+
+        // Limpio el dato para no repetir
+        $modal.removeData('display_name');
+    }
+    });
+
+
+
 });

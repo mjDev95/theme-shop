@@ -6973,6 +6973,10 @@
 	    $form.find('.alert').remove();
 	    $form.append($alert);
 
+	    // Mostrar spinner
+	    $alert.removeClass().addClass('alert bg-light');
+	    $alert.html('<div class="spinner-border text-primary" role="status"><span class="visually-hidden">Cargando...</span></div>');
+
 	    // Petición AJAX
 	    $.post(dingoLogin.ajaxurl, {
 	      action: 'modal_login',
@@ -6986,11 +6990,32 @@
 	        // Mostrar confirmación y cerrar modal después
 	        setTimeout(function () {
 	          $modal.modal('hide');
-	        }, 1500);
+	        }, 1000);
 	      } else {
 	        $alert.removeClass().addClass('alert alert-danger').text(resp.data.message);
 	      }
 	    }, 'json');
+	  });
+
+	  // Cuando el modal ya está cerrado → actualizar secciones
+	  $modal.on('hidden.bs.modal', function () {
+	    var displayName = $modal.data('display_name');
+	    if (displayName) {
+	      // Ocultar login
+	      $modal.find('.login-section').addClass('d-none');
+
+	      // Mostrar logged
+	      $modal.find('.logged-section').removeClass('d-none');
+
+	      // Actualizar nombre
+	      $modal.find('#logged-name').text(displayName);
+
+	      // Cambiar título
+	      $modal.find('#accountModalLabel').text('Mi cuenta');
+
+	      // Limpio el dato para no repetir
+	      $modal.removeData('display_name');
+	    }
 	  });
 	});
 

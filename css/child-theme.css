@@ -15725,6 +15725,10 @@ body, p, li, span {
   max-width: 150px;
 }
 
+.home #page {
+  overflow-x: hidden;
+}
+
 header .header-sticky {
   width: 100%;
 }
@@ -15963,6 +15967,10 @@ header .nav-link .active {
 
 .modal-body .u-column2.col-2 h2, .modal-body .u-column2.col-2 .h2, .modal-body .u-column1.col-1 h2, .modal-body .u-column1.col-1 .h2 {
   display: none;
+}
+
+body.modal-open {
+  padding-right: 0px !important;
 }
 
 .has-blue-color,

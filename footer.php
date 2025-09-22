@@ -136,32 +136,39 @@ $container = get_theme_mod( 'understrap_container_type' );
       </div>
       <div class="modal-body">
 
-        <?php if ( is_user_logged_in() ) : ?>
-          <?php 
+        <!-- Sección usuario logueado -->
+        <div class="logged-section <?php echo is_user_logged_in() ? '' : 'd-none'; ?>">
+          <?php if ( is_user_logged_in() ) : 
             $current_user = wp_get_current_user(); 
             $logout_url = wp_logout_url( home_url() );
           ?>
-          <p class="mb-4">Hola <strong><?php echo esc_html( $current_user->display_name ); ?></strong>, ya estás conectado.</p>
-          <div class="d-flex justify-content-between">
-            <a href="<?php echo wc_get_page_permalink( 'myaccount' ); ?>" class="btn btn-primary">
-              Ir a Mi Cuenta
-            </a>
-            <a href="<?php echo esc_url( $logout_url ); ?>" class="btn btn-outline-danger">
-              Cerrar sesión
-            </a>
-          </div>
+            <p class="mb-4">
+                👋 ¡Hola <strong id="logged-name"><?php echo esc_html( $current_user->display_name ); ?></strong>!  
+                Ya estás dentro de tu cuenta Dingo 🐾
+            </p>
+            <div class="d-flex justify-content-between">
+                <a href="<?php echo wc_get_page_permalink( 'myaccount' ); ?>" class="btn btn-primary">
+                    Ir a Mi Cuenta
+                </a>
+                <a href="<?php echo esc_url( $logout_url ); ?>" class="btn btn-outline-danger">
+                    Cerrar sesión
+                </a>
+            </div>
+          <?php endif; ?>
+        </div>
 
-        <?php else : ?>
+        <!-- Sección login/registro -->
+        <div class="login-section <?php echo is_user_logged_in() ? 'd-none' : ''; ?>">
           <!-- Nav tabs -->
           <ul class="nav nav-pills nav-justified mb-3" id="account-tabs" role="tablist">
             <li class="nav-item" role="presentation">
               <button class="nav-link active" id="login-tab" data-bs-toggle="pill" data-bs-target="#login" type="button" role="tab">
-                Iniciar sesión
+                Ya tengo cuenta 🐶
               </button>
             </li>
             <li class="nav-item" role="presentation">
               <button class="nav-link" id="register-tab" data-bs-toggle="pill" data-bs-target="#register" type="button" role="tab">
-                Registrarse
+                Quiero unirme ✨
               </button>
             </li>
           </ul>
@@ -177,12 +184,13 @@ $container = get_theme_mod( 'understrap_container_type' );
               <?php echo do_shortcode('[woocommerce_my_account]'); ?>
             </div>
           </div>
-        <?php endif; ?>
+        </div>
 
       </div>
     </div>
   </div>
 </div>
+
 
 <!-- Modal de búsqueda Bootstrap -->
 <div class="modal fade" id="search-overlay" tabindex="-1" aria-labelledby="searchOverlayLabel" aria-hidden="true">
