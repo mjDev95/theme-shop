@@ -26,6 +26,13 @@ body, p, li, span {
   font-family: $font-family-base;
   font-weight: 300; // light
 }
+
+.btn{
+  min-height: calc(1.5em + 1rem + 2px);
+  align-items: center;
+  display: inline-flex !important;
+  border-radius: var(--bs-border-radius-xl) !important;
+}
 /**
  * header background color
  */

@@ -15718,6 +15718,13 @@ body, p, li, span {
   font-weight: 300;
 }
 
+.btn, .wpcf7 input[type=submit], .woocommerce-notices-wrapper .woocommerce-message a.button, .woocommerce-info a.button {
+  min-height: calc(1.5em + 1rem + 2px);
+  align-items: center;
+  display: inline-flex !important;
+  border-radius: var(--bs-border-radius-xl) !important;
+}
+
 /**
  * header background color
  */
