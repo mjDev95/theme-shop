@@ -127,7 +127,7 @@ $container = get_theme_mod( 'understrap_container_type' );
 <!-- Modal de cuenta WooCommerce -->
 <div class="modal fade" id="accountModal" tabindex="-1" aria-labelledby="accountModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content rounded-4 shadow">
+    <div class="modal-content rounded-5 shadow">
       <div class="modal-header border-0">
         <h5 class="modal-title fw-bold" id="accountModalLabel">
           <?php echo is_user_logged_in() ? 'Mi cuenta' : 'Accede a tu cuenta'; ?>
@@ -136,6 +136,9 @@ $container = get_theme_mod( 'understrap_container_type' );
       </div>
       <div class="modal-body">
 
+        <div class="modal-overlay-spinner rounded-5 d-none" style="position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(255,255,255,0.7);z-index:10;display:flex;align-items:center;justify-content:center;">
+            <div class="spinner-border text-primary" role="status"><span class="visually-hidden">Cargando...</span></div>
+        </div>
         <!-- Sección usuario logueado -->
         <div class="logged-section <?php echo is_user_logged_in() ? '' : 'd-none'; ?>">
           <?php 

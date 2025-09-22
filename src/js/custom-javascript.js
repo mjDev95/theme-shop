@@ -214,9 +214,11 @@ jQuery(document).ready(function ($) {
     var $modal = $('#accountModal');
 
     // Insertar overlay spinner si no existe
-    if (!$modal.find('.modal-overlay-spinner').length) {
-        $modal.find('.modal-body').prepend('<div class="modal-overlay-spinner d-none" style="position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(255,255,255,0.7);z-index:10;display:flex;align-items:center;justify-content:center;"><div class="spinner-border text-primary" role="status"><span class="visually-hidden">Cargando...</span></div></div>');
-    }
+        // Controlar la clase d-none del overlay spinner
+        var $overlay = $modal.find('.modal-overlay-spinner');
+        if ($overlay.length) {
+            $overlay.removeClass('d-none');
+        }
 
     $modal.on('submit', 'form.woocommerce-form-login', function(e){
         e.preventDefault();
@@ -253,7 +255,7 @@ jQuery(document).ready(function ($) {
                 // Mostrar confirmación y cerrar modal después
                 setTimeout(function(){
                     $modal.modal('hide');
-                }, 1000);
+                }, 1500);
 
             } else {
                 $alert.removeClass().addClass('alert alert-danger').text(resp.data.message);
