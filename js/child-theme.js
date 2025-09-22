@@ -6987,6 +6987,9 @@
 	      if (resp.success) {
 	        $alert.removeClass().addClass('alert alert-success').text(resp.data.message);
 
+	        // Guardar el nombre en el modal para usarlo al cerrar
+	        $modal.data('display_name', resp.data.display_name);
+
 	        // Mostrar confirmación y cerrar modal después
 	        setTimeout(function () {
 	          $modal.modal('hide');

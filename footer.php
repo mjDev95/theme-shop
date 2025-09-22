@@ -138,7 +138,7 @@ $container = get_theme_mod( 'understrap_container_type' );
 
         <!-- Sección usuario logueado -->
         <div class="logged-section <?php echo is_user_logged_in() ? '' : 'd-none'; ?>">
-          <?php if ( is_user_logged_in() ) : 
+          <?php 
             $current_user = wp_get_current_user(); 
             $logout_url = wp_logout_url( home_url() );
           ?>
@@ -154,7 +154,6 @@ $container = get_theme_mod( 'understrap_container_type' );
                     Cerrar sesión
                 </a>
             </div>
-          <?php endif; ?>
         </div>
 
         <!-- Sección login/registro -->

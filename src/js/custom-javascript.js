@@ -239,6 +239,9 @@ jQuery(document).ready(function ($) {
         if(resp.success){
             $alert.removeClass().addClass('alert alert-success').text(resp.data.message);
 
+            // Guardar el nombre en el modal para usarlo al cerrar
+            $modal.data('display_name', resp.data.display_name);
+
             // Mostrar confirmación y cerrar modal después
             setTimeout(function(){
                 $modal.modal('hide');
@@ -252,24 +255,23 @@ jQuery(document).ready(function ($) {
 
     // Cuando el modal ya está cerrado → actualizar secciones
     $modal.on('hidden.bs.modal', function () {
-    var displayName = $modal.data('display_name');
+        var displayName = $modal.data('display_name');
+        if (displayName) {
+            // Ocultar login
+            $modal.find('.login-section').addClass('d-none');
 
-    if (displayName) {
-        // Ocultar login
-        $modal.find('.login-section').addClass('d-none');
+            // Mostrar logged
+            $modal.find('.logged-section').removeClass('d-none');
 
-        // Mostrar logged
-        $modal.find('.logged-section').removeClass('d-none');
+            // Actualizar nombre
+            $modal.find('#logged-name').text(displayName);
 
-        // Actualizar nombre
-        $modal.find('#logged-name').text(displayName);
+            // Cambiar título
+            $modal.find('#accountModalLabel').text('Mi cuenta');
 
-        // Cambiar título
-        $modal.find('#accountModalLabel').text('Mi cuenta');
-
-        // Limpio el dato para no repetir
-        $modal.removeData('display_name');
-    }
+            // Limpio el dato para no repetir
+            $modal.removeData('display_name');
+        }
     });
 
 

@@ -206,10 +206,8 @@ function modal_login_handler() {
         ]);
     } else {
         wp_send_json_success([
-            'message' => '¡Guau! Bienvenido de nuevo, ' . $user->display_name . ' 🎉',
-            'user'    => [
-                'name' => $user->display_name,
-            ]
+            'message'      => '¡Guau! Bienvenido de nuevo, ' . $user->display_name . ' 🎉',
+            'display_name' => $user->display_name,
         ]);
     }
 }
