@@ -6977,11 +6977,14 @@
 	    var $alert = $('<div class="alert mt-3"></div>');
 	    var $overlay = $modal.find('.modal-overlay-spinner');
 
+	    // Ocultar overlay por si quedó visible
+	    $overlay.addClass('d-none');
+
 	    // Limpiar alertas previas
 	    $form.find('.alert').remove();
 	    $form.append($alert);
 
-	    // Mostrar overlay spinner
+	    // Mostrar overlay spinner solo durante la petición
 	    $overlay.removeClass('d-none');
 
 	    // Petición AJAX
@@ -6991,7 +6994,7 @@
 	      username: username,
 	      password: password
 	    }, function (resp) {
-	      // Ocultar overlay spinner
+	      // Ocultar overlay spinner al recibir respuesta
 	      $overlay.addClass('d-none');
 	      if (resp.success) {
 	        $alert.removeClass().addClass('alert alert-success').text(resp.data.message);
@@ -7002,7 +7005,7 @@
 	        // Mostrar confirmación y cerrar modal después
 	        setTimeout(function () {
 	          $modal.modal('hide');
-	        }, 1500);
+	        }, 1000);
 	      } else {
 	        $alert.removeClass().addClass('alert alert-danger').text(resp.data.message);
 	      }
