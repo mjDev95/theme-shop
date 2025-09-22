@@ -15723,6 +15723,8 @@ body, p, li, span {
   align-items: center;
   display: inline-flex !important;
   border-radius: var(--bs-border-radius-xl) !important;
+  text-align: center !important;
+  justify-content: center;
 }
 
 /**
@@ -15976,10 +15978,9 @@ header .nav-link .active {
   display: none;
 }
 
-body.modal-open {
-  padding-right: 0px !important;
-}
-
+/*body.modal-open {
+    padding-right: 0px !important;
+}*/
 .has-blue-color,
 .has-blue-color:visited {
   color: #0d6efd;

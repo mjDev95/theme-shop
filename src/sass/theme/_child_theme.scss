@@ -32,6 +32,8 @@ body, p, li, span {
   align-items: center;
   display: inline-flex !important;
   border-radius: var(--bs-border-radius-xl) !important;
+  text-align: center !important;
+  justify-content: center;
 }
 /**
  * header background color
@@ -309,6 +311,6 @@ header{
 .modal-body .u-column2.col-2 h2, .modal-body .u-column1.col-1 h2 {
     display: none;
 }
-body.modal-open {
+/*body.modal-open {
     padding-right: 0px !important;
-}
+}*/
