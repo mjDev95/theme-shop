@@ -24,7 +24,7 @@ $navbar_type       = get_theme_mod( 'understrap_navbar_type', 'collapse' );
 
 <body <?php body_class(); ?> <?php understrap_body_attributes(); ?>>
 <?php do_action( 'wp_body_open' ); ?>
-<div class="site <?= is_front_page() ? 'overflow-hidden-x' : '' ?>" id="page">
+<div class="site <?php echo is_front_page() ? 'overflow-x-hidden' : '' ?>" id="page">
 
 	<!-- ******************* The Navbar Area ******************* -->
 	<header id="wrapper-navbar">
