@@ -124,42 +124,68 @@ $container = get_theme_mod( 'understrap_container_type' );
     </div>
 </footer>
 <!-- Modal de cuenta Bootstrap -->
+<?php
+// Modal de cuenta WooCommerce
+?>
 <div class="modal fade" id="accountModal" tabindex="-1" aria-labelledby="accountModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content rounded-4 shadow">
       <div class="modal-header border-0">
-        <h5 class="modal-title fw-bold" id="accountModalLabel">Accede a tu cuenta</h5>
+        <h5 class="modal-title fw-bold" id="accountModalLabel">
+          <?php echo is_user_logged_in() ? 'Mi cuenta' : 'Accede a tu cuenta'; ?>
+        </h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
       </div>
       <div class="modal-body">
-        
-        <!-- Nav tabs -->
-        <ul class="nav nav-pills nav-justified mb-3" id="pills-tab" role="tablist">
-          <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="login-tab" data-bs-toggle="pill" data-bs-target="#login" type="button" role="tab">Iniciar sesión</button>
-          </li>
-          <li class="nav-item" role="presentation">
-            <button class="nav-link" id="register-tab" data-bs-toggle="pill" data-bs-target="#register" type="button" role="tab">Registrarse</button>
-          </li>
-        </ul>
 
-        <!-- Tab panes -->
-        <div class="tab-content">
-          <!-- Login -->
-          <div class="tab-pane fade show active" id="login" role="tabpanel">
-            <?php echo do_shortcode('[woocommerce_my_account]'); ?>
+        <?php if ( is_user_logged_in() ) : ?>
+          <?php 
+            $current_user = wp_get_current_user(); 
+            $logout_url = wp_logout_url( home_url() );
+          ?>
+          <p class="mb-4">Hola <strong><?php echo esc_html( $current_user->display_name ); ?></strong>, ya estás conectado.</p>
+          <div class="d-flex justify-content-between">
+            <a href="<?php echo wc_get_page_permalink( 'myaccount' ); ?>" class="btn btn-primary">
+              Ir a Mi Cuenta
+            </a>
+            <a href="<?php echo esc_url( $logout_url ); ?>" class="btn btn-outline-danger">
+              Cerrar sesión
+            </a>
           </div>
 
-          <!-- Registro -->
-          <div class="tab-pane fade" id="register" role="tabpanel">
-            <?php echo do_shortcode('[woocommerce_my_account]'); ?>
+        <?php else : ?>
+          <!-- Nav tabs -->
+          <ul class="nav nav-pills nav-justified mb-3" id="account-tabs" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="login-tab" data-bs-toggle="pill" data-bs-target="#login" type="button" role="tab">
+                Iniciar sesión
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="register-tab" data-bs-toggle="pill" data-bs-target="#register" type="button" role="tab">
+                Registrarse
+              </button>
+            </li>
+          </ul>
+
+          <!-- Tab panes -->
+          <div class="tab-content">
+            <!-- Login -->
+            <div class="tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="login-tab">
+              <?php echo do_shortcode('[woocommerce_login_form]'); ?>
+            </div>
+            <!-- Registro -->
+            <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
+              <?php echo do_shortcode('[woocommerce_register_form]'); ?>
+            </div>
           </div>
-        </div>
+        <?php endif; ?>
 
       </div>
     </div>
   </div>
 </div>
+
 <!-- Modal de búsqueda Bootstrap -->
 <div class="modal fade" id="search-overlay" tabindex="-1" aria-labelledby="searchOverlayLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable">
@@ -188,6 +214,7 @@ $container = get_theme_mod( 'understrap_container_type' );
         </div>
     </div>
 </div>
+
 <?php // Closing div#page from header.php. ?>
 </div><!-- #page -->
 
