@@ -6964,11 +6964,6 @@
 	  var $modal = $('#accountModal');
 
 	  // Insertar overlay spinner si no existe
-	  // Controlar la clase d-none del overlay spinner
-	  var $overlay = $modal.find('.modal-overlay-spinner');
-	  if ($overlay.length) {
-	    $overlay.removeClass('d-none');
-	  }
 	  $modal.on('submit', 'form.woocommerce-form-login', function (e) {
 	    e.preventDefault();
 	    var $form = $(this);
