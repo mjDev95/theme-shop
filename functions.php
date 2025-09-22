@@ -57,7 +57,7 @@ function theme_enqueue_styles() {
         'ajaxurl' => admin_url('admin-ajax.php'),
         'nonce'   => wp_create_nonce('dingo_product_search_nonce'),
     ]);
-    wp_localize_script('dingo-login', 'dingoLogin', [
+    wp_localize_script('child-understrap-scripts', 'dingoLogin', [
         'ajaxurl' => admin_url('admin-ajax.php'),
         'nonce'   => wp_create_nonce('modal_login_nonce'),
     ]);
