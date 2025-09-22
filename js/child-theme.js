@@ -6962,20 +6962,25 @@
 
 	  // Interceptar el login de WooCommerce dentro del modal
 	  var $modal = $('#accountModal');
+
+	  // Insertar overlay spinner si no existe
+	  if (!$modal.find('.modal-overlay-spinner').length) {
+	    $modal.find('.modal-body').prepend('<div class="modal-overlay-spinner d-none" style="position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(255,255,255,0.7);z-index:10;display:flex;align-items:center;justify-content:center;"><div class="spinner-border text-primary" role="status"><span class="visually-hidden">Cargando...</span></div></div>');
+	  }
 	  $modal.on('submit', 'form.woocommerce-form-login', function (e) {
 	    e.preventDefault();
 	    var $form = $(this);
 	    var username = $form.find('input[name="username"]').val();
 	    var password = $form.find('input[name="password"]').val();
 	    var $alert = $('<div class="alert mt-3"></div>');
+	    var $overlay = $modal.find('.modal-overlay-spinner');
 
 	    // Limpiar alertas previas
 	    $form.find('.alert').remove();
 	    $form.append($alert);
 
-	    // Mostrar spinner
-	    $alert.removeClass().addClass('alert bg-light');
-	    $alert.html('<div class="spinner-border text-primary" role="status"><span class="visually-hidden">Cargando...</span></div>');
+	    // Mostrar overlay spinner
+	    $overlay.removeClass('d-none');
 
 	    // Petición AJAX
 	    $.post(dingoLogin.ajaxurl, {
@@ -6984,6 +6989,8 @@
 	      username: username,
 	      password: password
 	    }, function (resp) {
+	      // Ocultar overlay spinner
+	      $overlay.addClass('d-none');
 	      if (resp.success) {
 	        $alert.removeClass().addClass('alert alert-success').text(resp.data.message);
 
