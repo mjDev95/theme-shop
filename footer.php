@@ -172,11 +172,11 @@ $container = get_theme_mod( 'understrap_container_type' );
           <div class="tab-content">
             <!-- Login -->
             <div class="tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="login-tab">
-              <?php echo do_shortcode('[woocommerce_login_form]'); ?>
+              <?php echo do_shortcode('[woocommerce_my_account]'); ?>
             </div>
             <!-- Registro -->
             <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
-              <?php echo do_shortcode('[woocommerce_register_form]'); ?>
+              <?php echo do_shortcode('[woocommerce_my_account]'); ?>
             </div>
           </div>
         <?php endif; ?>
