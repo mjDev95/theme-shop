@@ -27,61 +27,52 @@ $allowed_html = array(
 ?>
 
 <div class="row">
-	<!-- Menú lateral -->
-	<div class="col-md-3">
-		<?php wc_get_template( 'myaccount/navigation.php' ); ?>
-	</div>
+    <!-- Menú lateral -->
+    <div class="col-md-3">
+        <?php 
+        // Llamada manual al menú lateral UNA SOLA VEZ
+        wc_get_template( 'myaccount/navigation.php' ); 
+        ?>
+    </div>
 
-	<!-- Contenido -->
-	<div class="col-md-9">
-		<div class="card shadow-sm p-4">
-			
-			<!-- Saludo + Logout en 2 columnas -->
-			<div class="row align-items-center mb-3">
-				<div class="col-md-8">
-					<p class="mb-0 lead">
-						<?php
-						printf(
-							wp_kses(
-								__( '👋 Hola %1$s', 'woocommerce' ),
-								$allowed_html
-							),
-							'<strong>' . esc_html( $current_user->display_name ) . '</strong>'
-						);
-						?>
-					</p>
-				</div>
-				<div class="col-md-4 text-md-end mt-3 mt-md-0">
-					<a href="<?php echo esc_url( wc_logout_url() ); ?>" class="btn btn-danger">
-						<?php esc_html_e( 'Cerrar sesión', 'woocommerce' ); ?>
-					</a>
-				</div>
-			</div>
+    <!-- Contenido -->
+    <div class="col-md-9">
+        <div class="card shadow-sm p-4">
+            <div class="row align-items-center mb-3">
+                <div class="col-md-8">
+                    <p class="mb-0 lead">
+                        👋 Hola <strong><?php echo esc_html( wp_get_current_user()->display_name ); ?></strong>
+                    </p>
+                </div>
+                <div class="col-md-4 text-md-end mt-3 mt-md-0">
+                    <a href="<?php echo esc_url( wc_logout_url() ); ?>" class="btn btn-danger">
+                        Cerrar sesión
+                    </a>
+                </div>
+            </div>
 
-			<!-- Texto de instrucciones -->
-			<p class="text-muted">
-				<?php
-				$dashboard_desc = __( 'Desde tu panel puedes ver tus <a href="%1$s">pedidos recientes</a>, administrar tus <a href="%2$s">direcciones de facturación</a>, y <a href="%3$s">editar tu contraseña y detalles de la cuenta</a>.', 'woocommerce' );
+            <!-- Contenido original del dashboard (párrafo de instrucciones) -->
+            <p class="text-muted">
+                <?php
+                $allowed_html = array( 'a' => array( 'href' => array() ) );
+                $dashboard_desc = __( 'Desde tu panel puedes ver tus <a href="%1$s">pedidos recientes</a>, administrar tus <a href="%2$s">direcciones de facturación</a>, y <a href="%3$s">editar tu contraseña y detalles de la cuenta</a>.', 'woocommerce' );
+                if ( wc_shipping_enabled() ) {
+                    $dashboard_desc = __( 'Desde tu panel puedes ver tus <a href="%1$s">pedidos recientes</a>, administrar tus <a href="%2$s">direcciones de envío y facturación</a>, y <a href="%3$s">editar tu contraseña y detalles de la cuenta</a>.', 'woocommerce' );
+                }
+                printf(
+                    wp_kses( $dashboard_desc, $allowed_html ),
+                    esc_url( wc_get_endpoint_url( 'orders' ) ),
+                    esc_url( wc_get_endpoint_url( 'edit-address' ) ),
+                    esc_url( wc_get_endpoint_url( 'edit-account' ) )
+                );
+                ?>
+            </p>
 
-				if ( wc_shipping_enabled() ) {
-					$dashboard_desc = __( 'Desde tu panel puedes ver tus <a href="%1$s">pedidos recientes</a>, administrar tus <a href="%2$s">direcciones de envío y facturación</a>, y <a href="%3$s">editar tu contraseña y detalles de la cuenta</a>.', 'woocommerce' );
-				}
-
-				printf(
-					wp_kses( $dashboard_desc, $allowed_html ),
-					esc_url( wc_get_endpoint_url( 'orders' ) ),
-					esc_url( wc_get_endpoint_url( 'edit-address' ) ),
-					esc_url( wc_get_endpoint_url( 'edit-account' ) )
-				);
-				?>
-			</p>
-
-			<!-- Otros hooks de WooCommerce -->
-			<?php
-				do_action( 'woocommerce_account_dashboard' );
-				do_action( 'woocommerce_before_my_account' );
-				do_action( 'woocommerce_after_my_account' );
-			?>
-		</div>
-	</div>
+            <!-- Mantener otros hooks sin que impriman menú -->
+            <?php
+            do_action( 'woocommerce_before_my_account' );
+            do_action( 'woocommerce_after_my_account' );
+            ?>
+        </div>
+    </div>
 </div>
