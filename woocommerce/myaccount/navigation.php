@@ -1,38 +1,35 @@
 
+
 <?php
 if ( ! defined( 'ABSPATH' ) ) {
 		exit;
 }
-
 do_action( 'woocommerce_before_account_navigation' );
 ?>
 
-<nav class="woocommerce-MyAccount-navigation mb-4" aria-label="<?php esc_html_e( 'Account pages', 'woocommerce' ); ?>">
-	<ul class="nav flex-column nav-pills rounded-4 shadow-sm bg-light py-3 px-2">
-		<?php
-		$icons = [
-			'dashboard' => 'fa-home',
-			'orders' => 'fa-shopping-bag',
-			'downloads' => 'fa-cloud-download-alt',
-			'edit-address' => 'fa-map-marker-alt',
-			'payment-methods' => 'fa-credit-card',
-			'edit-account' => 'fa-user-edit',
-			'customer-logout' => 'fa-sign-out-alt',
-		];
-		foreach ( wc_get_account_menu_items() as $endpoint => $label ) :
-			$active = wc_is_current_account_menu_item( $endpoint ) ? 'active' : '';
-			$icon = isset($icons[$endpoint]) ? $icons[$endpoint] : 'fa-circle';
+<nav class="woocommerce-MyAccount-navigation mb-4" aria-label="Página de Mi Cuenta">
+	<ul class="nav flex-column nav-pills rounded-4 shadow-none bg-light p-3">
+		<?php foreach ( wc_get_account_menu_items() as $endpoint => $label ) :
+			$active = wc_is_current_account_menu_item( $endpoint );
+			$classes = 'nav-link d-flex align-items-center rounded-3 fw-bold';
+			if ( $active ) {
+				$classes .= ' active p-3';
+			}
+			else {
+				$classes .= ' ';
+			}
 		?>
 			<li class="nav-item mb-2">
 				<a href="<?php echo esc_url( wc_get_account_endpoint_url( $endpoint ) ); ?>"
-					 class="nav-link d-flex align-items-center rounded-3 fw-bold <?php echo $active; ?>"
+					 class="<?php echo $classes; ?>"
 					 <?php echo $active ? 'aria-current="page"' : ''; ?>
 					 style="font-size:1.1rem;">
-					<span class="me-2"><i class="fa <?php echo $icon; ?> text-info"></i></span>
 					<span><?php echo esc_html( $label ); ?></span>
-					<?php if ($active): ?>
-						<span class="ms-auto badge bg-primary shadow-sm">🐾</span>
-					<?php endif; ?>
+								<?php if ($active): ?>
+									<span class="ms-auto badge bg-transparent rounded-4">
+										<i class="bi bi-arrow-right-circle-fill fs-4 text-primary"></i>
+									</span>
+								<?php endif; ?>
 				</a>
 			</li>
 		<?php endforeach; ?>
