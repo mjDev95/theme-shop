@@ -3,13 +3,12 @@
 if ( ! defined( 'ABSPATH' ) ) {
 		exit;
 }
-$allowed_html = array('a' => array('href' => array()));
 ?>
 
 <div class="container my-4">
 	<div class="row justify-content-center">
-		<div class="col-lg-8">
-			<div class="card shadow-lg border-0 rounded-4">
+		<div class="col">
+			<div class="card border-0 rounded-4">
 				<div class="card-body p-4">
 					<div class="d-flex align-items-center mb-3">
 						<div class="flex-shrink-0 me-3">

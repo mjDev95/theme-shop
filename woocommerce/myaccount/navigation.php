@@ -1,33 +1,38 @@
-<?php
-/**
- * My Account navigation
- *
- * This template can be overridden by copying it to yourtheme/woocommerce/myaccount/navigation.php.
- *
- * HOWEVER, on occasion WooCommerce will need to update template files and you
- * (the theme developer) will need to copy the new files to your theme to
- * maintain compatibility. We try to do this as little as possible, but it does
- * happen. When this occurs the version of the template file will be bumped and
- * the readme will list any important changes.
- *
- * @see     https://woocommerce.com/document/template-structure/
- * @package WooCommerce\Templates
- * @version 9.3.0
- */
 
+<?php
 if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+		exit;
 }
 
 do_action( 'woocommerce_before_account_navigation' );
 ?>
 
-<nav class="woocommerce-MyAccount-navigation" aria-label="<?php esc_html_e( 'Account pages', 'woocommerce' ); ?>">
-	<ul>
-		<?php foreach ( wc_get_account_menu_items() as $endpoint => $label ) : ?>
-			<li class="<?php echo wc_get_account_menu_item_classes( $endpoint ); ?>">
-				<a href="<?php echo esc_url( wc_get_account_endpoint_url( $endpoint ) ); ?>" <?php echo wc_is_current_account_menu_item( $endpoint ) ? 'aria-current="page"' : ''; ?>>
-					<?php echo esc_html( $label ); ?>
+<nav class="woocommerce-MyAccount-navigation mb-4" aria-label="<?php esc_html_e( 'Account pages', 'woocommerce' ); ?>">
+	<ul class="nav flex-column nav-pills rounded-4 shadow-sm bg-light py-3 px-2">
+		<?php
+		$icons = [
+			'dashboard' => 'fa-home',
+			'orders' => 'fa-shopping-bag',
+			'downloads' => 'fa-cloud-download-alt',
+			'edit-address' => 'fa-map-marker-alt',
+			'payment-methods' => 'fa-credit-card',
+			'edit-account' => 'fa-user-edit',
+			'customer-logout' => 'fa-sign-out-alt',
+		];
+		foreach ( wc_get_account_menu_items() as $endpoint => $label ) :
+			$active = wc_is_current_account_menu_item( $endpoint ) ? 'active' : '';
+			$icon = isset($icons[$endpoint]) ? $icons[$endpoint] : 'fa-circle';
+		?>
+			<li class="nav-item mb-2">
+				<a href="<?php echo esc_url( wc_get_account_endpoint_url( $endpoint ) ); ?>"
+					 class="nav-link d-flex align-items-center rounded-3 fw-bold <?php echo $active; ?>"
+					 <?php echo $active ? 'aria-current="page"' : ''; ?>
+					 style="font-size:1.1rem;">
+					<span class="me-2"><i class="fa <?php echo $icon; ?> text-info"></i></span>
+					<span><?php echo esc_html( $label ); ?></span>
+					<?php if ($active): ?>
+						<span class="ms-auto badge bg-primary shadow-sm">🐾</span>
+					<?php endif; ?>
 				</a>
 			</li>
 		<?php endforeach; ?>
