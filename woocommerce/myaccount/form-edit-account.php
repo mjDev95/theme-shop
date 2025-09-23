@@ -29,7 +29,7 @@ do_action( 'woocommerce_before_edit_account_form' );
 <form class="woocommerce-EditAccountForm edit-account" action="" method="post" <?php do_action( 'woocommerce_edit_account_form_tag' ); ?> >
 	<legend class="form-label mt-4 mb-3 text-primary fs-5">
 		<i class="bi bi-person-lines-fill me-1"></i>
-		<?php esc_html_e( 'Edit your name and email', 'woocommerce' ); ?>
+		<?php esc_html_e( 'Edita tu nombre y correo electrónico', 'woocommerce' ); ?>
 	</legend>
 
 	<?php do_action( 'woocommerce_edit_account_form_start' ); ?>

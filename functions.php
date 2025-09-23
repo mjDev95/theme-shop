@@ -77,6 +77,27 @@ function add_child_theme_textdomain() {
 add_action( 'after_setup_theme', 'add_child_theme_textdomain' );
 
 
+// Aplica clases Bootstrap a los campos de dirección de WooCommerce
+add_filter( 'woocommerce_form_field_args', function( $args, $key, $value ) {
+    // Aplica solo a los campos de tipo input, select y textarea
+    if ( in_array( $args['type'], [ 'text', 'email', 'tel', 'password', 'number', 'textarea' ] ) ) {
+        $args['input_class'][] = 'form-control';
+        $args['input_class'][] = 'rounded-4';
+        $args['input_class'][] = 'bg-light';
+        $args['input_class'][] = 'border-0';
+        $args['input_class'][] = 'mb-2';
+    }
+    if ( $args['type'] === 'select' ) {
+        $args['input_class'][] = 'form-select';
+        $args['input_class'][] = 'rounded-4';
+        $args['input_class'][] = 'bg-light';
+        $args['input_class'][] = 'border-0';
+        $args['input_class'][] = 'mb-2';
+    }
+    // Aplica clase Bootstrap a los labels
+    $args['label_class'][] = 'form-label';
+    return $args;
+}, 10, 3 );
 
 /**
  * Overrides the theme_mod to default to Bootstrap 5
