@@ -314,3 +314,16 @@ header{
 /*body.modal-open {
     padding-right: 0px !important;
 }*/
+
+
+/**
+*
+*WooCommerce
+*
+**/
+
+/*Mi cuenta*/
+.woocommerce-info {
+    border-radius: var(--bs-border-radius-xl);
+    padding: 1em 2em 1em 3.5em;
+}
