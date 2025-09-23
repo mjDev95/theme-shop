@@ -53,7 +53,7 @@ $same_address = $shipping_address === $billing_address && !empty($shipping_addre
 				</div>
 			</div>
 			<div class="tab-pane fade" id="billing" role="tabpanel" aria-labelledby="billing-tab">
-				<div class="card mb-4 shadow-sm border-0 rounded-4">
+				<div class="card mb-4 shadow-none border-0 rounded-4">
 					<div class="card-body">
 						<h5 class="card-title mb-3"><i class="bi bi-receipt me-2"></i> Dirección de facturación</h5>
 						<address>
