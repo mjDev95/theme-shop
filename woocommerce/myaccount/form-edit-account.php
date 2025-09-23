@@ -27,6 +27,10 @@ do_action( 'woocommerce_before_edit_account_form' );
 
 
 <form class="woocommerce-EditAccountForm edit-account" action="" method="post" <?php do_action( 'woocommerce_edit_account_form_tag' ); ?> >
+	<legend class="form-label mt-4 mb-3 text-primary fs-5">
+		<i class="bi bi-person-lines-fill me-1"></i>
+		<?php esc_html_e( 'Edit your name and email', 'woocommerce' ); ?>
+	</legend>
 
 	<?php do_action( 'woocommerce_edit_account_form_start' ); ?>
 
@@ -73,7 +77,7 @@ do_action( 'woocommerce_before_edit_account_form' );
 	?>
 
 	<fieldset>
-		<legend class="form-label mb-2"><i class="bi bi-key me-1"></i> <?php esc_html_e( 'Password change', 'woocommerce' ); ?></legend>
+		<legend class="form-label mt-5 mb-2"><i class="bi bi-key me-1"></i> <?php esc_html_e( 'Password change', 'woocommerce' ); ?></legend>
 
 		<p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide mb-3">
 			<label for="password_current" class="form-label">
@@ -110,7 +114,7 @@ do_action( 'woocommerce_before_edit_account_form' );
 
 	<p>
 		<?php wp_nonce_field( 'save_account_details', 'save-account-details-nonce' ); ?>
-		<button type="submit" class="woocommerce-Button button<?php echo esc_attr( wc_wp_theme_get_element_class_name( 'button' ) ? ' ' . wc_wp_theme_get_element_class_name( 'button' ) : '' ); ?> btn btn-primary px-4 py-2" name="save_account_details" value="<?php esc_attr_e( 'Save changes', 'woocommerce' ); ?>">
+	<button type="submit" class="woocommerce-Button button<?php echo esc_attr( wc_wp_theme_get_element_class_name( 'button' ) ? ' ' . wc_wp_theme_get_element_class_name( 'button' ) : '' ); ?> btn bg-info text-white px-4 py-2" name="save_account_details" value="<?php esc_attr_e( 'Save changes', 'woocommerce' ); ?>">
 			<i class="bi bi-save me-1"></i>
 			<?php esc_html_e( 'Save changes', 'woocommerce' ); ?>
 		</button>
