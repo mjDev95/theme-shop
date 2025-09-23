@@ -40,7 +40,7 @@ $same_address = $shipping_address === $billing_address && !empty($shipping_addre
 		</ul>
 		<div class="tab-content" id="addressTabsContent">
 			<div class="tab-pane fade show active" id="shipping" role="tabpanel" aria-labelledby="shipping-tab">
-				<div class="card mb-4 shadow-sm border-0 rounded-4">
+				<div class="card mb-4 shadow-none border-0 rounded-4">
 					<div class="card-body">
 						<h5 class="card-title mb-3"><i class="bi bi-truck me-2"></i> Dirección de entrega</h5>
 						<address>
@@ -67,7 +67,7 @@ $same_address = $shipping_address === $billing_address && !empty($shipping_addre
 			</div>
 		</div>
 	<?php else : ?>
-		<div class="card mb-4 shadow-sm border-0 rounded-4">
+		<div class="card mb-4 shadow-none border-0 rounded-4">
 			<div class="card-body">
 				<h5 class="card-title mb-3"><i class="bi bi-receipt me-2"></i> Dirección de facturación</h5>
 				<address>
