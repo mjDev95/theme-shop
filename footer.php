@@ -149,7 +149,7 @@ $container = get_theme_mod( 'understrap_container_type' );
                 👋 ¡Hola <strong id="logged-name"><?php echo esc_html( $current_user->display_name ); ?></strong>!  
                 Ya estás dentro de tu cuenta Dingo 🐾
             </p>
-            <div class="d-flex justify-content-between">
+            <div class="modal-footer p-0 border-0 justify-content-center">
                 <a href="<?php echo wc_get_page_permalink( 'myaccount' ); ?>" class="btn btn-primary">
                     Ir a Mi Cuenta
                 </a>
