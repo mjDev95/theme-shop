@@ -288,7 +288,10 @@ header{
         justify-content: center;
         font-size: 1.25rem;
         text-align: center;
-        color: var(--bs-white);
+        i{
+          color: var(--bs-white) !important;
+        }
+        
     }
   }
   a {

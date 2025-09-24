@@ -19,10 +19,10 @@ defined( 'ABSPATH' ) || exit;
 
 do_action( 'woocommerce_before_cart' ); ?>
 
-<form class="woocommerce-cart-form rounded-4 p-3 bg-white shadow-sm" action="<?php echo esc_url( wc_get_cart_url() ); ?>" method="post">
+<form class="woocommerce-cart-form" action="<?php echo esc_url( wc_get_cart_url() ); ?>" method="post">
 	<?php do_action( 'woocommerce_before_cart_table' ); ?>
 
-	<table class="shop_table shop_table_responsive cart woocommerce-cart-form__contents rounded-4 overflow-hidden" cellspacing="0">
+	<table class="shop_table shop_table_responsive cart woocommerce-cart-form__contents" cellspacing="0">
 		<thead>
 			<tr>
 				<th class="product-remove"><span class="screen-reader-text"><?php esc_html_e( 'Remove item', 'woocommerce' ); ?></span></th>
@@ -53,7 +53,7 @@ do_action( 'woocommerce_before_cart' ); ?>
 				if ( $_product && $_product->exists() && $cart_item['quantity'] > 0 && apply_filters( 'woocommerce_cart_item_visible', true, $cart_item, $cart_item_key ) ) {
 					$product_permalink = apply_filters( 'woocommerce_cart_item_permalink', $_product->is_visible() ? $_product->get_permalink( $cart_item ) : '', $cart_item, $cart_item_key );
 					?>
-					<tr class="woocommerce-cart-form__cart-item <?php echo esc_attr( apply_filters( 'woocommerce_cart_item_class', 'cart_item', $cart_item, $cart_item_key ) ); ?> rounded-4">
+					<tr class="woocommerce-cart-form__cart-item <?php echo esc_attr( apply_filters( 'woocommerce_cart_item_class', 'cart_item', $cart_item, $cart_item_key ) ); ?>">
 
 						<td class="product-remove">
 							<?php
@@ -124,9 +124,7 @@ do_action( 'woocommerce_before_cart' ); ?>
 
 						<td class="product-price" data-title="<?php esc_attr_e( 'Price', 'woocommerce' ); ?>">
 							<?php
-								$price_html = apply_filters( 'woocommerce_cart_item_price', WC()->cart->get_product_price( $_product ), $cart_item, $cart_item_key );
-								$currency = get_woocommerce_currency_symbol();
-								echo $price_html . ' <span class="text-muted">' . $currency . '</span>';
+								echo apply_filters( 'woocommerce_cart_item_price', WC()->cart->get_product_price( $_product ), $cart_item, $cart_item_key ); // PHPCS: XSS ok.
 							?>
 						</td>
 
@@ -158,9 +156,7 @@ do_action( 'woocommerce_before_cart' ); ?>
 
 						<td class="product-subtotal" data-title="<?php esc_attr_e( 'Subtotal', 'woocommerce' ); ?>">
 							<?php
-								$subtotal_html = apply_filters( 'woocommerce_cart_item_subtotal', WC()->cart->get_product_subtotal( $_product, $cart_item['quantity'] ), $cart_item, $cart_item_key );
-								$currency = get_woocommerce_currency_symbol();
-								echo $subtotal_html . ' <span class="text-muted">' . $currency . '</span>';
+								echo apply_filters( 'woocommerce_cart_item_subtotal', WC()->cart->get_product_subtotal( $_product, $cart_item['quantity'] ), $cart_item, $cart_item_key ); // PHPCS: XSS ok.
 							?>
 						</td>
 					</tr>
@@ -181,10 +177,7 @@ do_action( 'woocommerce_before_cart' ); ?>
 						</div>
 					<?php } ?>
 
-					<button type="submit" class="button<?php echo esc_attr( wc_wp_theme_get_element_class_name( 'button' ) ? ' ' . wc_wp_theme_get_element_class_name( 'button' ) : '' ); ?> btn bg-info text-white rounded-4 px-3 py-2" name="update_cart" value="<?php esc_attr_e( 'Update cart', 'woocommerce' ); ?>">
-					  <i class="bi bi-arrow-repeat me-1"></i>
-					  <?php esc_html_e( 'Update cart', 'woocommerce' ); ?>
-					</button>
+					<button type="submit" class="button<?php echo esc_attr( wc_wp_theme_get_element_class_name( 'button' ) ? ' ' . wc_wp_theme_get_element_class_name( 'button' ) : '' ); ?>" name="update_cart" value="<?php esc_attr_e( 'Update cart', 'woocommerce' ); ?>"><?php esc_html_e( 'Update cart', 'woocommerce' ); ?></button>
 
 					<?php do_action( 'woocommerce_cart_actions' ); ?>
 
@@ -200,7 +193,7 @@ do_action( 'woocommerce_before_cart' ); ?>
 
 <?php do_action( 'woocommerce_before_cart_collaterals' ); ?>
 
-<div class="cart-collaterals rounded-4 bg-white shadow-sm p-4 mt-4">
+<div class="cart-collaterals">
 	<?php
 		/**
 		 * Cart collaterals hook.

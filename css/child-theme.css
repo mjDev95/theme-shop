@@ -15956,7 +15956,9 @@ header .nav-link .active {
   justify-content: center;
   font-size: 1.25rem;
   text-align: center;
-  color: var(--bs-white);
+}
+.footer .social-links .btn-icon i {
+  color: var(--bs-white) !important;
 }
 .footer a {
   color: var(--bs-info) !important;
