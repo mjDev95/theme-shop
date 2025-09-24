@@ -22,8 +22,8 @@ do_action( 'woocommerce_before_cart' ); ?>
 <form class="woocommerce-cart-form" action="<?php echo esc_url( wc_get_cart_url() ); ?>" method="post">
 	<?php do_action( 'woocommerce_before_cart_table' ); ?>
 
-	<table class="shop_table shop_table_responsive border-0 cart woocommerce-cart-form__contents table table-hover table-borderless rounded-4 overflow-hidden" cellspacing="0" style="border-radius:1.5rem;">
-		<thead class="bg-info h5">
+	<table class="shop_table shop_table_responsive border-0 cart woocommerce-cart-form__contents table align-middle rounded-4 overflow-hidden" cellspacing="0" style="border-radius:1.5rem;">
+		<thead class="bg-info h5 text-info-emphasis">
 		   <tr>
 			<th class="product-thumbnail"></th>
 			<th scope="col" class="product-name fw-semibold text-info-emphasis"><?php esc_html_e( 'Product', 'woocommerce' ); ?></th>
@@ -53,9 +53,9 @@ do_action( 'woocommerce_before_cart' ); ?>
 
 				   if ( $_product && $_product->exists() && $cart_item['quantity'] > 0 && apply_filters( 'woocommerce_cart_item_visible', true, $cart_item, $cart_item_key ) ) {
 					   $product_permalink = apply_filters( 'woocommerce_cart_item_permalink', $_product->is_visible() ? $_product->get_permalink( $cart_item ) : '', $cart_item, $cart_item_key );
-					   $row_class = ($row_index % 2 === 0) ? 'bg-info bg-opacity-10' : 'bg-white';
+					   $row_class = '';
 					   ?>
-					   <tr class="woocommerce-cart-form__cart-item <?php echo esc_attr( apply_filters( 'woocommerce_cart_item_class', 'cart_item', $cart_item, $cart_item_key ) ); ?> <?php echo $row_class; ?> align-middle">
+					   <tr class="woocommerce-cart-form__cart-item <?php echo esc_attr( apply_filters( 'woocommerce_cart_item_class', 'cart_item', $cart_item, $cart_item_key ) ); ?> border-bottom border-light-subtle align-middle" style="background: #fff;">
 						<td class="product-thumbnail">
 						<?php
 						/**
@@ -81,30 +81,61 @@ do_action( 'woocommerce_before_cart' ); ?>
 						?>
 
 
-						<td scope="row" role="rowheader" class="product-name" data-title="<?php esc_attr_e( 'Product', 'woocommerce' ); ?>">
-						<?php
-						if ( ! $product_permalink ) {
-							echo wp_kses_post( $product_name . '&nbsp;' );
-						} else {
-							/**
-							 * This filter is documented above.
-							 *
-							 * @since 2.1.0
-							 */
-							echo wp_kses_post( apply_filters( 'woocommerce_cart_item_name', sprintf( '<a href="%s">%s</a>', esc_url( $product_permalink ), $_product->get_name() ), $cart_item, $cart_item_key ) );
-						}
-
-						do_action( 'woocommerce_after_cart_item_name', $cart_item, $cart_item_key );
-
-						// Meta data.
-						echo wc_get_formatted_cart_item_data( $cart_item ); // PHPCS: XSS ok.
-
-						// Backorder notification.
-						if ( $_product->backorders_require_notification() && $_product->is_on_backorder( $cart_item['quantity'] ) ) {
-							echo wp_kses_post( apply_filters( 'woocommerce_cart_item_backorder_notification', '<p class="backorder_notification">' . esc_html__( 'Available on backorder', 'woocommerce' ) . '</p>', $product_id ) );
-						}
-						?>
-						</td>
+						   <td scope="row" role="rowheader" class="product-name" data-title="<?php esc_attr_e( 'Product', 'woocommerce' ); ?>">
+						   <?php
+						   // Construir frase personalizada con variaciones
+						   $color = '';
+						   $talla = '';
+						   $genero = '';
+						   if ( isset( $cart_item['variation'] ) && is_array( $cart_item['variation'] ) ) {
+							   foreach ( $cart_item['variation'] as $var_key => $var_value ) {
+								   $label = strtolower( wc_attribute_label( str_replace( 'attribute_', '', $var_key ), $_product ) );
+								   if ( strpos( $label, 'color' ) !== false ) {
+									   $color = wc_clean( $var_value );
+								   } elseif ( strpos( $label, 'talla' ) !== false || strpos( $label, 'size' ) !== false ) {
+									   $talla = wc_clean( $var_value );
+								   } elseif ( strpos( $label, 'género' ) !== false || strpos( $label, 'genero' ) !== false || strpos( $label, 'gender' ) !== false ) {
+									   $genero = strtolower( wc_clean( $var_value ) );
+								   }
+							   }
+						   }
+						   $frase = '';
+						   if ( $color ) {
+							   $frase .= ' de color ' . $color;
+						   }
+						   if ( $talla ) {
+							   $frase .= ' en talla ' . $talla;
+						   }
+						   if ( $genero ) {
+							   if ( $genero === 'unisex' ) {
+								   $frase .= ' unisex';
+							   } elseif ( $genero === 'niña' || $genero === 'niña' || $genero === 'girl' ) {
+								   $frase .= ' para niña';
+							   } elseif ( $genero === 'niño' || $genero === 'niño' || $genero === 'boy' ) {
+								   $frase .= ' para niño';
+							   } else {
+								   $frase .= ' para ' . $genero;
+							   }
+						   }
+						   if ( ! $product_permalink ) {
+							   echo wp_kses_post( $product_name . $frase . '&nbsp;' );
+						   } else {
+							   echo wp_kses_post( apply_filters( 'woocommerce_cart_item_name', sprintf( '<a href="%s">%s%s</a>', esc_url( $product_permalink ), $_product->get_name(), $frase ), $cart_item, $cart_item_key ) );
+						   }
+						   // Descripción corta debajo del nombre
+						   $short_description = $_product->get_short_description();
+						   if ( $short_description ) {
+							   echo '<div class="text-muted small lh-sm">' . wp_strip_all_tags( $short_description ) . '</div>';
+						   }
+						   do_action( 'woocommerce_after_cart_item_name', $cart_item, $cart_item_key );
+						   // Meta data.
+						   echo wc_get_formatted_cart_item_data( $cart_item ); // PHPCS: XSS ok.
+						   // Backorder notification.
+						   if ( $_product->backorders_require_notification() && $_product->is_on_backorder( $cart_item['quantity'] ) ) {
+							   echo wp_kses_post( apply_filters( 'woocommerce_cart_item_backorder_notification', '<p class="backorder_notification">' . esc_html__( 'Available on backorder', 'woocommerce' ) . '</p>', $product_id ) );
+						   }
+						   ?>
+						   </td>
 
 						<td class="product-price" data-title="<?php esc_attr_e( 'Price', 'woocommerce' ); ?>">
 							<?php
