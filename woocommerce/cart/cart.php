@@ -22,22 +22,23 @@ do_action( 'woocommerce_before_cart' ); ?>
 <form class="woocommerce-cart-form" action="<?php echo esc_url( wc_get_cart_url() ); ?>" method="post">
 	<?php do_action( 'woocommerce_before_cart_table' ); ?>
 
-	<table class="shop_table shop_table_responsive cart woocommerce-cart-form__contents" cellspacing="0">
-		<thead>
-			<tr>
-				<th class="product-remove"><span class="screen-reader-text"><?php esc_html_e( 'Remove item', 'woocommerce' ); ?></span></th>
-				<th class="product-thumbnail"><span class="screen-reader-text"><?php esc_html_e( 'Thumbnail image', 'woocommerce' ); ?></span></th>
-				<th scope="col" class="product-name"><?php esc_html_e( 'Product', 'woocommerce' ); ?></th>
-				<th scope="col" class="product-price"><?php esc_html_e( 'Price', 'woocommerce' ); ?></th>
-				<th scope="col" class="product-quantity"><?php esc_html_e( 'Quantity', 'woocommerce' ); ?></th>
-				<th scope="col" class="product-subtotal"><?php esc_html_e( 'Subtotal', 'woocommerce' ); ?></th>
-			</tr>
+	<table class="shop_table shop_table_responsive cart woocommerce-cart-form__contents table table-hover table-borderless rounded-4 overflow-hidden" cellspacing="0" style="border-radius:1.5rem;">
+		<thead class="bg-info bg-opacity-10">
+		   <tr>
+			   <th class="product-remove"></th>
+			   <th class="product-thumbnail"></th>
+			   <th scope="col" class="product-name fw-semibold text-info-emphasis"><?php esc_html_e( 'Product', 'woocommerce' ); ?></th>
+			   <th scope="col" class="product-price fw-semibold text-info-emphasis"><?php esc_html_e( 'Price', 'woocommerce' ); ?></th>
+			   <th scope="col" class="product-quantity fw-semibold text-info-emphasis"><?php esc_html_e( 'Quantity', 'woocommerce' ); ?></th>
+			   <th scope="col" class="product-subtotal fw-semibold text-info-emphasis"><?php esc_html_e( 'Subtotal', 'woocommerce' ); ?></th>
+		   </tr>
 		</thead>
 		<tbody>
 			<?php do_action( 'woocommerce_before_cart_contents' ); ?>
 
 			<?php
-			foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
+			   $row_index = 0;
+			   foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
 				$_product   = apply_filters( 'woocommerce_cart_item_product', $cart_item['data'], $cart_item, $cart_item_key );
 				$product_id = apply_filters( 'woocommerce_cart_item_product_id', $cart_item['product_id'], $cart_item, $cart_item_key );
 				/**
@@ -50,13 +51,15 @@ do_action( 'woocommerce_before_cart' ); ?>
 				 */
 				$product_name = apply_filters( 'woocommerce_cart_item_name', $_product->get_name(), $cart_item, $cart_item_key );
 
-				if ( $_product && $_product->exists() && $cart_item['quantity'] > 0 && apply_filters( 'woocommerce_cart_item_visible', true, $cart_item, $cart_item_key ) ) {
-					$product_permalink = apply_filters( 'woocommerce_cart_item_permalink', $_product->is_visible() ? $_product->get_permalink( $cart_item ) : '', $cart_item, $cart_item_key );
-					?>
-					<tr class="woocommerce-cart-form__cart-item <?php echo esc_attr( apply_filters( 'woocommerce_cart_item_class', 'cart_item', $cart_item, $cart_item_key ) ); ?>">
+				   if ( $_product && $_product->exists() && $cart_item['quantity'] > 0 && apply_filters( 'woocommerce_cart_item_visible', true, $cart_item, $cart_item_key ) ) {
+					   $product_permalink = apply_filters( 'woocommerce_cart_item_permalink', $_product->is_visible() ? $_product->get_permalink( $cart_item ) : '', $cart_item, $cart_item_key );
+					   $row_class = ($row_index % 2 === 0) ? 'bg-info bg-opacity-10' : 'bg-white';
+					   ?>
+					   <tr class="woocommerce-cart-form__cart-item <?php echo esc_attr( apply_filters( 'woocommerce_cart_item_class', 'cart_item', $cart_item, $cart_item_key ) ); ?> <?php echo $row_class; ?> align-middle">
 
 						<td class="product-remove">
-							<?php
+							   <?php
+							   $row_index++;
 								echo apply_filters( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 									'woocommerce_cart_item_remove_link',
 									sprintf(
@@ -167,8 +170,8 @@ do_action( 'woocommerce_before_cart' ); ?>
 
 			<?php do_action( 'woocommerce_cart_contents' ); ?>
 
-			<tr>
-				<td colspan="6" class="actions">
+			   <tr class="bg-white">
+				   <td colspan="6" class="actions rounded-bottom-4 pb-4">
 
 					<?php if ( wc_coupons_enabled() ) { ?>
 						<div class="coupon">
