@@ -81,7 +81,7 @@ do_action( 'woocommerce_before_cart' ); ?>
 						?>
 
 
-						   <td scope="row" role="rowheader" class="product-name" data-title="<?php esc_attr_e( 'Product', 'woocommerce' ); ?>">
+						   <td scope="row" role="rowheader" class="product-name h6 text-decoration-none" data-title="<?php esc_attr_e( 'Product', 'woocommerce' ); ?>">
 						   <?php
 						   // Construir frase personalizada con variaciones
 						   $color = '';
@@ -93,7 +93,7 @@ do_action( 'woocommerce_before_cart' ); ?>
 								   if ( strpos( $label, 'color' ) !== false ) {
 									   $color = wc_clean( $var_value );
 								   } elseif ( strpos( $label, 'talla' ) !== false || strpos( $label, 'size' ) !== false ) {
-									   $talla = wc_clean( $var_value );
+									   $talla = wc_clean( preg_replace('/^talla[-\s]*/i', '', $var_value) ); // Elimina prefijo "talla-" o "talla "
 								   } elseif ( strpos( $label, 'género' ) !== false || strpos( $label, 'genero' ) !== false || strpos( $label, 'gender' ) !== false ) {
 									   $genero = strtolower( wc_clean( $var_value ) );
 								   }
@@ -109,9 +109,9 @@ do_action( 'woocommerce_before_cart' ); ?>
 						   if ( $genero ) {
 							   if ( $genero === 'unisex' ) {
 								   $frase .= ' unisex';
-							   } elseif ( $genero === 'niña' || $genero === 'niña' || $genero === 'girl' ) {
+							   } elseif ( $genero === 'niña' || $genero === 'girl' ) {
 								   $frase .= ' para niña';
-							   } elseif ( $genero === 'niño' || $genero === 'niño' || $genero === 'boy' ) {
+							   } elseif ( $genero === 'niño' || $genero === 'boy' ) {
 								   $frase .= ' para niño';
 							   } else {
 								   $frase .= ' para ' . $genero;
@@ -128,8 +128,12 @@ do_action( 'woocommerce_before_cart' ); ?>
 							   echo '<div class="text-muted small lh-sm">' . wp_strip_all_tags( $short_description ) . '</div>';
 						   }
 						   do_action( 'woocommerce_after_cart_item_name', $cart_item, $cart_item_key );
-						   // Meta data.
-						   echo wc_get_formatted_cart_item_data( $cart_item ); // PHPCS: XSS ok.
+						   // Meta data: ocultar variaciones visualmente
+						   $meta = wc_get_formatted_cart_item_data( $cart_item );
+						   if ( $meta ) {
+							   // Oculta el <dl> de variaciones con CSS inline
+							   echo '<span style="display:none">' . $meta . '</span>';
+						   }
 						   // Backorder notification.
 						   if ( $_product->backorders_require_notification() && $_product->is_on_backorder( $cart_item['quantity'] ) ) {
 							   echo wp_kses_post( apply_filters( 'woocommerce_cart_item_backorder_notification', '<p class="backorder_notification">' . esc_html__( 'Available on backorder', 'woocommerce' ) . '</p>', $product_id ) );
