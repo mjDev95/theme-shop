@@ -135,7 +135,7 @@ do_action( 'woocommerce_before_cart' ); ?>
 															<div class="quantity d-flex align-items-center gap-1">
 																<button type="button" class="btn btn-outline-info btn-sm plus" aria-label="Aumentar cantidad">+</button>
 																<label class="screen-reader-text" for="<?php echo $input_id; ?>"><?php echo $label; ?></label>
-																<input type="number" id="<?php echo $input_id; ?>" class="input-text qty form-control text-center rounded-3" name="<?php echo $input_name; ?>" value="<?php echo esc_attr( $input_value ); ?>" aria-label="<?php echo $label; ?>" min="<?php echo esc_attr( $min ); ?>" <?php echo $max; ?> step="<?php echo esc_attr( $step ); ?>" inputmode="numeric" autocomplete="off" style="width: 70px;">
+																<input type="number" id="<?php echo $input_id; ?>" class="input-text qty text" name="<?php echo $input_name; ?>" value="<?php echo esc_attr( $input_value ); ?>" aria-label="<?php echo $label; ?>" min="<?php echo esc_attr( $min ); ?>" <?php echo $max; ?> step="<?php echo esc_attr( $step ); ?>" placeholder="" inputmode="numeric" autocomplete="off">
 																<button type="button" class="btn btn-outline-info btn-sm minus" aria-label="Disminuir cantidad">-</button>
 															</div>
 															<?php

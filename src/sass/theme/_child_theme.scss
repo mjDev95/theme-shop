@@ -390,3 +390,14 @@ header{
 .select2-container--default .select2-selection--single {
   transition: box-shadow 0.2s;
 }
+
+// Ocultar flechitas del input de cantidad en el carrito
+input.qty[type="number"]::-webkit-inner-spin-button, 
+input.qty[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input.qty[type="number"] {
+  -moz-appearance: textfield;
+  appearance: none;
+}
