@@ -25,13 +25,13 @@ do_action( 'woocommerce_before_cart' ); ?>
 		<form class="woocommerce-cart-form" action="<?php echo esc_url( wc_get_cart_url() ); ?>" method="post">
 			<?php do_action( 'woocommerce_before_cart_table' ); ?>
 			<table class="shop_table shop_table_responsive cart woocommerce-cart-form__contents table align-middle rounded-4 overflow-hidden" cellspacing="0" >
-				<thead class="bg-info h5 text-info-emphasis">
+				<thead class="bg-info h5 text-white">
 					<tr>
 						<th class="product-thumbnail"></th>
-						<th scope="col" class="product-name fw-semibold text-info-emphasis"><?php esc_html_e( 'Product', 'woocommerce' ); ?></th>
-						<th scope="col" class="product-price fw-semibold text-info-emphasis"><?php esc_html_e( 'Price', 'woocommerce' ); ?></th>
-						<th scope="col" class="product-quantity fw-semibold text-info-emphasis"><?php esc_html_e( 'Quantity', 'woocommerce' ); ?></th>
-						<th scope="col" class="product-subtotal fw-semibold text-info-emphasis"><?php esc_html_e( 'Subtotal', 'woocommerce' ); ?></th>
+						<th scope="col" class="product-name fw-semibold text-white"><?php esc_html_e( 'Product', 'woocommerce' ); ?></th>
+						<th scope="col" class="product-price fw-semibold text-white"><?php esc_html_e( 'Price', 'woocommerce' ); ?></th>
+						<th scope="col" class="product-quantity fw-semibold text-white"><?php esc_html_e( 'Quantity', 'woocommerce' ); ?></th>
+						<th scope="col" class="product-subtotal fw-semibold text-white"><?php esc_html_e( 'Subtotal', 'woocommerce' ); ?></th>
 						<th class="product-remove"></th>
 					</tr>
 				</thead>
@@ -95,7 +95,7 @@ do_action( 'woocommerce_before_cart' ); ?>
 										if ( ! $product_permalink ) {
 											echo wp_kses_post( $product_name . $frase . '&nbsp;' );
 										} else {
-											echo wp_kses_post( apply_filters( 'woocommerce_cart_item_name', sprintf( '<a href="%s">%s%s</a>', esc_url( $product_permalink ), $_product->get_name(), $frase ), $cart_item, $cart_item_key ) );
+											echo wp_kses_post( apply_filters( 'woocommerce_cart_item_name', sprintf( '<a class="text-decoration-none" href="%s">%s%s</a>', esc_url( $product_permalink ), $_product->get_name(), $frase ), $cart_item, $cart_item_key ) );
 										}
 										$short_description = $_product->get_short_description();
 										if ( $short_description ) {
@@ -132,11 +132,11 @@ do_action( 'woocommerce_before_cart' ); ?>
 										$step = 1;
 										$label = sprintf( esc_html__( 'Cantidad de %s', 'woocommerce' ), $product_name );
 										?>
-															<div class="quantity d-flex align-items-center gap-1">
-																<button type="button" class="btn btn-outline-info btn-sm minus" aria-label="Disminuir cantidad"><i class="bi bi-dash"></i></button>
+															<div class="quantity d-flex align-items-center rounded-4 border">
+																<button type="button" class="btn btn-transparent btn-sm minus" aria-label="Disminuir cantidad" style="width:40px; min-width:40px;"><i class="bi bi-dash"></i></button>
 																<label class="screen-reader-text" for="<?php echo $input_id; ?>"><?php echo $label; ?></label>
-																<input type="number" id="<?php echo $input_id; ?>" class="input-text qty text" name="<?php echo $input_name; ?>" value="<?php echo esc_attr( $input_value ); ?>" aria-label="<?php echo $label; ?>" min="<?php echo esc_attr( $min ); ?>" <?php echo $max; ?> step="<?php echo esc_attr( $step ); ?>" placeholder="" inputmode="numeric" autocomplete="off">
-																<button type="button" class="btn btn-outline-info btn-sm plus" aria-label="Aumentar cantidad"><i class="bi bi-plus"></i></button>
+																<input type="number" id="<?php echo $input_id; ?>" class="input-text qty text" name="<?php echo $input_name; ?>" value="<?php echo esc_attr( $input_value ); ?>" aria-label="<?php echo $label; ?>" min="<?php echo esc_attr( $min ); ?>" <?php echo $max; ?> step="<?php echo esc_attr( $step ); ?>" placeholder="" inputmode="numeric" autocomplete="off" style="border-color: transparent; box-shadow: none; background: transparent;">
+																<button type="button" class="btn btn-transparent btn-sm plus" aria-label="Aumentar cantidad" style="width:40px; min-width:40px;"><i class="bi bi-plus"></i></button>
 															</div>
 															<?php
 										?>
