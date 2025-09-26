@@ -347,6 +347,11 @@ header{
     }
   }
 }
+@media (min-width: 768px) {
+    .woocommerce-cart #coupon_code.input-text {
+        width: auto !important;
+    }
+}
 /*Mi cuenta*/
 .woocommerce-info {
     border-radius: var(--bs-border-radius-xl);
