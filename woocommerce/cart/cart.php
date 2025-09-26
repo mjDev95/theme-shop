@@ -107,11 +107,12 @@ do_action( 'woocommerce_before_cart' ); ?>
 							   $frase .= ' en talla ' . $talla;
 						   }
 						   if ( $genero ) {
-							   if ( $genero === 'unisex' ) {
+							   // Normalizar posibles valores sin acento
+							   if ( in_array( $genero, [ 'unisex' ] ) ) {
 								   $frase .= ' unisex';
-							   } elseif ( $genero === 'niña' || $genero === 'girl' ) {
+							   } elseif ( in_array( $genero, [ 'niña', 'nina', 'girl' ] ) ) {
 								   $frase .= ' para niña';
-							   } elseif ( $genero === 'niño' || $genero === 'boy' ) {
+							   } elseif ( in_array( $genero, [ 'niño', 'nino', 'boy' ] ) ) {
 								   $frase .= ' para niño';
 							   } else {
 								   $frase .= ' para ' . $genero;
