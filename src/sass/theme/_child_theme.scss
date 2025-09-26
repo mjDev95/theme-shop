@@ -346,6 +346,11 @@ header{
       }
     }
   }
+  .cart-collaterals{
+    .cart_totals {
+        width: 100% !important;
+    }
+  }
 }
 @media (min-width: 768px) {
     .woocommerce-cart #coupon_code.input-text {

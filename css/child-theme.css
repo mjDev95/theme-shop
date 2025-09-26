@@ -16006,6 +16006,9 @@ header .nav-link .active {
   object-fit: cover;
   border-radius: 10px;
 }
+.woocommerce-page .cart-collaterals .cart_totals {
+  width: 100% !important;
+}
 
 @media (min-width: 768px) {
   .woocommerce-cart #coupon_code.input-text {
