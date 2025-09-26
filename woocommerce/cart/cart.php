@@ -133,10 +133,10 @@ do_action( 'woocommerce_before_cart' ); ?>
 										$label = sprintf( esc_html__( 'Cantidad de %s', 'woocommerce' ), $product_name );
 										?>
 															<div class="quantity d-flex align-items-center gap-1">
-																<button type="button" class="btn btn-outline-info btn-sm plus" aria-label="Aumentar cantidad">+</button>
+																<button type="button" class="btn btn-outline-info btn-sm minus" aria-label="Disminuir cantidad"><i class="bi bi-dash"></i></button>
 																<label class="screen-reader-text" for="<?php echo $input_id; ?>"><?php echo $label; ?></label>
 																<input type="number" id="<?php echo $input_id; ?>" class="input-text qty text" name="<?php echo $input_name; ?>" value="<?php echo esc_attr( $input_value ); ?>" aria-label="<?php echo $label; ?>" min="<?php echo esc_attr( $min ); ?>" <?php echo $max; ?> step="<?php echo esc_attr( $step ); ?>" placeholder="" inputmode="numeric" autocomplete="off">
-																<button type="button" class="btn btn-outline-info btn-sm minus" aria-label="Disminuir cantidad">-</button>
+																<button type="button" class="btn btn-outline-info btn-sm plus" aria-label="Aumentar cantidad"><i class="bi bi-plus"></i></button>
 															</div>
 															<?php
 										?>

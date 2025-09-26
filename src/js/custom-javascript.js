@@ -283,27 +283,22 @@ jQuery(document).ready(function ($) {
 
 
     // Modernizar campo cantidad en carrito WooCommerce con jQuery
-    $('.woocommerce-cart-form .quantity').each(function () {
-        var $container = $(this);
-        var $input = $container.find('input.qty');
-        var $plus = $container.find('.plus');
-        var $minus = $container.find('.minus');
-        if (!$input.length || !$plus.length || !$minus.length) return;
+    $(document).on('click', '.woocommerce-cart-form .quantity .plus', function () {
+        var $input = $(this).siblings('input.qty');
+        var max = $input.attr('max') ? parseInt($input.attr('max')) : null;
+        var step = $input.attr('step') ? parseInt($input.attr('step')) : 1;
+        var value = parseInt($input.val()) || 0;
+        if (max !== null && value >= max) return;
+        $input.val(value + step).trigger('change');
+    });
 
-        $plus.on('click', function () {
-            var max = $input.attr('max') ? parseInt($input.attr('max')) : null;
-            var step = $input.attr('step') ? parseInt($input.attr('step')) : 1;
-            var value = parseInt($input.val()) || 0;
-            if (max !== null && value >= max) return;
-            $input.val(value + step).trigger('change');
-        });
-        $minus.on('click', function () {
-            var min = $input.attr('min') ? parseInt($input.attr('min')) : 0;
-            var step = $input.attr('step') ? parseInt($input.attr('step')) : 1;
-            var value = parseInt($input.val()) || 0;
-            if (value <= min) return;
-            $input.val(value - step).trigger('change');
-        });
+    $(document).on('click', '.woocommerce-cart-form .quantity .minus', function () {
+        var $input = $(this).siblings('input.qty');
+        var min = $input.attr('min') ? parseInt($input.attr('min')) : 0;
+        var step = $input.attr('step') ? parseInt($input.attr('step')) : 1;
+        var value = parseInt($input.val()) || 0;
+        if (value <= min) return;
+        $input.val(value - step).trigger('change');
     });
     
 
