@@ -21,10 +21,10 @@ do_action( 'woocommerce_before_cart' ); ?>
 
 
 <div class="row g-4">
-	<div class="col-12 col-lg-9">
+	<div class="col-xl-8 col-lg-12 col-md-12 col-12">
 		<form class="woocommerce-cart-form" action="<?php echo esc_url( wc_get_cart_url() ); ?>" method="post">
 			<?php do_action( 'woocommerce_before_cart_table' ); ?>
-			<table class="shop_table shop_table_responsive border-0 cart woocommerce-cart-form__contents table align-middle rounded-4 overflow-hidden" cellspacing="0" style="border-radius:1.5rem;">
+			<table class="shop_table shop_table_responsive cart woocommerce-cart-form__contents table align-middle rounded-4 overflow-hidden" cellspacing="0" >
 				<thead class="bg-info h5 text-info-emphasis">
 					<tr>
 						<th class="product-thumbnail"></th>
@@ -123,18 +123,22 @@ do_action( 'woocommerce_before_cart' ); ?>
 											$min_quantity = 0;
 											$max_quantity = $_product->get_max_purchase_quantity();
 										}
-										$product_quantity = woocommerce_quantity_input(
-											array(
-												'input_name'   => "cart[{$cart_item_key}][qty]",
-												'input_value'  => $cart_item['quantity'],
-												'max_value'    => $max_quantity,
-												'min_value'    => $min_quantity,
-												'product_name' => $product_name,
-											),
-											$_product,
-											false
-										);
-										echo apply_filters( 'woocommerce_cart_item_quantity', $product_quantity, $cart_item_key, $cart_item );
+										// Campo de cantidad moderno con botones + y -
+										$input_id = 'quantity_' . esc_attr( $cart_item_key );
+										$input_name = "cart[{$cart_item_key}][qty]";
+										$input_value = $cart_item['quantity'];
+										$min = $min_quantity;
+										$max = $max_quantity ? 'max="' . esc_attr( $max_quantity ) . '"' : '';
+										$step = 1;
+										$label = sprintf( esc_html__( 'Cantidad de %s', 'woocommerce' ), $product_name );
+										?>
+															<div class="quantity d-flex align-items-center gap-1">
+																<button type="button" class="btn btn-outline-info btn-sm plus" aria-label="Aumentar cantidad">+</button>
+																<label class="screen-reader-text" for="<?php echo $input_id; ?>"><?php echo $label; ?></label>
+																<input type="number" id="<?php echo $input_id; ?>" class="input-text qty form-control text-center rounded-3" name="<?php echo $input_name; ?>" value="<?php echo esc_attr( $input_value ); ?>" aria-label="<?php echo $label; ?>" min="<?php echo esc_attr( $min ); ?>" <?php echo $max; ?> step="<?php echo esc_attr( $step ); ?>" inputmode="numeric" autocomplete="off" style="width: 70px;">
+																<button type="button" class="btn btn-outline-info btn-sm minus" aria-label="Disminuir cantidad">-</button>
+															</div>
+															<?php
 										?>
 									</td>
 									<td class="product-subtotal" data-title="<?php esc_attr_e( 'Subtotal', 'woocommerce' ); ?>">
@@ -145,7 +149,7 @@ do_action( 'woocommerce_before_cart' ); ?>
 										$row_index++;
 										echo apply_filters( 'woocommerce_cart_item_remove_link',
 											sprintf(
-												'<a role="button" href="%s" class="remove" aria-label="%s" data-product_id="%s" data-product_sku="%s">&times;</a>',
+												'<a role="button" href="%s" class="remove" aria-label="%s" data-product_id="%s" data-product_sku="%s"><i class="bi bi-x"></i></a>',
 												esc_url( wc_get_cart_remove_url( $cart_item_key ) ),
 												esc_attr( sprintf( __( 'Remove %s from cart', 'woocommerce' ), wp_strip_all_tags( $product_name ) ) ),
 												esc_attr( $product_id ),
@@ -166,8 +170,8 @@ do_action( 'woocommerce_before_cart' ); ?>
 							<?php if ( wc_coupons_enabled() ) { ?>
 								<div class="coupon">
 									<label for="coupon_code" class="screen-reader-text"><?php esc_html_e( 'Coupon:', 'woocommerce' ); ?></label>
-									<input type="text" name="coupon_code" class="input-text" id="coupon_code" value="" placeholder="<?php esc_attr_e( 'Coupon code', 'woocommerce' ); ?>" />
-									<button type="submit" class="button<?php echo esc_attr( wc_wp_theme_get_element_class_name( 'button' ) ? ' ' . wc_wp_theme_get_element_class_name( 'button' ) : '' ); ?>" name="apply_coupon" value="<?php esc_attr_e( 'Apply coupon', 'woocommerce' ); ?>"><?php esc_html_e( 'Apply coupon', 'woocommerce' ); ?></button>
+									<input type="text" name="coupon_code" class="input-text w-auto" id="coupon_code" value="" placeholder="<?php esc_attr_e( 'Coupon code', 'woocommerce' ); ?>" />
+									<button type="submit" class="btn-secondary button<?php echo esc_attr( wc_wp_theme_get_element_class_name( 'button' ) ? ' ' . wc_wp_theme_get_element_class_name( 'button' ) : '' ); ?>" name="apply_coupon" value="<?php esc_attr_e( 'Apply coupon', 'woocommerce' ); ?>"><?php esc_html_e( 'Apply coupon', 'woocommerce' ); ?></button>
 									<?php do_action( 'woocommerce_cart_coupon' ); ?>
 								</div>
 							<?php } ?>
@@ -182,7 +186,7 @@ do_action( 'woocommerce_before_cart' ); ?>
 			<?php do_action( 'woocommerce_after_cart_table' ); ?>
 		</form>
 	</div>
-	<div class="col-12 col-lg-3">
+	<div class="col-xl-4 col-lg-12 col-md-12 col-12">
 		<?php do_action( 'woocommerce_before_cart_collaterals' ); ?>
 		<div class="cart-collaterals">
 			<?php

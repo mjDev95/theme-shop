@@ -15998,6 +15998,15 @@ header .nav-link .active {
 *WooCommerce
 *
 **/
+/*Carrito*/
+.woocommerce-page table.cart img {
+  aspect-ratio: 2/2.5;
+  width: 70px;
+  -o-object-fit: cover;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
 /*Mi cuenta*/
 .woocommerce-info {
   border-radius: var(--bs-border-radius-xl);
