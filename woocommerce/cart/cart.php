@@ -166,18 +166,18 @@ do_action( 'woocommerce_before_cart' ); ?>
 					?>
 					<?php do_action( 'woocommerce_cart_contents' ); ?>
 					<tr class="bg-white">
-						<td colspan="6" class="actions rounded-bottom-4 pb-4">
+						<td colspan="6" class="actions rounded-bottom-4">
 							<?php if ( wc_coupons_enabled() ) { ?>
 								<div class="coupon">
 									<label for="coupon_code" class="form-label visually-hidden"><?php esc_html_e( 'Coupon:', 'woocommerce' ); ?></label>
 									<div class="input-group mb-2" style="max-width: 320px;">
-										<input type="text" name="coupon_code" class="form-control" id="coupon_code" value="" placeholder="<?php esc_attr_e( 'Coupon code', 'woocommerce' ); ?>" />
+										<input type="text" name="coupon_code" class="form-control rounded-4 me-1" id="coupon_code" value="" placeholder="<?php esc_attr_e( 'Coupon code', 'woocommerce' ); ?>" />
 										<button type="submit" class="btn btn-info text-white fw-semibold px-4" name="apply_coupon" value="<?php esc_attr_e( 'Apply coupon', 'woocommerce' ); ?>"><?php esc_html_e( 'Apply coupon', 'woocommerce' ); ?></button>
 									</div>
 									<?php do_action( 'woocommerce_cart_coupon' ); ?>
 								</div>
 							<?php } ?>
-							<button type="submit" class="button<?php echo esc_attr( wc_wp_theme_get_element_class_name( 'button' ) ? ' ' . wc_wp_theme_get_element_class_name( 'button' ) : '' ); ?>" name="update_cart" value="<?php esc_attr_e( 'Update cart', 'woocommerce' ); ?>"><?php esc_html_e( 'Update cart', 'woocommerce' ); ?></button>
+							<button type="submit" class="btn btn-info text-white button<?php echo esc_attr( wc_wp_theme_get_element_class_name( 'button' ) ? ' ' . wc_wp_theme_get_element_class_name( 'button' ) : '' ); ?>" name="update_cart" value="<?php esc_attr_e( 'Update cart', 'woocommerce' ); ?>"><?php esc_html_e( 'Update cart', 'woocommerce' ); ?></button>
 							<?php do_action( 'woocommerce_cart_actions' ); ?>
 							<?php wp_nonce_field( 'woocommerce-cart', 'woocommerce-cart-nonce' ); ?>
 						</td>
