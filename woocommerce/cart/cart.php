@@ -56,8 +56,8 @@ do_action( 'woocommerce_before_cart' ); ?>
 						}
 						?>
 						
-						<div class="d-sm-flex align-items-center pb-4 <?php echo $loop_index > 1 ? 'border-top' : ''; ?>">
-							<a class="d-inline-block flex-shrink-0 bg-secondary rounded-1 p-sm-2 p-md-3 mb-2 mb-sm-0" href="<?php echo esc_url( $product_permalink ); ?>">
+						<div class="d-sm-flex align-items-center <?php echo $loop_index > 1 ? 'border-top' : ''; ?>">
+							<a class="d-inline-block flex-shrink-0 rounded-1 p-sm-2 p-md-3 mb-2 mb-sm-0" href="<?php echo esc_url( $product_permalink ); ?>">
 								<?php echo $thumbnail; ?>
 							</a>
 							<div class="w-100 pt-1 ps-sm-4">
@@ -84,7 +84,7 @@ do_action( 'woocommerce_before_cart' ); ?>
 									</div>
 								</div>
 								
-								<div class="count-input ms-n3 d-inline-flex align-items-center quantity>
+								<div class="count-input ms-n3 d-inline-flex align-items-center quantity">
 									<?php
 									if ( $_product->is_sold_individually() ) {
 										$min_quantity = 1;
