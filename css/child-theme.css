@@ -15999,7 +15999,7 @@ header .nav-link .active {
 *
 **/
 /*Carrito*/
-.woocommerce-page img {
+.woocommerce-page .cart-items-list img {
   aspect-ratio: 2/2.5;
   -o-object-fit: cover;
   object-fit: cover;

@@ -336,12 +336,15 @@ header{
 **/
 /*Carrito*/
 .woocommerce-page {
-  img {
-    aspect-ratio: 2 / 2.5;
-    object-fit: cover;
-    height: auto;
-    max-width: 110px;
+  .cart-items-list{
+    img {
+      aspect-ratio: 2 / 2.5;
+      object-fit: cover;
+      height: auto;
+      max-width: 110px;
+    }
   }
+
   .cart-collaterals{
     .cart_totals {
         width: 100% !important;
