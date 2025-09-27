@@ -7029,6 +7029,7 @@
 	  });
 
 	  // Modernizar campo cantidad en carrito WooCommerce con jQuery (solo una vez y bien parseado)
+
 	  $(document).on('click', '.woocommerce-cart-form .quantity .plus', function () {
 	    var $input = $(this).closest('.quantity').find('input.qty');
 	    var max = $input.attr('max') ? parseFloat($input.attr('max')) : null;
@@ -7037,13 +7038,9 @@
 	    if (max !== null && value >= max) return;
 	    var newVal = value + step;
 	    if (step % 1 === 0) newVal = Math.round(newVal);
-	    $input.val(String(newVal));
-	    $input[0].dispatchEvent(new Event('input', {
-	      bubbles: true
-	    }));
-	    $input[0].dispatchEvent(new Event('change', {
-	      bubbles: true
-	    }));
+	    $input.val(String(newVal)).change();
+	    // Habilitar el botón de actualizar carrito
+	    $input.closest('form.woocommerce-cart-form').find('.update-cart-btn').prop('disabled', false).removeClass('disabled');
 	  });
 	  $(document).on('click', '.woocommerce-cart-form .quantity .minus', function () {
 	    var $input = $(this).closest('.quantity').find('input.qty');
@@ -7053,13 +7050,8 @@
 	    if (value <= min) return;
 	    var newVal = value - step;
 	    if (step % 1 === 0) newVal = Math.round(newVal);
-	    $input.val(String(newVal));
-	    $input[0].dispatchEvent(new Event('input', {
-	      bubbles: true
-	    }));
-	    $input[0].dispatchEvent(new Event('change', {
-	      bubbles: true
-	    }));
+	    $input.val(String(newVal)).change();
+	    $input.closest('form.woocommerce-cart-form').find('.update-cart-btn').prop('disabled', false).removeClass('disabled');
 	  });
 	});
 
