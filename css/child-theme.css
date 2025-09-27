@@ -16004,6 +16004,7 @@ header .nav-link .active {
   -o-object-fit: cover;
   object-fit: cover;
   height: auto;
+  border-radius: var(--bs-border-radius-xl) !important;
   max-width: 110px;
 }
 .woocommerce-page .cart-collaterals .cart_totals {
