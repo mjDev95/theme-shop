@@ -15999,12 +15999,12 @@ header .nav-link .active {
 *
 **/
 /*Carrito*/
-.woocommerce-page table.cart img {
+.woocommerce-page img {
   aspect-ratio: 2/2.5;
-  width: 70px;
   -o-object-fit: cover;
   object-fit: cover;
-  border-radius: 10px;
+  height: auto;
+  max-width: 110px;
 }
 .woocommerce-page .cart-collaterals .cart_totals {
   width: 100% !important;

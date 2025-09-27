@@ -27,8 +27,9 @@ do_action( 'woocommerce_before_cart' ); ?>
 			
 			 <div class="cart-items-list">
                 <?php do_action( 'woocommerce_before_cart_contents' ); ?>
-
+				<?php	$loop_index = 0; ?>
 				<?php foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
+					$loop_index++;
 					$_product   = apply_filters( 'woocommerce_cart_item_product', $cart_item['data'], $cart_item, $cart_item_key );
 					$product_id = apply_filters( 'woocommerce_cart_item_product_id', $cart_item['product_id'], $cart_item, $cart_item_key );
 
@@ -55,7 +56,7 @@ do_action( 'woocommerce_before_cart' ); ?>
 						}
 						?>
 						
-						<div class="d-sm-flex align-items-center pb-4">
+						<div class="d-sm-flex align-items-center pb-4 <?php echo $loop_index > 1 ? 'border-top' : ''; ?>">
 							<a class="d-inline-block flex-shrink-0 bg-secondary rounded-1 p-sm-2 p-md-3 mb-2 mb-sm-0" href="<?php echo esc_url( $product_permalink ); ?>">
 								<?php echo $thumbnail; ?>
 							</a>
@@ -83,18 +84,46 @@ do_action( 'woocommerce_before_cart' ); ?>
 									</div>
 								</div>
 								
-								<div class="count-input ms-n3">
-									<button class="btn btn-icon fs-xl minus" type="button">-</button>
+								<div class="count-input ms-n3 d-inline-flex align-items-center">
+									<?php
+									if ( $_product->is_sold_individually() ) {
+										$min_quantity = 1;
+										$max_quantity = 1;
+									} else {
+										$min_quantity = 0;
+										$max_quantity = $_product->get_max_purchase_quantity();
+									}
+
+									$input_id = 'quantity_' . esc_attr( $cart_item_key );
+									$input_name = "cart[{$cart_item_key}][qty]";
+									$input_value = $cart_item['quantity'];
+									$min = $min_quantity;
+									$max = $max_quantity ? 'max="' . esc_attr( $max_quantity ) . '"' : '';
+									$step = 1;
+									$label = sprintf( esc_html__( 'Cantidad de %s', 'woocommerce' ), $product_name );
+									?>
+									<button type="button" class="btn btn-transparent btn-sm minus" aria-label="<?php echo esc_attr( sprintf( 'Disminuir cantidad de %s', $product_name ) ); ?>" style="width:40px; min-width:40px;">
+										<i class="bi bi-dash"></i>
+									</button>
+									<label class="screen-reader-text" for="<?php echo $input_id; ?>"><?php echo $label; ?></label>
 									<input 
-										class="form-control qty"
 										type="number"
-										name="cart[<?php echo esc_attr( $cart_item_key ); ?>][qty]"
-										value="<?php echo esc_attr( $cart_item['quantity'] ); ?>"
-										min="1"
-										max="<?php echo esc_attr( $_product->get_max_purchase_quantity() ); ?>"
-										step="1"
+										id="<?php echo $input_id; ?>"
+										class="input-text qty text form-control border-0 w-auto px-0 text-center"
+										name="<?php echo $input_name; ?>"
+										value="<?php echo esc_attr( $input_value ); ?>"
+										aria-label="<?php echo $label; ?>"
+										min="<?php echo esc_attr( $min ); ?>"
+										<?php echo $max; ?>
+										step="<?php echo esc_attr( $step ); ?>"
+										placeholder=""
+										inputmode="numeric"
+										autocomplete="off"
+										style="width: 1.5rem !important; "
 									>
-									<button class="btn btn-icon fs-xl plus" type="button">+</button>
+									<button type="button" class="btn btn-transparent btn-sm plus" aria-label="<?php echo esc_attr( sprintf( 'Aumentar cantidad de %s', $product_name ) ); ?>" style="width:40px; min-width:40px;">
+										<i class="bi bi-plus"></i>
+									</button>
 								</div>
 
 								<div class="nav justify-content-end mt-n5 mt-sm-n3">
@@ -108,6 +137,22 @@ do_action( 'woocommerce_before_cart' ); ?>
 											esc_html__( 'Remove this item', 'woocommerce' ),
 											esc_attr( $product_id ),
 											esc_attr( $_product->get_sku() )
+										),
+										$cart_item_key
+									);
+									?>
+								</div>
+								<!-- Botón eliminar con tooltip -->
+								<div class="nav justify-content-end mt-2">
+									<?php
+									echo apply_filters( 'woocommerce_cart_item_remove_link',
+										sprintf(
+											'<a href="%s" class="nav-link fs-xl p-2" data-bs-toggle="tooltip" aria-label="%s" data-bs-original-title="%s">
+												<i class="bi bi-trash"></i>
+											</a>',
+											esc_url( wc_get_cart_remove_url( $cart_item_key ) ),
+											esc_attr( sprintf( __( 'Eliminar %s del carrito', 'woocommerce' ), wp_strip_all_tags( $product_name ) ) ),
+											esc_attr( $product_name )
 										),
 										$cart_item_key
 									);
