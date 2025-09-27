@@ -282,42 +282,26 @@ jQuery(document).ready(function ($) {
     });
 
 
-    // Modernizar campo cantidad en carrito WooCommerce con jQuery
+
+    // Modernizar campo cantidad en carrito WooCommerce con jQuery (solo una vez y bien parseado)
     $(document).on('click', '.woocommerce-cart-form .quantity .plus', function () {
         var $input = $(this).siblings('input.qty');
-        var max = $input.attr('max') ? parseInt($input.attr('max')) : null;
-        var step = $input.attr('step') ? parseInt($input.attr('step')) : 1;
-        var value = parseInt($input.val()) || 0;
+        var max = $input.attr('max') ? parseFloat($input.attr('max')) : null;
+        var step = $input.attr('step') ? parseFloat($input.attr('step')) : 1;
+        var value = parseFloat($input.val()) || 0;
         if (max !== null && value >= max) return;
-        $input.val(value + step).trigger('change');
+        var newVal = value + step;
+        $input.val(newVal).trigger('input').trigger('change');
     });
 
     $(document).on('click', '.woocommerce-cart-form .quantity .minus', function () {
         var $input = $(this).siblings('input.qty');
-        var min = $input.attr('min') ? parseInt($input.attr('min')) : 0;
-        var step = $input.attr('step') ? parseInt($input.attr('step')) : 1;
-        var value = parseInt($input.val()) || 0;
+        var min = $input.attr('min') ? parseFloat($input.attr('min')) : 0;
+        var step = $input.attr('step') ? parseFloat($input.attr('step')) : 1;
+        var value = parseFloat($input.val()) || 0;
         if (value <= min) return;
-        $input.val(value - step).trigger('change');
-    });
-    
-    // Modernizar campo cantidad en carrito WooCommerce con jQuery
-    $(document).on('click', '.woocommerce-cart-form .quantity .plus', function () {
-        var $input = $(this).siblings('input.qty');
-        var max = $input.attr('max') ? parseInt($input.attr('max')) : null;
-        var step = $input.attr('step') ? parseInt($input.attr('step')) : 1;
-        var value = parseInt($input.val()) || 0;
-        if (max !== null && value >= max) return;
-        $input.val(value + step).trigger('change');
-    });
-
-    $(document).on('click', '.woocommerce-cart-form .quantity .minus', function () {
-        var $input = $(this).siblings('input.qty');
-        var min = $input.attr('min') ? parseInt($input.attr('min')) : 0;
-        var step = $input.attr('step') ? parseInt($input.attr('step')) : 1;
-        var value = parseInt($input.val()) || 0;
-        if (value <= min) return;
-        $input.val(value - step).trigger('change');
+        var newVal = value - step;
+        $input.val(newVal).trigger('input').trigger('change');
     });
 
 });
