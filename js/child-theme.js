@@ -7059,6 +7059,10 @@
 	  $(document).on('change', '.woocommerce-cart-form .count-input input.qty', function () {
 	    toggleUpdateButton();
 	  });
+	  var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+	  tooltipTriggerList.map(function (tooltipTriggerEl) {
+	    return new bootstrap.Tooltip(tooltipTriggerEl);
+	  });
 	});
 
 	exports.Alert = alert;

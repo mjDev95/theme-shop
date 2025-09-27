@@ -147,7 +147,7 @@ do_action( 'woocommerce_before_cart' ); ?>
 									<?php
 									echo apply_filters( 'woocommerce_cart_item_remove_link',
 										sprintf(
-											'<a href="%s" class="nav-link fs-xl p-2" data-bs-toggle="tooltip" aria-label="%s" data-bs-original-title="%s">
+									'<a href="%s" class="nav-link fs-xl p-2" aria-label="%s" data-bs-toggle="tooltip" title="%s">
 												<i class="bi bi-trash"></i>
 											</a>',
 											esc_url( wc_get_cart_remove_url( $cart_item_key ) ),
@@ -169,11 +169,11 @@ do_action( 'woocommerce_before_cart' ); ?>
 
                 <!-- Botón global actualizar -->
                 <div class="cart-update text-end mt-3">
-                    <button type="submit" class="btn btn-primary rounded-pill px-4 update-cart-btn" name="update_cart" value="<?php esc_attr_e( 'Update cart', 'woocommerce' ); ?>" disabled>
-                        <i class="bi bi-arrow-repeat me-1"></i> <?php esc_html_e( 'Actualizar carrito', 'woocommerce' ); ?>
-                    </button>
-                    <?php wp_nonce_field( 'woocommerce-cart', 'woocommerce-cart-nonce' ); ?>
-                </div>
+					<button type="submit" class="btn btn-primary px-4" name="update_cart" value="<?php esc_attr_e( 'Update cart', 'woocommerce' ); ?>">
+						<i class="bi bi-arrow-repeat me-1"></i> <?php esc_html_e( 'Actualizar carrito', 'woocommerce' ); ?>
+					</button>
+					<?php wp_nonce_field( 'woocommerce-cart', 'woocommerce-cart-nonce' ); ?>
+				</div>
 
                 <?php do_action( 'woocommerce_after_cart_contents' ); ?>
             </div>
