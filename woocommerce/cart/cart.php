@@ -123,6 +123,12 @@ do_action( 'woocommerce_before_cart' ); ?>
 											autocomplete="off"
 											style="width: 1.5rem !important; "
 										>
+	<div class="quantity d-flex align-items-center rounded-4 border">
+		<button type="button" class="btn btn-transparent btn-sm minus" aria-label="Disminuir cantidad" style="width:40px; min-width:40px;"><i class="bi bi-dash"></i></button>
+		<label class="screen-reader-text" for="<?php echo $input_id; ?>"><?php echo $label; ?></label>
+		<input type="number" id="<?php echo $input_id; ?>" class="input-text qty text" name="<?php echo $input_name; ?>" value="<?php echo esc_attr( $input_value ); ?>" aria-label="<?php echo $label; ?>" min="<?php echo esc_attr( $min ); ?>" <?php echo $max; ?> step="<?php echo esc_attr( $step ); ?>" placeholder="" inputmode="numeric" autocomplete="off" style="border-color: transparent; box-shadow: none; background: transparent;">
+		<button type="button" class="btn btn-transparent btn-sm plus" aria-label="Aumentar cantidad" style="width:40px; min-width:40px;"><i class="bi bi-plus"></i></button>
+	</div>
 										<button type="button" class="btn btn-transparent btn-sm plus" aria-label="<?php echo esc_attr( sprintf( 'Aumentar cantidad de %s', $product_name ) ); ?>" style="width:40px; min-width:40px;">
 											<i class="bi bi-plus"></i>
 										</button>
