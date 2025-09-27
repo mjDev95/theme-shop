@@ -282,32 +282,25 @@ jQuery(document).ready(function ($) {
     });
 
 
-
-    // Modernizar campo cantidad en carrito WooCommerce con jQuery (solo una vez y bien parseado)
-
+    // Modernizar campo cantidad en carrito WooCommerce con jQuery
     $(document).on('click', '.woocommerce-cart-form .quantity .plus', function () {
-        var $input = $(this).closest('.quantity').find('input.qty');
-        var max = $input.attr('max') ? parseFloat($input.attr('max')) : null;
-        var step = $input.attr('step') ? parseFloat($input.attr('step')) : 1;
-        var value = parseFloat($input.val()) || 0;
+        var $input = $(this).siblings('input.qty');
+        var max = $input.attr('max') ? parseInt($input.attr('max')) : null;
+        var step = $input.attr('step') ? parseInt($input.attr('step')) : 1;
+        var value = parseInt($input.val()) || 0;
         if (max !== null && value >= max) return;
-        var newVal = value + step;
-        if (step % 1 === 0) newVal = Math.round(newVal);
-        $input.val(String(newVal)).change();
-        // Habilitar el botón de actualizar carrito
-        $input.closest('form.woocommerce-cart-form').find('.update-cart-btn').prop('disabled', false).removeClass('disabled');
+        $input.val(value + step).trigger('change');
     });
 
     $(document).on('click', '.woocommerce-cart-form .quantity .minus', function () {
-        var $input = $(this).closest('.quantity').find('input.qty');
-        var min = $input.attr('min') ? parseFloat($input.attr('min')) : 0;
-        var step = $input.attr('step') ? parseFloat($input.attr('step')) : 1;
-        var value = parseFloat($input.val()) || 0;
+        var $input = $(this).siblings('input.qty');
+        var min = $input.attr('min') ? parseInt($input.attr('min')) : 0;
+        var step = $input.attr('step') ? parseInt($input.attr('step')) : 1;
+        var value = parseInt($input.val()) || 0;
         if (value <= min) return;
-        var newVal = value - step;
-        if (step % 1 === 0) newVal = Math.round(newVal);
-        $input.val(String(newVal)).change();
-        $input.closest('form.woocommerce-cart-form').find('.update-cart-btn').prop('disabled', false).removeClass('disabled');
+        $input.val(value - step).trigger('change');
     });
+    
 
 });
+
