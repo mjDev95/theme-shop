@@ -301,6 +301,24 @@ jQuery(document).ready(function ($) {
         $input.val(value - step).trigger('change');
     });
     
+    // Modernizar campo cantidad en carrito WooCommerce con jQuery
+    $(document).on('click', '.woocommerce-cart-form .quantity .plus', function () {
+        var $input = $(this).siblings('input.qty');
+        var max = $input.attr('max') ? parseInt($input.attr('max')) : null;
+        var step = $input.attr('step') ? parseInt($input.attr('step')) : 1;
+        var value = parseInt($input.val()) || 0;
+        if (max !== null && value >= max) return;
+        $input.val(value + step).trigger('change');
+    });
+
+    $(document).on('click', '.woocommerce-cart-form .quantity .minus', function () {
+        var $input = $(this).siblings('input.qty');
+        var min = $input.attr('min') ? parseInt($input.attr('min')) : 0;
+        var step = $input.attr('step') ? parseInt($input.attr('step')) : 1;
+        var value = parseInt($input.val()) || 0;
+        if (value <= min) return;
+        $input.val(value - step).trigger('change');
+    });
 
 });
 
