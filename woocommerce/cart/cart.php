@@ -49,22 +49,22 @@ do_action( 'woocommerce_before_cart' ); ?>
 						if ( $_product->is_type( 'variation' ) && ! empty( $_product->get_variation_attributes() ) ) {
 							foreach ( $_product->get_variation_attributes() as $attr_name => $attr_value ) {
 								$label = wc_attribute_label( str_replace( 'attribute_', '', $attr_name ) );
-								$attributes_output .= '<div class="text-body-secondary fs-sm me-3">'
-													. $label . ': <span class="text-dark fw-medium">' . esc_html( $attr_value ) . '</span>'
+								$attributes_output .= '<div class="small text-capitalize me-3">'
+													. $label . ': <span class="text-muted small text-lowercase">' . esc_html( $attr_value ) . '</span>'
 													. '</div>';
 							}
 						}
 						?>
 						
-						<div class="d-sm-flex align-items-center pb-4 <?php echo $loop_index > 1 ? 'border-top' : ''; ?>">
-							<a class="d-inline-block flex-shrink-0 bg-secondary rounded-1 p-sm-2 p-md-3 mb-2 mb-sm-0" href="<?php echo esc_url( $product_permalink ); ?>">
+						<div class="d-sm-flex align-items-center py-4 <?php echo $loop_index > 1 ? 'border-top' : ''; ?>">
+							<a class="d-inline-block flex-shrink-0 rounded-4 px-sm-2 px-md-3 mb-2 mb-sm-0" href="<?php echo esc_url( $product_permalink ); ?>">
 								<?php echo $thumbnail; ?>
 							</a>
 							<div class="w-100 pt-1 ps-sm-4">
 								<div class="d-flex">
 									<div class="me-3">
 										<h3 class="h5 mb-2">
-											<a href="<?php echo esc_url( $product_permalink ); ?>">
+											<a class="text-decoration-none text-danger" href="<?php echo esc_url( $product_permalink ); ?>">
 												<?php echo esc_html( $product_name ); ?>
 											</a>
 										</h3>
@@ -77,14 +77,14 @@ do_action( 'woocommerce_before_cart' ); ?>
 											<?php echo wc_price( $sale_price ? $sale_price : $regular_price ); ?>
 										</div>
 										<?php if ( $sale_price ) : ?>
-											<del class="text-body-secondary ms-auto precio-original">
+											<del class="text-muted ms-auto precio-original">
 												<?php echo wc_price( $regular_price ); ?>
 											</del>
 										<?php endif; ?>
 									</div>
 								</div>
 								
-								<div class="count-input ms-n3 d-inline-flex align-items-center quantity ">
+								<div class="count-input ms-n3 d-inline-flex align-items-center quantity">
 									<?php
 									if ( $_product->is_sold_individually() ) {
 										$min_quantity = 1;
@@ -124,40 +124,7 @@ do_action( 'woocommerce_before_cart' ); ?>
 									<button type="button" class="btn btn-transparent btn-sm plus" aria-label="<?php echo esc_attr( sprintf( 'Aumentar cantidad de %s', $product_name ) ); ?>" style="width:40px; min-width:40px;">
 										<i class="bi bi-plus"></i>
 									</button>
-								</div>
-
-								<div class="nav justify-content-end mt-n5 mt-sm-n3">
-									<?php
-									echo apply_filters( 'woocommerce_cart_item_remove_link',
-										sprintf(
-											'<a href="%s" class="nav-link fs-xl p-2" aria-label="%s" data-product_id="%s" data-product_sku="%s">
-												<i class="ai-trash"></i>
-											</a>',
-											esc_url( wc_get_cart_remove_url( $cart_item_key ) ),
-											esc_html__( 'Remove this item', 'woocommerce' ),
-											esc_attr( $product_id ),
-											esc_attr( $_product->get_sku() )
-										),
-										$cart_item_key
-									);
-									?>
-								</div>
-								<!-- Botón eliminar con tooltip -->
-								<div class="nav justify-content-end mt-2">
-									<?php
-									echo apply_filters( 'woocommerce_cart_item_remove_link',
-										sprintf(
-											'<a href="%s" class="nav-link fs-xl p-2" data-bs-toggle="tooltip" aria-label="%s" data-bs-original-title="%s">
-												<i class="bi bi-trash"></i>
-											</a>',
-											esc_url( wc_get_cart_remove_url( $cart_item_key ) ),
-											esc_attr( sprintf( __( 'Eliminar %s del carrito', 'woocommerce' ), wp_strip_all_tags( $product_name ) ) ),
-											esc_attr( $product_name )
-										),
-										$cart_item_key
-									);
-									?>
-								</div>
+								</div>								
 							</div>
 						</div>
 
@@ -169,11 +136,10 @@ do_action( 'woocommerce_before_cart' ); ?>
 
                 <!-- Botón global actualizar -->
                 <div class="cart-update text-end mt-3">
-                    <button type="submit" class="btn btn-primary rounded-pill px-4 update-cart-btn" name="update_cart" value="<?php esc_attr_e( 'Update cart', 'woocommerce' ); ?>" disabled>
-                        <i class="bi bi-arrow-repeat me-1"></i> <?php esc_html_e( 'Actualizar carrito', 'woocommerce' ); ?>
-                    </button>
-                    <?php wp_nonce_field( 'woocommerce-cart', 'woocommerce-cart-nonce' ); ?>
-                </div>
+					<button type="submit" class="button update-cart update-cart-btn btn btn-primary px-4" name="update_cart" value="<?php esc_attr_e( 'Update cart', 'woocommerce' ); ?>">
+						<i class="bi bi-arrow-repeat me-1"></i> <?php esc_html_e( 'Actualizar carrito', 'woocommerce' ); ?>
+					</button>
+				</div>
 
                 <?php do_action( 'woocommerce_after_cart_contents' ); ?>
             </div>
