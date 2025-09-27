@@ -84,7 +84,7 @@ do_action( 'woocommerce_before_cart' ); ?>
 									</div>
 								</div>
 								
-								<div class="count-input ms-n3 d-inline-flex align-items-center quantity>
+								<div class="count-input ms-n3 d-inline-flex align-items-center quantity ">
 									<?php
 									if ( $_product->is_sold_individually() ) {
 										$min_quantity = 1;
