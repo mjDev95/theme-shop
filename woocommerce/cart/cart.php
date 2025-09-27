@@ -83,48 +83,69 @@ do_action( 'woocommerce_before_cart' ); ?>
 										<?php endif; ?>
 									</div>
 								</div>
-								
-								<div class="count-input ms-n3 d-inline-flex align-items-center quantity">
-									<?php
-									if ( $_product->is_sold_individually() ) {
-										$min_quantity = 1;
-										$max_quantity = 1;
-									} else {
-										$min_quantity = 0;
-										$max_quantity = $_product->get_max_purchase_quantity();
-									}
+								<!-- Controles de cantidad -->
+								<div class="product-quantity"  data-title="<?php esc_attr_e( 'Quantity', 'woocommerce' ); ?>">
+									
+										<?php
+										if ( $_product->is_sold_individually() ) {
+											$min_quantity = 1;
+											$max_quantity = 1;
+										} else {
+											$min_quantity = 0;
+											$max_quantity = $_product->get_max_purchase_quantity();
+										}
 
-									$input_id = 'quantity_' . esc_attr( $cart_item_key );
-									$input_name = "cart[{$cart_item_key}][qty]";
-									$input_value = $cart_item['quantity'];
-									$min = $min_quantity;
-									$max = $max_quantity ? 'max="' . esc_attr( $max_quantity ) . '"' : '';
-									$step = 1;
-									$label = sprintf( esc_html__( 'Cantidad de %s', 'woocommerce' ), $product_name );
+										$input_id = 'quantity_' . esc_attr( $cart_item_key );
+										$input_name = "cart[{$cart_item_key}][qty]";
+										$input_value = $cart_item['quantity'];
+										$min = $min_quantity;
+										$max = $max_quantity ? 'max="' . esc_attr( $max_quantity ) . '"' : '';
+										$step = 1;
+										$label = sprintf( esc_html__( 'Cantidad de %s', 'woocommerce' ), $product_name );
+										?>
+									<div class="count-input ms-n3 d-inline-flex align-items-center quantity">
+										<button type="button" class="btn btn-transparent btn-sm minus" aria-label="<?php echo esc_attr( sprintf( 'Disminuir cantidad de %s', $product_name ) ); ?>" style="width:40px; min-width:40px;">
+											<i class="bi bi-dash"></i>
+										</button>
+										<label class="screen-reader-text" for="<?php echo $input_id; ?>"><?php echo $label; ?></label>
+										<input 
+											type="number"
+											id="<?php echo $input_id; ?>"
+											class="input-text qty text form-control border-0 w-auto px-0 text-center"
+											name="<?php echo $input_name; ?>"
+											value="<?php echo esc_attr( $input_value ); ?>"
+											aria-label="<?php echo $label; ?>"
+											min="<?php echo esc_attr( $min ); ?>"
+											<?php echo $max; ?>
+											step="<?php echo esc_attr( $step ); ?>"
+											placeholder=""
+											inputmode="numeric"
+											autocomplete="off"
+											style="width: 1.5rem !important; "
+										>
+										<button type="button" class="btn btn-transparent btn-sm plus" aria-label="<?php echo esc_attr( sprintf( 'Aumentar cantidad de %s', $product_name ) ); ?>" style="width:40px; min-width:40px;">
+											<i class="bi bi-plus"></i>
+										</button>
+									</div>
+								</div>	
+								
+
+								<!-- Botón eliminar con tooltip -->
+								<div class="nav justify-content-end mt-2">
+									<?php
+									echo apply_filters( 'woocommerce_cart_item_remove_link',
+										sprintf(
+									'<a href="%s" class="nav-link fs-xl p-2" aria-label="%s" data-bs-toggle="tooltip" title="%s">
+												<i class="bi bi-trash"></i>
+											</a>',
+											esc_url( wc_get_cart_remove_url( $cart_item_key ) ),
+											esc_attr( sprintf( __( 'Eliminar %s del carrito', 'woocommerce' ), wp_strip_all_tags( $product_name ) ) ),
+											esc_attr( $product_name )
+										),
+										$cart_item_key
+									);
 									?>
-									<button type="button" class="btn btn-transparent btn-sm minus" aria-label="<?php echo esc_attr( sprintf( 'Disminuir cantidad de %s', $product_name ) ); ?>" style="width:40px; min-width:40px;">
-										<i class="bi bi-dash"></i>
-									</button>
-									<label class="screen-reader-text" for="<?php echo $input_id; ?>"><?php echo $label; ?></label>
-									<input 
-										type="number"
-										id="<?php echo $input_id; ?>"
-										class="input-text qty text form-control border-0 w-auto px-0 text-center"
-										name="<?php echo $input_name; ?>"
-										value="<?php echo esc_attr( $input_value ); ?>"
-										aria-label="<?php echo $label; ?>"
-										min="<?php echo esc_attr( $min ); ?>"
-										<?php echo $max; ?>
-										step="<?php echo esc_attr( $step ); ?>"
-										placeholder=""
-										inputmode="numeric"
-										autocomplete="off"
-										style="width: 1.5rem !important; "
-									>
-									<button type="button" class="btn btn-transparent btn-sm plus" aria-label="<?php echo esc_attr( sprintf( 'Aumentar cantidad de %s', $product_name ) ); ?>" style="width:40px; min-width:40px;">
-										<i class="bi bi-plus"></i>
-									</button>
-								</div>								
+								</div>
 							</div>
 						</div>
 
