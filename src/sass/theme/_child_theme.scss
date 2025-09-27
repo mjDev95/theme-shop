@@ -341,6 +341,7 @@ header{
       aspect-ratio: 2 / 2.5;
       object-fit: cover;
       height: auto;
+      border-radius: var(--bs-border-radius-xl)!important;
       max-width: 110px;
     }
   }

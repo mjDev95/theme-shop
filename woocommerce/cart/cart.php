@@ -49,22 +49,22 @@ do_action( 'woocommerce_before_cart' ); ?>
 						if ( $_product->is_type( 'variation' ) && ! empty( $_product->get_variation_attributes() ) ) {
 							foreach ( $_product->get_variation_attributes() as $attr_name => $attr_value ) {
 								$label = wc_attribute_label( str_replace( 'attribute_', '', $attr_name ) );
-								$attributes_output .= '<div class="text-body-secondary fs-sm me-3">'
-													. $label . ': <span class="text-dark fw-medium">' . esc_html( $attr_value ) . '</span>'
+								$attributes_output .= '<div class="small text-capitalize me-3">'
+													. $label . ': <span class="text-muted small text-lowercase">' . esc_html( $attr_value ) . '</span>'
 													. '</div>';
 							}
 						}
 						?>
 						
-						<div class="d-sm-flex align-items-center <?php echo $loop_index > 1 ? 'border-top' : ''; ?>">
-							<a class="d-inline-block flex-shrink-0 rounded-1 p-sm-2 p-md-3 mb-2 mb-sm-0" href="<?php echo esc_url( $product_permalink ); ?>">
+						<div class="d-sm-flex align-items-center py-4 <?php echo $loop_index > 1 ? 'border-top' : ''; ?>">
+							<a class="d-inline-block flex-shrink-0 rounded-4 px-sm-2 px-md-3 mb-2 mb-sm-0" href="<?php echo esc_url( $product_permalink ); ?>">
 								<?php echo $thumbnail; ?>
 							</a>
 							<div class="w-100 pt-1 ps-sm-4">
 								<div class="d-flex">
 									<div class="me-3">
 										<h3 class="h5 mb-2">
-											<a href="<?php echo esc_url( $product_permalink ); ?>">
+											<a class="text-decoration-none text-danger" href="<?php echo esc_url( $product_permalink ); ?>">
 												<?php echo esc_html( $product_name ); ?>
 											</a>
 										</h3>
@@ -77,7 +77,7 @@ do_action( 'woocommerce_before_cart' ); ?>
 											<?php echo wc_price( $sale_price ? $sale_price : $regular_price ); ?>
 										</div>
 										<?php if ( $sale_price ) : ?>
-											<del class="text-body-secondary ms-auto precio-original">
+											<del class="text-muted ms-auto precio-original">
 												<?php echo wc_price( $regular_price ); ?>
 											</del>
 										<?php endif; ?>
