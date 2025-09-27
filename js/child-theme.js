@@ -7030,22 +7030,36 @@
 
 	  // Modernizar campo cantidad en carrito WooCommerce con jQuery (solo una vez y bien parseado)
 	  $(document).on('click', '.woocommerce-cart-form .quantity .plus', function () {
-	    var $input = $(this).siblings('input.qty');
+	    var $input = $(this).closest('.quantity').find('input.qty');
 	    var max = $input.attr('max') ? parseFloat($input.attr('max')) : null;
 	    var step = $input.attr('step') ? parseFloat($input.attr('step')) : 1;
 	    var value = parseFloat($input.val()) || 0;
 	    if (max !== null && value >= max) return;
 	    var newVal = value + step;
-	    $input.val(newVal).trigger('input').trigger('change');
+	    if (step % 1 === 0) newVal = Math.round(newVal);
+	    $input.val(String(newVal));
+	    $input[0].dispatchEvent(new Event('input', {
+	      bubbles: true
+	    }));
+	    $input[0].dispatchEvent(new Event('change', {
+	      bubbles: true
+	    }));
 	  });
 	  $(document).on('click', '.woocommerce-cart-form .quantity .minus', function () {
-	    var $input = $(this).siblings('input.qty');
+	    var $input = $(this).closest('.quantity').find('input.qty');
 	    var min = $input.attr('min') ? parseFloat($input.attr('min')) : 0;
 	    var step = $input.attr('step') ? parseFloat($input.attr('step')) : 1;
 	    var value = parseFloat($input.val()) || 0;
 	    if (value <= min) return;
 	    var newVal = value - step;
-	    $input.val(newVal).trigger('input').trigger('change');
+	    if (step % 1 === 0) newVal = Math.round(newVal);
+	    $input.val(String(newVal));
+	    $input[0].dispatchEvent(new Event('input', {
+	      bubbles: true
+	    }));
+	    $input[0].dispatchEvent(new Event('change', {
+	      bubbles: true
+	    }));
 	  });
 	});
 
