@@ -169,10 +169,9 @@ do_action( 'woocommerce_before_cart' ); ?>
 
                 <!-- Botón global actualizar -->
                 <div class="cart-update text-end mt-3">
-					<button type="submit" class="btn btn-primary px-4" name="update_cart" value="<?php esc_attr_e( 'Update cart', 'woocommerce' ); ?>">
+					<button type="submit" class="button update-cart update-cart-btn btn btn-primary px-4" name="update_cart" value="<?php esc_attr_e( 'Update cart', 'woocommerce' ); ?>">
 						<i class="bi bi-arrow-repeat me-1"></i> <?php esc_html_e( 'Actualizar carrito', 'woocommerce' ); ?>
 					</button>
-					<?php wp_nonce_field( 'woocommerce-cart', 'woocommerce-cart-nonce' ); ?>
 				</div>
 
                 <?php do_action( 'woocommerce_after_cart_contents' ); ?>

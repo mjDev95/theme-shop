@@ -281,28 +281,15 @@ jQuery(document).ready(function ($) {
         }
     });
 
-
-    // Habilitar botón actualizar carrito
-    function toggleUpdateButton() {
-        $('.update-cart-btn').prop('disabled', false);
-    }
-
-    // Tooltips Bootstrap
-    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-      return new bootstrap.Tooltip(tooltipTriggerEl)
-    });
-
-    // Increment / decrement cantidad
-    $(document).on('click', '.quantity .plus, .quantity .minus', function () {
+    $(document).on('click', '.count-input .plus, .count-input .minus', function() {
         var $input = $(this).siblings('input.qty');
-        var val = parseInt($input.val()) || 0;
         var max = parseInt($input.attr('max')) || null;
         var min = parseInt($input.attr('min')) || 0;
         var step = parseInt($input.attr('step')) || 1;
+        var val = parseInt($input.val()) || 0;
 
         if ($(this).hasClass('plus')) {
-            if (max && val >= max) return;
+            if (max !== null && val >= max) return;
             $input.val(val + step).trigger('change');
         } else {
             if (val <= min) return;
