@@ -7060,6 +7060,7 @@
 	        prevEl: '.swiper-button-prev'
 	      },
 	      freeMode: true,
+	      grabCursor: true,
 	      breakpoints: {
 	        0: {
 	          slidesPerView: 2
