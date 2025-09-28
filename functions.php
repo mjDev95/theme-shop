@@ -67,7 +67,11 @@ function theme_enqueue_styles() {
 add_action( 'wp_enqueue_scripts', 'theme_enqueue_styles' );
 
 
+add_action('woocommerce_before_main_content', 'shop_banner_slider', 20);
 
+function shop_banner_slider() {
+    get_template_part('template-parts/shop/banner-slider');
+}
 /**
  * Load the child theme's text domain
  */
