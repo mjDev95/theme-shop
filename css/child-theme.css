@@ -16056,18 +16056,15 @@ header .nav-link .active {
   transition: box-shadow 0.2s;
 }
 
-input.qty[type=number]::-webkit-inner-spin-button,
-input.qty[type=number]::-webkit-outer-spin-button {
+/*input.qty[type="number"]::-webkit-inner-spin-button, 
+input.qty[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-
-input.qty[type=number] {
+input.qty[type="number"] {
   -moz-appearance: textfield;
-  -webkit-appearance: none;
   appearance: none;
-}
-
+}*/
 .has-blue-color,
 .has-blue-color:visited {
   color: #0d6efd;
