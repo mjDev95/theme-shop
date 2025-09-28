@@ -27,7 +27,7 @@
 
         <!-- Columna derecha: Banner -->
         <div class="col-md-6 col-xl-5 d-flex justify-content-end">
-            <img src="assets/img/shop/banner.jpg" width="491" alt="Banner">
+            <img src="<?php echo get_template_directory_uri(); ?>/img/shop/01.webp" class="img-fluid" alt="Banner">
         </div>
 
     </div>
