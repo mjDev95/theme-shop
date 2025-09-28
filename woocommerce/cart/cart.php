@@ -128,7 +128,61 @@ do_action( 'woocommerce_before_cart' ); ?>
 										</button>
 									</div>
 								</div>	
-								
+								<table>
+									<thead></thead>
+									<tbody>
+										<tr>
+											<td class="product-quantity" data-title="<?php esc_attr_e( 'Quantity', 'woocommerce' ); ?>">
+						<?php
+						if ( $_product->is_sold_individually() ) {
+							$min_quantity = 1;
+							$max_quantity = 1;
+						} else {
+							$min_quantity = 0;
+							$max_quantity = $_product->get_max_purchase_quantity();
+						}
+
+						$product_quantity = woocommerce_quantity_input(
+							array(
+								'input_name'   => "cart[{$cart_item_key}][qty]",
+								'input_value'  => $cart_item['quantity'],
+								'max_value'    => $max_quantity,
+								'min_value'    => $min_quantity,
+								'product_name' => $product_name,
+							),
+							$_product,
+							false
+						);
+
+						echo apply_filters( 'woocommerce_cart_item_quantity', $product_quantity, $cart_item_key, $cart_item ); // PHPCS: XSS ok.
+						?>
+						</td>
+
+						<td class="product-subtotal" data-title="<?php esc_attr_e( 'Subtotal', 'woocommerce' ); ?>">
+							<?php
+								echo apply_filters( 'woocommerce_cart_item_subtotal', WC()->cart->get_product_subtotal( $_product, $cart_item['quantity'] ), $cart_item, $cart_item_key ); // PHPCS: XSS ok.
+							?>
+						</td>
+										</tr>
+										<tr>
+											<td colspan="6" class="actions">
+
+												<?php if ( wc_coupons_enabled() ) { ?>
+													<div class="coupon">
+														<label for="coupon_code" class="screen-reader-text"><?php esc_html_e( 'Coupon:', 'woocommerce' ); ?></label> <input type="text" name="coupon_code" class="input-text" id="coupon_code" value="" placeholder="<?php esc_attr_e( 'Coupon code', 'woocommerce' ); ?>" /> <button type="submit" class="button<?php echo esc_attr( wc_wp_theme_get_element_class_name( 'button' ) ? ' ' . wc_wp_theme_get_element_class_name( 'button' ) : '' ); ?>" name="apply_coupon" value="<?php esc_attr_e( 'Apply coupon', 'woocommerce' ); ?>"><?php esc_html_e( 'Apply coupon', 'woocommerce' ); ?></button>
+														<?php do_action( 'woocommerce_cart_coupon' ); ?>
+													</div>
+												<?php } ?>
+
+												<button type="submit" class="button<?php echo esc_attr( wc_wp_theme_get_element_class_name( 'button' ) ? ' ' . wc_wp_theme_get_element_class_name( 'button' ) : '' ); ?>" name="update_cart" value="<?php esc_attr_e( 'Update cart', 'woocommerce' ); ?>"><?php esc_html_e( 'Update cart', 'woocommerce' ); ?></button>
+
+												<?php do_action( 'woocommerce_cart_actions' ); ?>
+
+												<?php wp_nonce_field( 'woocommerce-cart', 'woocommerce-cart-nonce' ); ?>
+											</td>
+										</tr>				
+									</tbody>
+								</table>
 
 								<!-- Botón eliminar con tooltip -->
 								<div class="nav justify-content-end mt-2">
