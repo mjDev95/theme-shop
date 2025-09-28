@@ -16011,6 +16011,11 @@ header .nav-link .active {
   width: 100% !important;
 }
 
+.woocommerce a.remove {
+  height: 54px;
+  width: 54px;
+}
+
 @media (min-width: 768px) {
   .woocommerce-cart #coupon_code.input-text {
     width: auto !important;

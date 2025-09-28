@@ -103,7 +103,7 @@ do_action( 'woocommerce_before_cart' ); ?>
 										echo apply_filters(
 											'woocommerce_cart_item_remove_link',
 											sprintf(
-												'<a role="button" href="%s" class="remove" aria-label="%s" data-product_id="%s" data-product_sku="%s"><i class="bi bi-trash"></i></a>',
+												'<a role="button" href="%s" class="remove d-flex rounded-4 align-items-center text-center justify-content-center" aria-label="%s" data-product_id="%s" data-product_sku="%s"><i class="bi bi-trash"></i></a>',
 												esc_url( wc_get_cart_remove_url( $cart_item_key ) ),
 												esc_attr( sprintf( __( 'Remove %s from cart', 'woocommerce' ), wp_strip_all_tags( $product_name ) ) ),
 												esc_attr( $product_id ),
@@ -167,7 +167,7 @@ do_action( 'woocommerce_before_cart' ); ?>
                     <?php if ( wc_coupons_enabled() ) { ?>
 						<div class="coupon d-flex align-items-center mb-2">
 							<input type="text" name="coupon_code" class="input-text me-2 rounded-4 form-control" id="coupon_code" value="" placeholder="<?php esc_attr_e( 'Coupon code', 'woocommerce' ); ?>" />
-							<button type="submit" class="button rounded-4 btn btn-info text-white fw-semibold px-4" name="apply_coupon" value="<?php esc_attr_e( 'Apply coupon', 'woocommerce' ); ?>"><?php esc_html_e( 'Apply coupon', 'woocommerce' ); ?></button>
+							<button type="submit" class="button rounded-4 btn btn-info fw-semibold px-4" name="apply_coupon" value="<?php esc_attr_e( 'Apply coupon', 'woocommerce' ); ?>"><?php esc_html_e( 'Apply coupon', 'woocommerce' ); ?></button>
 							<?php do_action( 'woocommerce_cart_coupon' ); ?>
 						</div>
                     <?php } ?>
