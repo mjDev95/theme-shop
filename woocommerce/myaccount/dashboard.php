@@ -21,17 +21,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 					</div>
 					<div class="row g-3 mb-4">
 						<div class="col-md-4">
-							<a href="<?php echo esc_url( wc_get_endpoint_url( 'orders' ) ); ?>" class="btn btn-outline-primary w-100 py-3">
+							<a href="<?php echo esc_url( wc_get_endpoint_url( 'orders' ) ); ?>" class="btn btn-primary w-100 py-3">
 								<i class="fa fa-shopping-bag me-2"></i> Mis pedidos
 							</a>
 						</div>
 						<div class="col-md-4">
-							<a href="<?php echo esc_url( wc_get_endpoint_url( 'edit-address' ) ); ?>" class="btn btn-outline-secondary w-100 py-3">
+							<a href="<?php echo esc_url( wc_get_endpoint_url( 'edit-address' ) ); ?>" class="btn btn-secondary w-100 py-3">
 								<i class="fa fa-map-marker-alt me-2"></i> Direcciones
 							</a>
 						</div>
 						<div class="col-md-4">
-							<a href="<?php echo esc_url( wc_get_endpoint_url( 'edit-account' ) ); ?>" class="btn btn-outline-info w-100 py-3">
+							<a href="<?php echo esc_url( wc_get_endpoint_url( 'edit-account' ) ); ?>" class="btn btn-info w-100 py-3">
 								<i class="fa fa-user-edit me-2"></i> Editar cuenta
 							</a>
 						</div>

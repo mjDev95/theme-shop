@@ -27,7 +27,7 @@ do_action( 'woocommerce_before_edit_account_form' );
 
 
 <form class="woocommerce-EditAccountForm edit-account" action="" method="post" <?php do_action( 'woocommerce_edit_account_form_tag' ); ?> >
-	<legend class="form-label mt-4 mb-3 text-primary fs-5">
+	<legend class="form-label mt-4 mb-3  fs-5">
 		<i class="bi bi-person-lines-fill me-1"></i>
 		<?php esc_html_e( 'Edita tu nombre y correo electrónico', 'woocommerce' ); ?>
 	</legend>
@@ -77,7 +77,10 @@ do_action( 'woocommerce_before_edit_account_form' );
 	?>
 
 	<fieldset>
-		<legend class="form-label mt-5 mb-2"><i class="bi bi-key me-1"></i> <?php esc_html_e( 'Password change', 'woocommerce' ); ?></legend>
+		<legend class="form-label mt-4 mb-3 fs-5">
+			<i class="bi bi-key me-1"></i> 
+			<?php esc_html_e( 'Password change', 'woocommerce' ); ?>
+		</legend>
 
 		<p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide mb-3">
 			<label for="password_current" class="form-label">
