@@ -36,8 +36,14 @@ do_action( 'woocommerce_before_cart' ); ?>
 						if ( $_product->is_type( 'variation' ) && ! empty( $_product->get_variation_attributes() ) ) {
 							foreach ( $_product->get_variation_attributes() as $attr_name => $attr_value ) {
 								$label = wc_attribute_label( str_replace( 'attribute_', '', $attr_name ) );
+								$value = strtolower( $attr_value );
+								if ( in_array( $value, [ 'nino', 'niño' ] ) ) {
+									$value = 'niño';
+								} elseif ( in_array( $value, [ 'nina', 'niña' ] ) ) {
+									$value = 'niña';
+								}
 								$attributes_output .= '<div class="small text-capitalize me-3">'
-										. $label . ': <span class="text-muted small text-lowercase">' . esc_html( $attr_value ) . '</span>'
+										. $label . ': <span class="text-muted small text-lowercase">' . esc_html( $value ) . '</span>'
 										. '</div>';
 							}
 						}
