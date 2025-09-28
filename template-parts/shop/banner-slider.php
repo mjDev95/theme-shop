@@ -27,7 +27,7 @@
 
         <!-- Columna derecha: Banner -->
         <div class="col-md-5 col-xl-4 d-flex justify-content-end">
-            <img src="<?php echo get_stylesheet_directory_uri(); ?>/img/shop/01.webp" class="img-fluid" alt="Banner">
+            <img src="<?php echo get_stylesheet_directory_uri(); ?>/img/shop/hero.webp" class="img-fluid" alt="Banner">
         </div>
 
     </div>
