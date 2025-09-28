@@ -11,44 +11,18 @@ do_action( 'woocommerce_before_cart' ); ?>
 
             <div class="woocommerce-cart-items">
                 <?php do_action( 'woocommerce_before_cart_contents' ); ?>
-				<?php $loop_index = 0; ?>
+
                 <?php
                 foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
-					$loop_index++;
                     $_product   = apply_filters( 'woocommerce_cart_item_product', $cart_item['data'], $cart_item, $cart_item_key );
                     $product_id = apply_filters( 'woocommerce_cart_item_product_id', $cart_item['product_id'], $cart_item, $cart_item_key );
                     $product_name = apply_filters( 'woocommerce_cart_item_name', $_product->get_name(), $cart_item, $cart_item_key );
 
                     if ( $_product && $_product->exists() && $cart_item['quantity'] > 0 && apply_filters( 'woocommerce_cart_item_visible', true, $cart_item, $cart_item_key ) ) {
                         $product_permalink = apply_filters( 'woocommerce_cart_item_permalink', $_product->is_visible() ? $_product->get_permalink( $cart_item ) : '', $cart_item, $cart_item_key );
-                        $product_name      = $_product->get_name();
-						$thumbnail         = $_product->get_image( 'woocommerce_thumbnail', [ 'width' => 110 ] );
-						$price             = WC()->cart->get_product_price( $_product );
-						$subtotal          = WC()->cart->get_product_subtotal( $_product, $cart_item['quantity'] );
-						 // Precio regular vs en oferta
-						$regular_price = $_product->get_regular_price();
-						$sale_price    = $_product->get_sale_price();
+                        ?>
+                        <div class="cart-item d-flex align-items-center py-3 border-bottom <?php echo esc_attr( apply_filters( 'woocommerce_cart_item_class', 'cart_item', $cart_item, $cart_item_key ) ); ?>">
 
-						// Variaciones (ejemplo: color, talla, etc.)
-						$attributes_output = '';
-						if ( $_product->is_type( 'variation' ) && ! empty( $_product->get_variation_attributes() ) ) {
-							foreach ( $_product->get_variation_attributes() as $attr_name => $attr_value ) {
-								$label = wc_attribute_label( str_replace( 'attribute_', '', $attr_name ) );
-								$attributes_output .= '<div class="small text-capitalize me-3">'
-										. $label . ': <span class="text-muted small text-lowercase">' . esc_html( $attr_value ) . '</span>'
-										. '</div>';
-							}
-						}
-						?>
-                        <div class="cart-item d-flex align-items-center py-3 border-bottom <?php echo $loop_index > 1 ? 'border-top' : ''; ?> <?php echo esc_attr( apply_filters( 'woocommerce_cart_item_class', 'cart_item', $cart_item, $cart_item_key ) ); ?>">
-							<!-- Imagen -->
-							<a class="d-inline-block flex-shrink-0 rounded-4 px-sm-2 px-md-3 mb-2 mb-sm-0" href="<?php echo esc_url( $product_permalink ); ?>">
-								<?php echo $thumbnail; ?>
-							</a>
-							<?php
-								$thumbnail = apply_filters( 'woocommerce_cart_item_thumbnail', $_product->get_image(), $cart_item, $cart_item_key );
-								echo $product_permalink ? sprintf( '<a href="%s">%s</a>', esc_url( $product_permalink ), $thumbnail ) : $thumbnail;
-							?>
                             <!-- Eliminar -->
                             <div class="cart-col remove me-3">
                                 <?php
@@ -63,6 +37,14 @@ do_action( 'woocommerce_before_cart' ); ?>
                                         ),
                                         $cart_item_key
                                     );
+                                ?>
+                            </div>
+
+                            <!-- Imagen -->
+                            <div class="cart-col thumbnail me-3">
+                                <?php
+                                $thumbnail = apply_filters( 'woocommerce_cart_item_thumbnail', $_product->get_image(), $cart_item, $cart_item_key );
+                                echo $product_permalink ? sprintf( '<a href="%s">%s</a>', esc_url( $product_permalink ), $thumbnail ) : $thumbnail;
                                 ?>
                             </div>
 
