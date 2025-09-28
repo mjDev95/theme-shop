@@ -304,6 +304,25 @@ jQuery(document).ready(function ($) {
         }
     });
     
+    // Swiper para slider de categorías en banner tienda
+    if ($('.category-swiper').length && typeof Swiper !== 'undefined') {
+        new Swiper('.category-swiper', {
+            slidesPerView: 'auto',
+            spaceBetween: 16,
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            freeMode: true,
+            breakpoints: {
+                0: { slidesPerView: 2 },
+                576: { slidesPerView: 3 },
+                768: { slidesPerView: 4 },
+                992: { slidesPerView: 5 },
+                1200: { slidesPerView: 6 }
+            }
+        });
+    }
 
 });
 

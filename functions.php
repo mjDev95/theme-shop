@@ -28,6 +28,9 @@ add_action( 'wp_enqueue_scripts', 'understrap_remove_scripts', 20 );
  * Enqueue our stylesheet and javascript file
  */
 function theme_enqueue_styles() {
+    // SwiperJS CSS y JS desde CDN
+    wp_enqueue_style( 'swiper', 'https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css', array(), '12.0.0' );
+    wp_enqueue_script( 'swiper', 'https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js', array(), '12.0.0', true );
 
 	// Get the theme data.
 	$the_theme     = wp_get_theme();

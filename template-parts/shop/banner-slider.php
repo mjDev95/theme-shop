@@ -1,8 +1,8 @@
-<section class="rounded-1 overflow-hidden mb-5" style="background-color: #e3e5e9;" data-bs-theme="light">
+<section class="rounded-4 bg-info overflow-hidden mb-5">
     <div class="row align-items-center g-0">
 
         <!-- Columna izquierda: Slider de categorías -->
-        <div class="col-md-6 offset-xl-1 text-center text-md-start">
+        <div class="col-md-7 offset-xl-1 text-center text-md-start">
             <div class="py-4 px-4 px-sm-5 pe-md-0 ps-xl-4">
                 <div class="swiper category-swiper">
                     <div class="swiper-wrapper">
@@ -26,7 +26,7 @@
         </div>
 
         <!-- Columna derecha: Banner -->
-        <div class="col-md-6 col-xl-5 d-flex justify-content-end">
+        <div class="col-md-5 col-xl-4 d-flex justify-content-end">
             <img src="<?php echo get_stylesheet_directory_uri(); ?>/img/shop/01.webp" class="img-fluid" alt="Banner">
         </div>
 
