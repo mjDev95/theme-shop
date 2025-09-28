@@ -138,7 +138,157 @@ do_action( 'woocommerce_before_cart' ); ?>
                     <?php wp_nonce_field( 'woocommerce-cart', 'woocommerce-cart-nonce' ); ?>
                 </div>
 
+                <?php do_action( 'woocommerce_after_cart_contents' ); ?><?php
+defined( 'ABSPATH' ) || exit;
+
+do_action( 'woocommerce_before_cart' ); ?>
+
+<div class="row g-4">
+    <!-- Columna izquierda: listado de productos -->
+    <div class="col-xl-8 col-lg-12 col-md-12 col-12">
+        <form class="woocommerce-cart-form" action="<?php echo esc_url( wc_get_cart_url() ); ?>" method="post">
+            <?php do_action( 'woocommerce_before_cart_table' ); ?>
+
+            <div class="cart-items-list">
+                <?php do_action( 'woocommerce_before_cart_contents' ); ?>
+                <?php $loop_index = 0; ?>
+                <?php foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) :
+                    $loop_index++;
+                    $_product   = apply_filters( 'woocommerce_cart_item_product', $cart_item['data'], $cart_item, $cart_item_key );
+                    $product_id = apply_filters( 'woocommerce_cart_item_product_id', $cart_item['product_id'], $cart_item, $cart_item_key );
+
+                    if ( $_product && $_product->exists() && $cart_item['quantity'] > 0 ) :
+                        $product_permalink = $_product->is_visible() ? $_product->get_permalink( $cart_item ) : '';
+                        $product_name      = $_product->get_name();
+                        $thumbnail         = $_product->get_image( 'woocommerce_thumbnail', [ 'width' => 110 ] );
+                        $regular_price     = $_product->get_regular_price();
+                        $sale_price        = $_product->get_sale_price();
+                        ?>
+                        
+                        <div class="d-sm-flex align-items-center py-4 <?php echo $loop_index > 1 ? 'border-top' : ''; ?>">
+                            <a class="d-inline-block flex-shrink-0 rounded-4 px-sm-2 px-md-3 mb-2 mb-sm-0" href="<?php echo esc_url( $product_permalink ); ?>">
+                                <?php echo $thumbnail; ?>
+                            </a>
+                            <div class="w-100 pt-1 ps-sm-4">
+                                <div class="d-flex">
+                                    <div class="me-3">
+                                        <h3 class="h5 mb-2">
+                                            <a class="text-decoration-none text-danger" href="<?php echo esc_url( $product_permalink ); ?>">
+                                                <?php echo esc_html( $product_name ); ?>
+                                            </a>
+                                        </h3>
+                                    </div>
+                                    <div class="text-end ms-auto">
+                                        <div class="fs-5 mb-2 precio-actual">
+                                            <?php echo wc_price( $sale_price ? $sale_price : $regular_price ); ?>
+                                        </div>
+                                        <?php if ( $sale_price ) : ?>
+                                            <del class="text-muted ms-auto precio-original">
+                                                <?php echo wc_price( $regular_price ); ?>
+                                            </del>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
+
+                                <!-- Controles de cantidad -->
+                                <div class="product-quantity mt-2" data-title="<?php esc_attr_e( 'Quantity', 'woocommerce' ); ?>">
+                                    <?php
+                                    if ( $_product->is_sold_individually() ) {
+                                        $min_quantity = 1;
+                                        $max_quantity = 1;
+                                    } else {
+                                        $min_quantity = 0;
+                                        $max_quantity = $_product->get_max_purchase_quantity();
+                                    }
+                                    $input_id    = 'quantity_' . esc_attr( $cart_item_key );
+                                    $input_name  = "cart[{$cart_item_key}][qty]";
+                                    $input_value = $cart_item['quantity'];
+                                    ?>
+                                    <div class="count-input d-inline-flex align-items-center quantity">
+                                        <button type="button" class="btn btn-transparent btn-sm minus" aria-label="<?php echo esc_attr( sprintf( 'Disminuir cantidad de %s', $product_name ) ); ?>">
+                                            <i class="bi bi-dash"></i>
+                                        </button>
+                                        <input type="number"
+                                            id="<?php echo $input_id; ?>"
+                                            class="input-text qty text form-control border-0 w-auto px-0 text-center"
+                                            name="<?php echo $input_name; ?>"
+                                            value="<?php echo esc_attr( $input_value ); ?>"
+                                            min="<?php echo esc_attr( $min_quantity ); ?>"
+                                            max="<?php echo esc_attr( $max_quantity ); ?>"
+                                            step="1"
+                                        >
+                                        <button type="button" class="btn btn-transparent btn-sm plus" aria-label="<?php echo esc_attr( sprintf( 'Aumentar cantidad de %s', $product_name ) ); ?>">
+                                            <i class="bi bi-plus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- Botón eliminar -->
+                                <div class="nav justify-content-end mt-2">
+                                    <?php
+                                    echo apply_filters( 'woocommerce_cart_item_remove_link',
+                                        sprintf(
+                                            '<a href="%s" class="nav-link fs-xl p-2" aria-label="%s" data-bs-toggle="tooltip" title="%s">
+                                                <i class="bi bi-trash"></i>
+                                            </a>',
+                                            esc_url( wc_get_cart_remove_url( $cart_item_key ) ),
+                                            esc_attr( sprintf( __( 'Eliminar %s del carrito', 'woocommerce' ), wp_strip_all_tags( $product_name ) ) ),
+                                            esc_attr( $product_name )
+                                        ),
+                                        $cart_item_key
+                                    );
+                                    ?>
+                                </div>
+                            </div>
+                        </div>
+
+                    <?php endif; ?>
+                <?php endforeach; ?>
+
+                <!-- Botón global actualizar -->
+                <div class="cart-update text-end mt-3">
+                    <button type="submit" class="button update-cart update-cart-btn btn btn-primary px-4" name="update_cart" value="<?php esc_attr_e( 'Update cart', 'woocommerce' ); ?>">
+                        <i class="bi bi-arrow-repeat me-1"></i> <?php esc_html_e( 'Actualizar carrito', 'woocommerce' ); ?>
+                    </button>
+                </div>
+
                 <?php do_action( 'woocommerce_after_cart_contents' ); ?>
+            </div>
+
+            <?php do_action( 'woocommerce_after_cart_table' ); ?>
+            <?php wp_nonce_field( 'woocommerce-cart', 'woocommerce-cart-nonce' ); ?>
+        </form>
+    </div>
+
+    <!-- Columna derecha: Totales -->
+    <div class="col-xl-4 col-lg-12 col-md-12 col-12">
+        <?php do_action( 'woocommerce_before_cart_collaterals' ); ?>
+        <div class="cart-collaterals">
+            <?php do_action( 'woocommerce_cart_collaterals' ); ?>
+        </div>
+        <?php do_action( 'woocommerce_after_cart' ); ?>
+    </div>
+</div>
+
+<!-- JS para que los botones + y - activen el botón de actualizar -->
+<script>
+jQuery(document).ready(function($) {
+    $('.plus, .minus').on('click', function() {
+        var $input = $(this).siblings('.qty');
+        var val = parseInt($input.val());
+        var min = parseInt($input.attr('min')) || 0;
+        var max = parseInt($input.attr('max')) || 9999;
+        if ($(this).hasClass('plus') && val < max) $input.val(val + 1).trigger('change');
+        if ($(this).hasClass('minus') && val > min) $input.val(val - 1).trigger('change');
+    });
+
+    // Detecta cambios en los inputs de cantidad y activa el botón
+    $('.qty').on('change', function() {
+        $('.update-cart-btn').prop('disabled', false);
+    });
+});
+</script>
+
             </div>
             <?php do_action( 'woocommerce_after_cart_table' ); ?>
         </form>
