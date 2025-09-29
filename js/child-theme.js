@@ -6956,14 +6956,21 @@
 	    });
 	  }
 
+	  // Inicial y en evento WooCommerce
+	  updateCartCount();
+	  $(document.body).on('added_to_cart', updateCartCount);
+
 	  // Click en categoría del slider
 	  $(document).on('click', '.category-btn', function (e) {
 	    e.preventDefault();
 	    var cat_id = $(this).data('cat');
 	    var cat_name = $(this).text();
 
-	    // Mostrar loader
-	    $('#products-wrapper').html('<p>Cargando productos...</p>');
+	    // Fade out y mostrar loader
+	    var $productsList = $('.products.columns-4');
+	    $productsList.fadeTo(150, 0.3, function () {
+	      $productsList.html('<li class="product loading-product text-center w-100" style="list-style:none;width:100%"><span class="spinner-border spinner-border-sm text-primary" role="status"></span> Cargando productos...</li>');
+	    });
 
 	    // Cambiar el mensaje dinámicamente
 	    $('.woocommerce-result-count').text('Viendo productos de la colección ' + cat_name);
@@ -6976,10 +6983,14 @@
 	        category: cat_id
 	      },
 	      success: function (response) {
-	        $('#products-wrapper').html(response);
+	        $productsList.fadeTo(100, 0, function () {
+	          $productsList.html(response);
+	          $productsList.fadeTo(200, 1);
+	        });
 	      },
 	      error: function () {
-	        $('#products-wrapper').html('<p>Error al cargar productos.</p>');
+	        $productsList.html('<li class="product text-center w-100" style="list-style:none;width:100%">Error al cargar productos.</li>');
+	        $productsList.fadeTo(200, 1);
 	      }
 	    });
 
@@ -6987,10 +6998,6 @@
 	    $('.category-btn').removeClass('active');
 	    $(this).addClass('active');
 	  });
-
-	  // Inicial y en evento WooCommerce
-	  updateCartCount();
-	  $(document.body).on('added_to_cart', updateCartCount);
 
 	  // Interceptar el login de WooCommerce dentro del modal
 	  var $modal = $('#accountModal');
