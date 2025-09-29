@@ -39,8 +39,8 @@
         </div>
 
         <!-- Columna derecha: Banner -->
-        <div class="col-md-5 slide-cat col-xl-4 d-flex justify-content-end position-relative">
-            <img src="<?php echo get_stylesheet_directory_uri(); ?>/img/shop/hero.webp" class="img-fluid" alt="Banner">
+        <div class="col-md-5 slide-cat col-xl-4 d-flex justify-content-end position-relative" style="min-height: 60px;">
+            <img src="<?php echo get_stylesheet_directory_uri(); ?>/img/shop/hero.webp" class="img-fluid d-none d-md-flex" alt="Banner">
                 <div class="shop-button-next position-absolute bottom-0 end-0 btn btn-light">
                     <svg width="10" height="20" viewBox="0 0 10 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M8.77688 6.97189L2.37803 0.415378C2.11683 0.149331 1.7635 0 1.3952 0C1.0269 0 0.673568 0.149331 0.412368 0.415378C0.281703 0.548169 0.177991 0.706155 0.107215 0.880223C0.0364393 1.05429 0 1.24099 0 1.42957C0 1.61814 0.0364393 1.80484 0.107215 1.97891C0.177991 2.15298 0.281703 2.31096 0.412368 2.44375L6.82516 8.98598C6.95583 9.11877 7.05954 9.27675 7.13032 9.45082C7.20109 9.62489 7.23753 9.81159 7.23753 10.0002C7.23753 10.1887 7.20109 10.3754 7.13032 10.5495C7.05954 10.7236 6.95583 10.8816 6.82516 11.0144L0.412368 17.5566C0.149857 17.8237 0.0016449 18.1867 0.000337694 18.5657C-0.000969515 18.9448 0.144736 19.3088 0.405399 19.5778C0.666062 19.8468 1.02033 19.9987 1.39027 20C1.76021 20.0013 2.11552 19.852 2.37803 19.5849L8.77688 13.0284C9.56008 12.2249 10 11.1358 10 10.0002C10 8.86456 9.56008 7.77538 8.77688 6.97189Z" fill="#374957"/>

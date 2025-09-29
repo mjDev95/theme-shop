@@ -16002,11 +16002,14 @@ header .nav-link .active {
 .slide-cat .shop-button-prev {
   height: 54px;
   width: 54px;
-  right: 60px;
+  bottom: 16px;
+  right: 70px;
 }
 .slide-cat .shop-button-next {
   width: 54px;
+  right: 16px;
   height: 54px;
+  bottom: 16px;
 }
 
 /*Carrito*/
