@@ -6959,13 +6959,10 @@
 	  // Click en categoría del slider
 	  $(document).on('click', '.category-btn', function (e) {
 	    e.preventDefault();
-	    var $btn = $(this);
 	    var cat_id = $(this).data('cat');
+	    var cat_name = $(this).text();
 
-	    // Mostrar loader opcional
-	    $('.category-btn').removeClass('active');
-	    $btn.addClass('active');
-	    // Mostrar loader opcional
+	    // Mostrar loader
 	    $('#products-wrapper').html('<p>Cargando productos...</p>');
 
 	    // Cambiar el mensaje dinámicamente
@@ -6985,6 +6982,10 @@
 	        $('#products-wrapper').html('<p>Error al cargar productos.</p>');
 	      }
 	    });
+
+	    // Asignar clase activa al botón
+	    $('.category-btn').removeClass('active');
+	    $(this).addClass('active');
 	  });
 
 	  // Inicial y en evento WooCommerce
