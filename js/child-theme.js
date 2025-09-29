@@ -7056,8 +7056,8 @@
 	      slidesPerView: 'auto',
 	      spaceBetween: 16,
 	      navigation: {
-	        nextEl: '.swiper-button-next',
-	        prevEl: '.swiper-button-prev'
+	        nextEl: '.shop-button-next',
+	        prevEl: '.shop-button-prev'
 	      },
 	      freeMode: true,
 	      grabCursor: true,
@@ -7072,10 +7072,10 @@
 	          slidesPerView: 4
 	        },
 	        992: {
-	          slidesPerView: 5
+	          slidesPerView: 4
 	        },
 	        1200: {
-	          slidesPerView: 6
+	          slidesPerView: 5
 	        }
 	      }
 	    });

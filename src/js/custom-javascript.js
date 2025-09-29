@@ -310,8 +310,8 @@ jQuery(document).ready(function ($) {
             slidesPerView: 'auto',
             spaceBetween: 16,
             navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
+                nextEl: '.shop-button-next',
+                prevEl: '.shop-button-prev',
             },
             freeMode: true,
             grabCursor: true,
@@ -319,8 +319,8 @@ jQuery(document).ready(function ($) {
                 0: { slidesPerView: 2 },
                 576: { slidesPerView: 3 },
                 768: { slidesPerView: 4 },
-                992: { slidesPerView: 5 },
-                1200: { slidesPerView: 6 }
+                992: { slidesPerView: 4 },
+                1200: { slidesPerView: 5 }
             }
         });
     }
