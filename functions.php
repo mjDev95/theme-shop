@@ -129,13 +129,13 @@ function understrap_default_bootstrap_version() {
 add_filter( 'theme_mod_understrap_bootstrap_version', 'understrap_default_bootstrap_version', 20 );
 
 
-// Cambiar el slug de la taxonomía de categorías de producto a 'coleccion'
+/*// Cambiar el slug de la taxonomía de categorías de producto a 'coleccion'
 add_filter('register_taxonomy_args', function($args, $taxonomy) {
     if ($taxonomy === 'product_cat') {
         $args['rewrite'] = array('slug' => 'coleccion', 'with_front' => true, 'hierarchical' => true);
     }
     return $args;
-}, 10, 2);
+}, 10, 2);*/
 
 
 /**
