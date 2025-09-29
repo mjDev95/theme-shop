@@ -1,4 +1,3 @@
-
 <?php
 /**
  * Understrap Child Theme functions and definitions
@@ -78,9 +77,6 @@ add_action( 'wp_enqueue_scripts', 'theme_enqueue_styles' );
 
 add_action('woocommerce_before_main_content', 'shop_banner_slider', 20);
 add_filter('woocommerce_show_page_title', '__return_false');
-// Quitar barra de orden y filtros por defecto de WooCommerce en la tienda
-remove_action('woocommerce_before_shop_loop', 'woocommerce_catalog_ordering', 30);
-
 function shop_banner_slider() {
     get_template_part('template-parts/shop/banner-slider');
 }
@@ -128,14 +124,6 @@ function understrap_default_bootstrap_version() {
 }
 add_filter( 'theme_mod_understrap_bootstrap_version', 'understrap_default_bootstrap_version', 20 );
 
-
-/*// Cambiar el slug de la taxonomía de categorías de producto a 'coleccion'
-add_filter('register_taxonomy_args', function($args, $taxonomy) {
-    if ($taxonomy === 'product_cat') {
-        $args['rewrite'] = array('slug' => 'coleccion', 'with_front' => true, 'hierarchical' => true);
-    }
-    return $args;
-}, 10, 2);*/
 
 
 /**
