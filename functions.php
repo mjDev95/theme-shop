@@ -66,12 +66,17 @@ function theme_enqueue_styles() {
         'ajaxurl' => admin_url('admin-ajax.php'),
         'nonce'   => wp_create_nonce('modal_login_nonce'),
     ]);
+    // Localizar variables JS para filtro de productos
+    wp_localize_script('child-understrap-scripts', 'dingoFilter', [
+        'ajaxurl' => admin_url('admin-ajax.php'),
+        'nonce'   => wp_create_nonce('dingo_filter_nonce'),
+    ]);
 }
 add_action( 'wp_enqueue_scripts', 'theme_enqueue_styles' );
 
 
-add_action('woocommerce_before_main_content', 'shop_banner_slider', 20);
-
+add_action('woocommerce_before_main_content', 'shop_banner_slider', 5);
+add_filter('woocommerce_show_page_title', '__return_false');
 function shop_banner_slider() {
     get_template_part('template-parts/shop/banner-slider');
 }
@@ -201,6 +206,46 @@ function dingo_product_search() {
     }
 
     wp_send_json_success($results); // siempre devuelve array
+}
+
+/**
+ * Manejar filtro asincróno de productos WooCommerce
+ */
+add_action('wp_ajax_filter_products_by_cat', 'filter_products_by_cat');
+add_action('wp_ajax_nopriv_filter_products_by_cat', 'filter_products_by_cat');
+
+function filter_products_by_cat() {
+    check_ajax_referer('dingo_filter_nonce', 'security');
+
+    $cat_id = intval($_POST['category']);
+
+    $args = [
+        'post_type'      => 'product',
+        'posts_per_page' => 10, // primeros 10
+        'tax_query'      => [
+            [
+                'taxonomy' => 'product_cat',
+                'field'    => 'term_id',
+                'terms'    => $cat_id,
+            ],
+        ],
+    ];
+
+    $query = new WP_Query($args);
+
+    if ($query->have_posts()) {
+        echo '<div class="row">';
+        while ($query->have_posts()) {
+            $query->the_post();
+            wc_get_template_part('content', 'product');
+        }
+        echo '</div>';
+    } else {
+        echo '<p>No hay productos en esta categoría.</p>';
+    }
+
+    wp_reset_postdata();
+    wp_die();
 }
 
 // Manejar conteo del carrito para el botón de carrito

@@ -205,6 +205,39 @@ jQuery(document).ready(function ($) {
         });
     }
 
+    // Click en categoría del slider
+    $(document).on('click', '.category-btn', function(e) {
+        e.preventDefault();
+
+        var $btn   = $(this); 
+        var cat_id = $(this).data('cat');
+
+        // Mostrar loader opcional
+        $('.category-btn').removeClass('active');
+        $btn.addClass('active');
+        // Mostrar loader opcional
+        $('#products-wrapper').html('<p>Cargando productos...</p>');
+        
+        // Cambiar el mensaje dinámicamente
+        $('.woocommerce-result-count').text('Viendo productos de la colección ' + cat_name);
+
+        $.ajax({
+            url: dingoFilter.ajaxurl,
+            type: 'POST',
+            data: {
+                action: 'filter_products_by_cat',
+                security: dingoFilter.nonce,
+                category: cat_id,
+            },
+            success: function(response) {
+                $('#products-wrapper').html(response);
+            },
+            error: function() {
+                $('#products-wrapper').html('<p>Error al cargar productos.</p>');
+            }
+        });
+    });
+
     // Inicial y en evento WooCommerce
     updateCartCount();
     $(document.body).on('added_to_cart', updateCartCount);
