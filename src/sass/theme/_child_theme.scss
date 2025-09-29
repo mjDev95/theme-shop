@@ -349,6 +349,19 @@ header{
     bottom: 16px;
   }
 }
+.category-btn{
+  &.active {
+    transition: all .3s ease-in-out;
+    img {
+      border: 3px solid #fff;
+      box-shadow: 0 0 0 0.25rem var(--bs-info, rgba(13,202,240,.25));
+    }
+    span{
+      color: var(--bs-white);
+      font-weight: 700;
+    }
+  }
+}
 /*Carrito*/
 .woocommerce-page {
   .cart-items-list{
