@@ -15998,6 +15998,17 @@ header .nav-link .active {
 *WooCommerce
 *
 **/
+/*Tienda*/
+.slide-cat .shop-button-prev {
+  height: 54px;
+  width: 54px;
+  right: 60px;
+}
+.slide-cat .shop-button-next {
+  width: 54px;
+  height: 54px;
+}
+
 /*Carrito*/
 .woocommerce-page .cart-items-list img {
   aspect-ratio: 2/2.5;
