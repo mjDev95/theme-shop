@@ -318,7 +318,7 @@ jQuery(document).ready(function ($) {
             breakpoints: {
                 0: { slidesPerView: 2 },
                 576: { slidesPerView: 3 },
-                768: { slidesPerView: 4 },
+                768: { slidesPerView: 3 },
                 992: { slidesPerView: 4 },
                 1200: { slidesPerView: 5 }
             }
