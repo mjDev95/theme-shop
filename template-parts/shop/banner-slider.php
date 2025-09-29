@@ -3,7 +3,7 @@
 
         <!-- Columna izquierda: Slider de categorías -->
         <div class="col-md-7 offset-xl-1 text-center text-md-start">
-            <div class="py-4 px-4 px-sm-5 pe-md-0 ps-xl-4">
+            <div class="py-4 px-4 px-sm-5 pe-md-0 ps-xl-4 position-relative">
                 <div class="swiper category-swiper">
                     <div class="swiper-wrapper">
                         <?php 
@@ -24,9 +24,9 @@
                             ?>
                             <div class="swiper-slide">
                                 <button class="btn p-0 border-0 bg-transparent category-btn" data-cat="<?php echo $cat->term_id; ?>">
-                                    <div class="card h-100 text-center border-0">
+                                    <div class="h-100 text-center border-0">
                                         <img src="<?php echo esc_url($image_url); ?>" class="card-img-top img-fluid rounded-4" alt="<?php echo esc_attr($cat->name); ?>">
-                                        <div class="card-body p-2">
+                                        <div class="p-2">
                                             <span class="fw-semibold text-dark"><?php echo esc_html($cat->name); ?></span>
                                         </div>
                                     </div>
@@ -35,8 +35,12 @@
                         <?php endforeach; ?>
                     </div>
                 </div>
-                <div class="swiper-button-next"></div>
-                <div class="swiper-button-prev"></div>
+                <div class="shop-button-next position-absolute bottom-0 end-0 ratio ratio-1x1 btn btn-light" style="width: 54px;">
+
+                </div>
+                <div class="shop-button-prev me-2 position-absolute bottom-0 end-0 ratio ratio-1x1 btn btn-light" style="width: 54px;">
+
+                </div>
             </div>
         </div>
 
