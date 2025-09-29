@@ -36,6 +36,11 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+        <!-- Columna derecha: Banner -->
+        <div class="col-md-5 col-xl-4 d-flex justify-content-end pb-3">
+            <img src="<?php echo get_stylesheet_directory_uri(); ?>/img/shop/hero.webp" class="img-fluid" alt="Banner">
             <div class="w-100 position-relative">
                 <div class="shop-button-next position-absolute bottom-0 end-0 btn btn-light">
                     <svg width="10" height="20" viewBox="0 0 10 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -48,11 +53,6 @@
                     </svg>
                 </div>
             </div>
-        </div>
-
-        <!-- Columna derecha: Banner -->
-        <div class="col-md-5 col-xl-4 d-flex justify-content-end">
-            <img src="<?php echo get_stylesheet_directory_uri(); ?>/img/shop/hero.webp" class="img-fluid" alt="Banner">
         </div>
 
     </div>
