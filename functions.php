@@ -321,7 +321,7 @@ add_filter('woocommerce_product_get_image', function($image, $product, $size, $a
 // Envolver título y precio en un div en el loop de productos
 add_filter('woocommerce_after_shop_loop_item_title', function() {
     global $product;
-    $title = '<div class="product-main-info d-flex align-items-center gap-2 mt-2">';
+    $title = '<div class="product-main-info d-flex align-items-center justify-content-between mt-2">';
     $title .= '<div class="product-info flex-grow-1">';
     $title .= '<div class="woocommerce-loop-product__title fs-5 mb-1">' . get_the_title() . '</div>';
     $title .= '<div class="price">' . $product->get_price_html() . '</div>';
