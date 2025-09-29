@@ -347,7 +347,15 @@ jQuery(document).ready(function ($) {
     
     // Swiper para slider de categorías en banner tienda
     if ($('.category-swiper').length && typeof Swiper !== 'undefined') {
-        new Swiper('.category-swiper', {
+        // Buscar el índice del slide activo
+        var activeIndex = 0;
+        $('.category-swiper .category-btn').each(function(i){
+            if($(this).hasClass('active')) {
+                activeIndex = i;
+                return false;
+            }
+        });
+        var swiper = new Swiper('.category-swiper', {
             slidesPerView: 'auto',
             spaceBetween: 16,
             navigation: {
@@ -362,6 +370,13 @@ jQuery(document).ready(function ($) {
                 768: { slidesPerView: 3 },
                 992: { slidesPerView: 4 },
                 1200: { slidesPerView: 5 }
+            },
+            on: {
+                init: function() {
+                    if(activeIndex > 0) {
+                        this.slideTo(activeIndex, 0);
+                    }
+                }
             }
         });
     }

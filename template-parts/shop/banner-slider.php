@@ -12,6 +12,24 @@
                             'hide_empty' => true,
                         ));
 
+                        // Detectar si estamos en una categoría de producto
+                        $current_cat_id = 0;
+                        if (is_product_category()) {
+                            $current_cat = get_queried_object();
+                            if ($current_cat && isset($current_cat->term_id)) {
+                                $current_cat_id = $current_cat->term_id;
+                            }
+                        }
+
+                        // Reordenar para poner la categoría activa primero si existe
+                        if ($current_cat_id) {
+                            usort($product_cats, function($a, $b) use ($current_cat_id) {
+                                if ($a->term_id == $current_cat_id) return -1;
+                                if ($b->term_id == $current_cat_id) return 1;
+                                return 0;
+                            });
+                        }
+
                         foreach ($product_cats as $cat): 
                             // ID de la miniatura asociada a la categoría
                             $thumbnail_id = get_term_meta( $cat->term_id, 'thumbnail_id', true );
@@ -21,9 +39,11 @@
                                 // Imagen de respaldo si la categoría no tiene miniatura
                                 $image_url = wc_placeholder_img_src();
                             }
+                            // Marcar activo si es la categoría actual
+                            $is_active = ($cat->term_id == $current_cat_id) ? 'active' : '';
                             ?>
                             <div class="swiper-slide">
-                                <button class="btn p-0 border-0 bg-transparent category-btn" data-cat="<?php echo $cat->term_id; ?>">
+                                <button class="btn p-0 border-0 bg-transparent category-btn <?php echo $is_active; ?>" data-cat="<?php echo $cat->term_id; ?>">
                                     <div class="h-100 text-center border-0">
                                         <img src="<?php echo esc_url($image_url); ?>" class="card-img-top img-fluid rounded-4" alt="<?php echo esc_attr($cat->name); ?>">
                                         <div class="p-2">
