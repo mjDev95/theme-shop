@@ -313,7 +313,7 @@ add_filter('woocommerce_product_get_image', function($image, $product, $size, $a
     // Solo en el loop de productos (no single)
     if (!is_product()) {
         // Añadir la clase 'rounded' si no está
-        $image = str_replace('class="', 'class="rounded ', $image);
+        $image = str_replace('class="', 'class="rounded-4 ', $image);
     }
     return $image;
 }, 10, 6);
@@ -321,13 +321,20 @@ add_filter('woocommerce_product_get_image', function($image, $product, $size, $a
 // Envolver título y precio en un div en el loop de productos
 add_filter('woocommerce_after_shop_loop_item_title', function() {
     global $product;
-    $title = '<div class="product-info text-center">';
-    $title .= '<div class="woocommerce-loop-product__title h6 mb-1">' . get_the_title() . '</div>';
+    $title = '<div class="product-main-info d-flex align-items-center gap-2 mt-2">';
+    $title .= '<div class="product-info flex-grow-1">';
+    $title .= '<div class="woocommerce-loop-product__title fs-5 mb-1">' . get_the_title() . '</div>';
     $title .= '<div class="price">' . $product->get_price_html() . '</div>';
+    $title .= '</div>';
+    $title .= '<div class="product-link">';
+    $title .= '<a href="' . get_permalink() . '" class="btn btn-info rounded-4 px-3 py-1 d-flex align-items-center justify-content-center" title="Ver detalle">';
+    $title .= '<i class="bi bi-arrow-up-right" style="font-size:1.3rem;"></i>';
+    $title .= '</a>';
+    $title .= '</div>';
     $title .= '</div>';
     echo $title;
 }, 1);
 
 // Ocultar el título y precio por defecto en el loop
-add_filter('woocommerce_shop_loop_item_title', '__return_empty_string', 1);
+add_filter('woocommerce_template_loop_product_title', '__return_empty_string', 1);
 remove_action('woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_price', 10);
