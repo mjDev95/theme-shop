@@ -6956,10 +6956,6 @@
 	    });
 	  }
 
-	  // Inicial y en evento WooCommerce
-	  updateCartCount();
-	  $(document.body).on('added_to_cart', updateCartCount);
-
 	  // Click en categoría del slider
 	  $(document).on('click', '.category-btn', function (e) {
 	    e.preventDefault();
@@ -6998,6 +6994,10 @@
 	    $('.category-btn').removeClass('active');
 	    $(this).addClass('active');
 	  });
+
+	  // Inicial y en evento WooCommerce
+	  updateCartCount();
+	  $(document.body).on('added_to_cart', updateCartCount);
 
 	  // Interceptar el login de WooCommerce dentro del modal
 	  var $modal = $('#accountModal');
@@ -7091,14 +7091,6 @@
 
 	  // Swiper para slider de categorías en banner tienda
 	  if ($('.category-swiper').length && typeof Swiper !== 'undefined') {
-	    // Buscar el índice del slide activo
-	    var activeIndex = 0;
-	    $('.category-swiper .category-btn').each(function (i) {
-	      if ($(this).hasClass('active')) {
-	        activeIndex = i;
-	        return false;
-	      }
-	    });
 	    new Swiper('.category-swiper', {
 	      slidesPerView: 'auto',
 	      spaceBetween: 16,
@@ -7123,13 +7115,6 @@
 	        },
 	        1200: {
 	          slidesPerView: 5
-	        }
-	      },
-	      on: {
-	        init: function () {
-	          if (activeIndex > 0) {
-	            this.slideTo(activeIndex, 0);
-	          }
 	        }
 	      }
 	    });
