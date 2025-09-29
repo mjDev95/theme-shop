@@ -75,7 +75,11 @@ function theme_enqueue_styles() {
 add_action( 'wp_enqueue_scripts', 'theme_enqueue_styles' );
 
 
-add_action('woocommerce_before_main_content', 'shop_banner_slider', 20);
+add_action('woocommerce_before_main_content', function() {
+    if (is_shop() || is_product_category()) {
+        shop_banner_slider();
+    }
+}, 20);
 add_filter('woocommerce_show_page_title', '__return_false');
 function shop_banner_slider() {
     get_template_part('template-parts/shop/banner-slider');
@@ -124,6 +128,13 @@ function understrap_default_bootstrap_version() {
 }
 add_filter( 'theme_mod_understrap_bootstrap_version', 'understrap_default_bootstrap_version', 20 );
 
+/*// Cambiar el slug de la taxonomía de categorías de producto a 'coleccion'
+add_filter('register_taxonomy_args', function($args, $taxonomy) {
+    if ($taxonomy === 'product_cat') {
+        $args['rewrite'] = array('slug' => 'coleccion', 'with_front' => true, 'hierarchical' => true);
+    }
+    return $args;
+}, 10, 2);*/
 
 
 /**
@@ -234,12 +245,10 @@ function filter_products_by_cat() {
     $query = new WP_Query($args);
 
     if ($query->have_posts()) {
-        echo '<div class="row">';
         while ($query->have_posts()) {
             $query->the_post();
             wc_get_template_part('content', 'product');
         }
-        echo '</div>';
     } else {
         echo '<p>No hay productos en esta categoría.</p>';
     }
@@ -298,3 +307,27 @@ function theme_register_menus() {
     );
 }
 add_action( 'after_setup_theme', 'theme_register_menus' );
+
+// Añadir clase 'rounded' a la imagen de producto en el loop de productos
+add_filter('woocommerce_product_get_image', function($image, $product, $size, $attr, $placeholder, $image_id) {
+    // Solo en el loop de productos (no single)
+    if (!is_product()) {
+        // Añadir la clase 'rounded' si no está
+        $image = str_replace('class="', 'class="rounded ', $image);
+    }
+    return $image;
+}, 10, 6);
+
+// Envolver título y precio en un div en el loop de productos
+add_filter('woocommerce_after_shop_loop_item_title', function() {
+    global $product;
+    $title = '<div class="product-info text-center">';
+    $title .= '<div class="woocommerce-loop-product__title h6 mb-1">' . get_the_title() . '</div>';
+    $title .= '<div class="price">' . $product->get_price_html() . '</div>';
+    $title .= '</div>';
+    echo $title;
+}, 1);
+
+// Ocultar el título y precio por defecto en el loop
+add_filter('woocommerce_shop_loop_item_title', '__return_empty_string', 1);
+remove_action('woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_price', 10);
