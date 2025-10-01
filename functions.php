@@ -324,11 +324,11 @@ add_filter('woocommerce_after_shop_loop_item_title', function() {
     $title = '<div class="product-main-info d-flex align-items-center justify-content-between mt-2">';
     $title .= '<div class="product-info flex-grow-1">';
     $title .= '<div class="woocommerce-loop-product__title fs-5 mb-1">' . get_the_title() . '</div>';
-    $title .= '<div class="price">' . $product->get_price_html() . '</div>';
+    $title .= '<div class="price text-muted">' . $product->get_price_html() . '</div>';
     $title .= '</div>';
     $title .= '<div class="product-link">';
-    $title .= '<a href="' . get_permalink() . '" class="btn btn-info rounded-4 px-3 py-1 d-flex align-items-center justify-content-center" title="Ver detalle">';
-    $title .= '<i class="bi bi-arrow-up-right" style="font-size:1.3rem;"></i>';
+    $title .= '<a href="' . get_permalink() . '" class="btn btn-info text-white rounded-4 px-3 py-1 d-flex align-items-center justify-content-center" title="Ver detalle">';
+    $title .= '<i class="bi bi-arrow-up-right h3"></i>';
     $title .= '</a>';
     $title .= '</div>';
     $title .= '</div>';
