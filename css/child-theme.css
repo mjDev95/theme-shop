@@ -16059,6 +16059,9 @@ header .nav-link .active {
   height: 22px;
   width: 22px;
 }
+.woocommerce-page select.orderby {
+  display: none;
+}
 
 .woocommerce a.remove {
   height: 54px;
