@@ -220,27 +220,40 @@ function dingo_product_search() {
 }
 
 /**
- * Manejar filtro asincróno de productos WooCommerce
+ * Manejar filtro asincróno de productos WooCommerce (categoría + talla)
  */
-add_action('wp_ajax_filter_products_by_cat', 'filter_products_by_cat');
-add_action('wp_ajax_nopriv_filter_products_by_cat', 'filter_products_by_cat');
+add_action('wp_ajax_filter_products', 'filter_products');
+add_action('wp_ajax_nopriv_filter_products', 'filter_products');
 
-function filter_products_by_cat() {
+function filter_products() {
     check_ajax_referer('dingo_filter_nonce', 'security');
 
-    $cat_id = intval($_POST['category']);
+    $cat_id = !empty($_POST['category']) ? intval($_POST['category']) : 0;
+    $size   = !empty($_POST['size']) ? sanitize_text_field($_POST['size']) : '';
 
     $args = [
         'post_type'      => 'product',
-        'posts_per_page' => 10, // primeros 10
-        'tax_query'      => [
-            [
-                'taxonomy' => 'product_cat',
-                'field'    => 'term_id',
-                'terms'    => $cat_id,
-            ],
-        ],
+        'posts_per_page' => 10, // ajustar a lo que necesites
+        'tax_query'      => ['relation' => 'AND'],
     ];
+
+    // 🔹 Filtro por categoría (si existe)
+    if ($cat_id) {
+        $args['tax_query'][] = [
+            'taxonomy' => 'product_cat',
+            'field'    => 'term_id',
+            'terms'    => $cat_id,
+        ];
+    }
+
+    // 🔹 Filtro por talla (si existe)
+    if ($size) {
+        $args['tax_query'][] = [
+            'taxonomy' => 'pa_talla', // 👈 cambia esto si tu atributo se llama diferente (ej: pa_size)
+            'field'    => 'slug',
+            'terms'    => $size,
+        ];
+    }
 
     $query = new WP_Query($args);
 
@@ -250,7 +263,7 @@ function filter_products_by_cat() {
             wc_get_template_part('content', 'product');
         }
     } else {
-        echo '<p>No hay productos en esta categoría.</p>';
+        echo '<p>No hay productos que coincidan con tu búsqueda.</p>';
     }
 
     wp_reset_postdata();

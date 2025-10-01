@@ -74,4 +74,28 @@
         </div>
 
     </div>
+
+</section>
+<section class="mb-4">
+    <div class="container-fluid">
+        <div class="swiper size-swiper">
+            <div class="swiper-wrapper">
+                <?php 
+                $sizes = get_terms([
+                    'taxonomy'   => 'pa_talla',
+                    'hide_empty' => true,
+                ]);
+                foreach ($sizes as $size): ?>
+                    <div class="swiper-slide">
+                        <button class="btn btn-outline-dark rounded-pill px-3 py-1 size-btn" data-size="<?php echo $size->slug; ?>">
+                            <?php echo esc_html($size->name); ?>
+                        </button>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+            <!-- Flechas opcionales -->
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+        </div>
+    </div>
 </section>

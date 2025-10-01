@@ -205,30 +205,70 @@ jQuery(document).ready(function ($) {
         });
     }
 
-    // Click en categoría del slider
+    // Variables globales para filtros activos
+    var activeCat = null;
+    var activeSize = null;
+
+    // 🔹 Click en categoría del slider
     $(document).on('click', '.category-btn', function(e) {
         e.preventDefault();
 
-        var cat_id = $(this).data('cat');
+        activeCat = $(this).data('cat');
         var cat_name = $(this).text();
 
+        // Resetear talla activa cuando se cambia de categoría
+        activeSize = null;
+        $('.size-btn').removeClass('active btn-dark text-white').addClass('btn-outline-dark');
 
-        // Fade out y mostrar loader
+        loadProducts(cat_name, activeSize);
+        
+        // Asignar clase activa
+        $('.category-btn').removeClass('active');
+        $(this).addClass('active');
+    });
+
+    // 🔹 Click en talla del slider
+    $(document).on('click', '.size-btn', function(e) {
+        e.preventDefault();
+
+        activeSize = $(this).data('size');
+        var size_name = $(this).text();
+
+        loadProducts(null, size_name);
+
+        // Asignar clase activa
+        $('.size-btn').removeClass('active btn-dark text-white').addClass('btn-outline-dark');
+        $(this).removeClass('btn-outline-dark').addClass('active btn-dark text-white');
+    });
+
+    // 🔹 Función para cargar productos
+    function loadProducts(cat_name = null, size_name = null) {
         var $productsList = $('.products.columns-4');
+
+        // Fade out + loader
         $productsList.fadeTo(150, 0.3, function() {
-            $productsList.html('<li class="product loading-product text-center w-100" style="list-style:none;width:100%"><span class="spinner-border spinner-border-sm text-primary" role="status"></span> Cargando productos...</li>');
+            $productsList.html(
+                '<li class="product loading-product text-center w-100" style="list-style:none;width:100%">' +
+                '<span class="spinner-border spinner-border-sm text-primary" role="status"></span> Cargando productos...' +
+                '</li>'
+            );
         });
 
-        // Cambiar el mensaje dinámicamente
-        $('.woocommerce-result-count').text('Viendo productos de la colección ' + cat_name);
+        // Mensaje dinámico
+        var resultText = 'Mostrando productos';
+        if (cat_name) resultText += ' de la colección ' + cat_name;
+        if (size_name) resultText += ' en talla ' + size_name;
+        $('.woocommerce-result-count').text(resultText);
 
+        // AJAX
         $.ajax({
             url: dingoFilter.ajaxurl,
             type: 'POST',
             data: {
-                action: 'filter_products_by_cat',
+                action: 'filter_products',
                 security: dingoFilter.nonce,
-                category: cat_id,
+                category: activeCat,
+                size: activeSize
             },
             success: function(response) {
                 $productsList.fadeTo(100, 0, function() {
@@ -237,15 +277,15 @@ jQuery(document).ready(function ($) {
                 });
             },
             error: function() {
-                $productsList.html('<li class="product text-center w-100" style="list-style:none;width:100%">Error al cargar productos.</li>');
+                $productsList.html(
+                    '<li class="product text-center w-100" style="list-style:none;width:100%">' +
+                    'Error al cargar productos.' +
+                    '</li>'
+                );
                 $productsList.fadeTo(200, 1);
             }
         });
-
-        // Asignar clase activa al botón
-        $('.category-btn').removeClass('active');
-        $(this).addClass('active');
-    });
+    }
 
     // Inicial y en evento WooCommerce
     updateCartCount();
