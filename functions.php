@@ -226,49 +226,30 @@ add_action('wp_ajax_filter_products', 'filter_products');
 add_action('wp_ajax_nopriv_filter_products', 'filter_products');
 
 function filter_products() {
-    check_ajax_referer('dingo_filter_nonce', 'security');
+    check_ajax_referer('dingo_filter_nonce','security');
 
-    $cat_id = !empty($_POST['category']) ? intval($_POST['category']) : 0;
-    $size   = !empty($_POST['size']) ? sanitize_text_field($_POST['size']) : '';
+    $cat_id = isset($_POST['category']) ? intval($_POST['category']) : 0;
+    $size   = isset($_POST['size']) ? sanitize_text_field($_POST['size']) : '';
 
-    $args = [
-        'post_type'      => 'product',
-        'posts_per_page' => 10, // ajustar a lo que necesites
-        'tax_query'      => ['relation' => 'AND'],
-    ];
+    $tax_query = [];
+    if($cat_id) $tax_query[] = ['taxonomy'=>'product_cat','field'=>'term_id','terms'=>$cat_id];
+    if($size)   $tax_query[] = ['taxonomy'=>'pa_talla','field'=>'slug','terms'=>$size];
 
-    // 🔹 Filtro por categoría (si existe)
-    if ($cat_id) {
-        $args['tax_query'][] = [
-            'taxonomy' => 'product_cat',
-            'field'    => 'term_id',
-            'terms'    => $cat_id,
-        ];
-    }
-
-    // 🔹 Filtro por talla (si existe)
-    if ($size) {
-        $args['tax_query'][] = [
-            'taxonomy' => 'pa_talla', // 👈 cambia esto si tu atributo se llama diferente (ej: pa_size)
-            'field'    => 'slug',
-            'terms'    => $size,
-        ];
-    }
+    $args = ['post_type'=>'product','posts_per_page'=>10,'tax_query'=>$tax_query?:''];
 
     $query = new WP_Query($args);
-
-    if ($query->have_posts()) {
-        while ($query->have_posts()) {
+    if($query->have_posts()) {
+        while($query->have_posts()) {
             $query->the_post();
-            wc_get_template_part('content', 'product');
+            wc_get_template_part('content','product');
         }
     } else {
-        echo '<p>No hay productos que coincidan con tu búsqueda.</p>';
+        echo '<li class="product text-center w-100" style="list-style:none;width:100%">No hay productos en esta selección.</li>';
     }
-
     wp_reset_postdata();
     wp_die();
 }
+
 
 // Manejar conteo del carrito para el botón de carrito
 add_action('wp_ajax_nopriv_dingo_cart_count', 'dingo_cart_count');
