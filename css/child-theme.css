@@ -16119,6 +16119,17 @@ input.qty[type="number"] {
   -moz-appearance: textfield;
   appearance: none;
 }*/
+/*
+* Swiper js
+*
+*/
+.size-swiper .swiper-slide {
+  width: auto !important;
+}
+.size-swiper .swiper-wrapper {
+  justify-content: center;
+}
+
 .has-blue-color,
 .has-blue-color:visited {
   color: #0d6efd;

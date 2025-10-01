@@ -7183,6 +7183,7 @@
 	  if ($('.size-swiper').length && typeof Swiper !== 'undefined') {
 	    new Swiper('.size-swiper', {
 	      slidesPerView: 'auto',
+	      centeredSlides: true,
 	      spaceBetween: 8,
 	      freeMode: true,
 	      grabCursor: true,

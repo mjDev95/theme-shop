@@ -405,8 +405,7 @@ header{
         width: 22px;
     }
   }
-}  
-
+}
 
 .woocommerce a.remove {
     height: 54px;
@@ -462,3 +461,19 @@ input.qty[type="number"] {
   -moz-appearance: textfield;
   appearance: none;
 }*/
+
+
+
+/*
+* Swiper js
+*
+*/
+
+.size-swiper {
+  .swiper-slide {
+    width: auto !important;
+  }
+  .swiper-wrapper {
+    justify-content: center;
+  }
+}
