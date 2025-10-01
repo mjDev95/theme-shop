@@ -205,56 +205,80 @@ jQuery(document).ready(function ($) {
         });
     }
 
-    var currentCategory = null;
-    var currentSize = null;
+    var currentCategory = null; // ID de categoría
+    var currentSize     = null; // slug de talla
 
-    // Click en categoría
-    $(document).on('click','.category-btn',function(e){
-        e.preventDefault();
-        currentCategory = $(this).data('cat');
-        currentSize = null;
+    function updateResultMessage() {
+        var message = 'Mostrando todos los productos';
+        
+        if (currentCategory && currentSize) {
+            var catName = $('.category-btn[data-cat="' + currentCategory + '"] span').text();
+            var sizeName = $('.size-btn[data-size="' + currentSize + '"]').text();
+            message = 'Viendo productos de la colección ' + catName + ' y talla ' + sizeName;
+        } else if (currentCategory) {
+            var catName = $('.category-btn[data-cat="' + currentCategory + '"] span').text();
+            message = 'Viendo productos de la colección ' + catName;
+        } else if (currentSize) {
+            var sizeName = $('.size-btn[data-size="' + currentSize + '"]').text();
+            message = 'Viendo productos de la talla ' + sizeName;
+        }
 
-        $('.category-btn').removeClass('active');
-        $(this).addClass('active');
+        $('.woocommerce-result-count').text(message);
+    }
 
-        $('.woocommerce-result-count').text('Viendo productos de la colección ' + $(this).text());
-        loadProducts();
-    });
-
-    // Click en talla
-    $(document).on('click','.size-btn',function(e){
-        e.preventDefault();
-        currentSize = $(this).data('size');
-
-        $('.size-btn').removeClass('active');
-        $(this).addClass('active');
-
-        var catText = $('.category-btn.active').text();
-        $('.woocommerce-result-count').text('Viendo productos de la colección ' + catText + ' - Talla ' + $(this).text());
-        loadProducts();
-    });
-
-    // Función para cargar productos
-    function loadProducts(){
+    function loadProducts() {
         var $productsList = $('.products.columns-4');
-        $productsList.fadeTo(150,0.3,function(){
+
+        $productsList.fadeTo(150, 0.3, function() {
             $productsList.html('<li class="product loading-product text-center w-100" style="list-style:none;width:100%"><span class="spinner-border spinner-border-sm text-primary" role="status"></span> Cargando productos...</li>');
         });
 
-        $.post(dingoFilter.ajaxurl,{
-            action:'filter_products',
-            security:dingoFilter.nonce,
-            category:currentCategory,
-            size:currentSize
-        },function(response){
-            $productsList.fadeTo(100,0,function(){
-                $productsList.html(response);
-                $productsList.fadeTo(200,1);
-            });
-        }).fail(function(){
-            $productsList.html('<li class="product text-center w-100" style="list-style:none;width:100%">Error al cargar productos.</li>').fadeTo(200,1);
+        $.ajax({
+            url: dingoFilter.ajaxurl,
+            type: 'POST',
+            data: {
+                action: 'filter_products_by_cat',
+                security: dingoFilter.nonce,
+                category: currentCategory,
+                size: currentSize
+            },
+            success: function(response) {
+                $productsList.fadeTo(100, 0, function() {
+                    $productsList.html(response);
+                    $productsList.fadeTo(200, 1);
+                });
+                updateResultMessage();
+            },
+            error: function() {
+                $productsList.html('<li class="product text-center w-100" style="list-style:none;width:100%">Error al cargar productos.</li>');
+                $productsList.fadeTo(200, 1);
+            }
         });
     }
+
+    // Click categoría
+    $(document).on('click', '.category-btn', function(e) {
+        e.preventDefault();
+        currentCategory = $(this).data('cat');
+        $('.category-btn').removeClass('active');
+        $(this).addClass('active');
+        loadProducts();
+    });
+
+    // Click talla
+    $(document).on('click', '.size-btn', function(e) {
+        e.preventDefault();
+        currentSize = $(this).data('size');
+        $('.size-btn').removeClass('active');
+        $(this).addClass('active');
+        loadProducts();
+    });
+
+    // Inicializar mensaje al cargar la tienda
+    $(document).ready(function() {
+        updateResultMessage();
+    });
+
 
 
     // Inicial y en evento WooCommerce
