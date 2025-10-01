@@ -401,5 +401,43 @@ jQuery(document).ready(function ($) {
         });
     }
 
+    // Swiper para slider de categorías en banner tienda
+    if ($('.category-swiper').length && typeof Swiper !== 'undefined') {
+        new Swiper('.category-swiper', {
+            slidesPerView: 'auto',
+            spaceBetween: 16,
+            navigation: {
+                nextEl: '.shop-button-next',
+                prevEl: '.shop-button-prev',
+            },
+            freeMode: true,
+            grabCursor: true,
+            breakpoints: {
+                0: { slidesPerView: 2 },
+                576: { slidesPerView: 3 },
+                768: { slidesPerView: 3 },
+                992: { slidesPerView: 4 },
+                1200: { slidesPerView: 5 }
+            }
+        });
+    }
+    // Swiper para slider de tallas
+    if ($('.size-swiper').length && typeof Swiper !== 'undefined') {
+        new Swiper('.size-swiper', {
+            slidesPerView: 'auto',   
+            spaceBetween: 8,          
+            freeMode: true,           
+            grabCursor: true,         
+            breakpoints: {
+                0: { spaceBetween: 6 },
+                576: { spaceBetween: 8 },
+                768: { spaceBetween: 10 },
+                1200: { spaceBetween: 12 }
+            },
+            speed: 300,               
+            watchSlidesProgress: true 
+        });
+    }
+
 });
 
