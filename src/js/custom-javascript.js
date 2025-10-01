@@ -214,12 +214,16 @@ jQuery(document).ready(function ($) {
         if (currentCategory && currentSize) {
             var catName = $('.category-btn[data-cat="' + currentCategory + '"] span').text();
             var sizeName = $('.size-btn[data-size="' + currentSize + '"]').text();
+            // Limpiar el texto de la talla
+            sizeName = sizeName.replace(/Talla\s*/i, '').trim();
             message = 'Viendo productos de la colección ' + catName + ' y talla ' + sizeName;
         } else if (currentCategory) {
             var catName = $('.category-btn[data-cat="' + currentCategory + '"] span').text();
             message = 'Viendo productos de la colección ' + catName;
         } else if (currentSize) {
             var sizeName = $('.size-btn[data-size="' + currentSize + '"]').text();
+            // Limpiar el texto de la talla
+            sizeName = sizeName.replace(/Talla\s*/i, '').trim();
             message = 'Viendo productos de la talla ' + sizeName;
         }
 
@@ -425,7 +429,6 @@ jQuery(document).ready(function ($) {
     if ($('.size-swiper').length && typeof Swiper !== 'undefined') {
         new Swiper('.size-swiper', {
             slidesPerView: 'auto',   
-            centeredSlides: true,
             spaceBetween: 8,          
             freeMode: true,           
             grabCursor: true,         

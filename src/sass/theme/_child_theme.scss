@@ -405,6 +405,11 @@ header{
         width: 22px;
     }
   }
+  select{
+    &.orderby {
+      display: none;
+    }
+  }
 }
 
 .woocommerce a.remove {
