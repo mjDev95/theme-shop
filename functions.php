@@ -317,6 +317,18 @@ add_filter('woocommerce_product_get_image', function($image, $product, $size, $a
     }
     return $image;
 }, 10, 6);
+// Quitar el título original del loop
+remove_action('woocommerce_shop_loop_item_title', 'woocommerce_template_loop_product_title', 10);
+
+// Quitar el precio original
+remove_action('woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_price', 10);
+
+remove_action('woocommerce_after_shop_loop_item', 'woocommerce_template_loop_add_to_cart', 10);
+
+// En caso de que el tema cree un contenedor adicional, vaciarlo
+add_action('woocommerce_after_shop_loop_item', function() {
+    // No hacer nada → evita que se impriman restos del contenedor
+}, 1);
 
 // Envolver título y precio en un div en el loop de productos
 add_filter('woocommerce_after_shop_loop_item_title', function() {
@@ -328,7 +340,7 @@ add_filter('woocommerce_after_shop_loop_item_title', function() {
     $title .= '</div>';
     $title .= '<div class="product-link">';
     $title .= '<a href="' . get_permalink() . '" class="btn btn-info text-white rounded-4 px-3 py-1 d-flex align-items-center justify-content-center" title="Ver detalle">';
-    $title .= '<i class="bi bi-arrow-up-right h3"></i>';
+    $title .= '<i class="bi bi-arrow-up-right h4 mb-0"></i>';
     $title .= '</a>';
     $title .= '</div>';
     $title .= '</div>';
